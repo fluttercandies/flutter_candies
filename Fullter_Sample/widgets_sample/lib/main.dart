@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:widgets_sample/Common/image_loader.dart';
+import 'package:widgets_sample/WidgetNames.dart';
+import 'package:widgets_sample/widgets/base_sample.dart';
 import 'package:widgets_sample/widgets/container_sample.dart';
 
 void main() => runApp(new MyApp());
@@ -48,6 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     widgetNames = WidgetNames.values;
+    ImageLoader.LoadImage();
     // widgetNames=WidgetNames.values;
 //    widgetNames = new List<String>();
 //    widgetNames.add("Container");
@@ -94,28 +98,16 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void goWigetPage(WidgetNames widgetName) {
-    Widget page;
-    String title=widgetName.toString().replaceAll("WidgetNames.", "");
-    switch (widgetName) {
-      case WidgetNames.Container:
-        page = new ContainerSample(title);
-        break;
-      case WidgetNames.Row:
-        page = new ContainerSample(title);
-        break;
-      case WidgetNames.Column:
-        page = new ContainerSample(title);
-        break;
-      case WidgetNames.Image:
-        page = new ContainerSample(title);
-        break;
-    }
+    Navigator.push(context,
+        new MaterialPageRoute(builder: (BuildContext context) {
+      return new BaseSample(widgetName);
+    }));
 
-    Navigator.of(context).push(new PageRouteBuilder(pageBuilder:
-        (BuildContext context, Animation<double> animation,
-            Animation<double> secondaryAnimation) {
-      return page;
-    },
+//    Navigator.of(context).push(new PageRouteBuilder(pageBuilder:
+//        (BuildContext context, Animation<double> animation,
+//            Animation<double> secondaryAnimation) {
+//          new BaseSample(widgetName);
+//    },
 //        transitionsBuilder: (
 //      BuildContext context,
 //      Animation<double> animation,
@@ -124,8 +116,8 @@ class _MyHomePageState extends State<MyHomePage> {
 //    ) {
 //      return createTransition(animation, child);
 //    }
-    )
-    );
+//    )
+//    );
   }
 
   SlideTransition createTransition(Animation<double> animation, Widget child) {
@@ -137,11 +129,4 @@ class _MyHomePageState extends State<MyHomePage> {
       child: child, // child is the value returned by pageBuilder
     );
   }
-}
-
-enum WidgetNames {
-  Container,
-  Row,
-  Column,
-  Image
 }
