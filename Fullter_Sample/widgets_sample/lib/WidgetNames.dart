@@ -2,5 +2,6 @@
 enum WidgetNames {
   Container,
   RowColumn,
-  Image
+  Image,
+  Text,
 }
