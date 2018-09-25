@@ -42,6 +42,10 @@ flutter:
       - assets/images/56B4F4F3886539DAE8D2F3C323B69257.png
       - assets/images/20180717125724_3342.jpg
 
+  fonts:
+    - family:  MyFlutterApp
+      fonts:
+       - asset: fonts/MyFlutterApp.ttf
   # To add assets to your application, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg

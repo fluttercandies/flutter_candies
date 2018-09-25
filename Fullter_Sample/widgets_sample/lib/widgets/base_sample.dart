@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:widgets_sample/WidgetNames.dart';
 import 'package:widgets_sample/main.dart';
+import 'package:widgets_sample/widgets/Icon_sample.dart';
 import 'package:widgets_sample/widgets/Image_sample.dart';
 import 'package:widgets_sample/widgets/container_sample.dart';
 import 'package:widgets_sample/widgets/row_column_sample.dart';
@@ -50,6 +51,9 @@ class BaseSampleState extends State<BaseSample> {
         break;
       case WidgetNames.Text:
         sb=new TextSampleBody();
+        break;
+      case WidgetNames.Icon:
+        sb=new IconSampleBody();
         break;
     }
     return sb.getBody(context);

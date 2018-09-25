@@ -4,4 +4,5 @@ enum WidgetNames {
   RowColumn,
   Image,
   Text,
+  Icon,
 }

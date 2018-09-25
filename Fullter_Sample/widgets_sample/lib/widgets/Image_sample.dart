@@ -3,7 +3,6 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:widgets_sample/Common/image_loader.dart';
 import 'package:widgets_sample/widgets/base_sample.dart';
 import 'dart:async';
 import 'package:path_provider/path_provider.dart';

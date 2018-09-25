@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:widgets_sample/Common/image_loader.dart';
 import 'package:widgets_sample/WidgetNames.dart';
 import 'package:widgets_sample/widgets/base_sample.dart';
 import 'package:widgets_sample/widgets/container_sample.dart';
@@ -51,7 +50,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     widgetNames = WidgetNames.values;
-    ImageLoader.LoadImage();
     // widgetNames=WidgetNames.values;
 //    widgetNames = new List<String>();
 //    widgetNames.add("Container");
