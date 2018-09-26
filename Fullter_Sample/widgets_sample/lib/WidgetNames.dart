@@ -5,4 +5,5 @@ enum WidgetNames {
   Image,
   Text,
   Icon,
+  Button,
 }
