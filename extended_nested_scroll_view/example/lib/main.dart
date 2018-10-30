@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart'
     as extended;
+import 'package:extended_nested_scroll_view/nested_scroll_view_refresh_indicator.dart';
 
 void main() => runApp(MyApp());
 
@@ -58,6 +61,23 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+      body: ListView.builder(
+          itemBuilder: (c, i) {
+            return Container(
+              //decoration: BoxDecoration(border: Border.all(color: Colors.orange,width: 1.0)),
+              alignment: Alignment.center,
+              height: 60.0,
+              child: Text(": List$i"),
+            );
+          },
+          itemCount: 100,
+          physics: BouncingScrollPhysics()),
+      // _buildScaffoldBody(),
+    );
+  }
+
+  Widget _buildScaffoldBody() {
     final double statusBarHeight = MediaQuery.of(context).padding.top;
     var primaryTabBar = new TabBar(
       controller: primaryTC,
@@ -80,9 +100,10 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
             kToolbarHeight +
             //pinned tabbar height in header
             (primaryTC.index == 0 ? tabBarHeight * 2 : tabBarHeight);
-
-    return Scaffold(
-      body: extended.NestedScrollView(
+    return NestedScrollViewRefreshIndicator(
+      onRefresh: onRefresh,
+      child: extended.NestedScrollView(
+        physics: BouncingScrollPhysics(),
         headerSliverBuilder: (c, f) {
           return _buildSliverHeader(primaryTabBar);
         },
@@ -90,11 +111,11 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         pinnedHeaderHeightBuilder: () {
           return pinnedHeaderHeight;
         },
-        innerScrollPositionKeyBuilder: (){
+        innerScrollPositionKeyBuilder: () {
           var index = "Tab";
           if (primaryTC.index == 0) {
             index +=
-            (primaryTC.index.toString() + secondaryTC.index.toString());
+                (primaryTC.index.toString() + secondaryTC.index.toString());
           } else {
             index += primaryTC.index.toString();
           }
@@ -113,7 +134,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                     return Container(
                       alignment: Alignment.center,
                       height: 60.0,
-                      child: Text(Key("Tab1").toString()+": ListView$i"),
+                      child: Text(Key("Tab1").toString() + ": ListView$i"),
                     );
                   },
                   itemCount: 50,
@@ -133,7 +154,10 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         flexibleSpace: FlexibleSpaceBar(
             //centerTitle: true,
             collapseMode: CollapseMode.pin,
-            background: Image.asset("assets/467141054.jpg",fit: BoxFit.fill,))));
+            background: Image.asset(
+              "assets/467141054.jpg",
+              fit: BoxFit.fill,
+            ))));
 
     widgets.add(SliverGrid(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -147,7 +171,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
             alignment: Alignment.center,
             height: 60.0,
             child: Text("Gird$index"),
-            decoration: BoxDecoration(border: Border.all(color: Colors.orange,width: 1.0)),
+            decoration: BoxDecoration(
+                border: Border.all(color: Colors.orange, width: 1.0)),
           );
         },
         childCount: 11,
@@ -204,14 +229,15 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   }
 }
 
-class SecondaryTabView extends StatefulWidget{
+class SecondaryTabView extends StatefulWidget {
   final TabController tc;
   SecondaryTabView(this.tc);
   @override
   _SecondaryTabViewState createState() => _SecondaryTabViewState();
 }
 
-class _SecondaryTabViewState extends State<SecondaryTabView>  with AutomaticKeepAliveClientMixin{
+class _SecondaryTabViewState extends State<SecondaryTabView>
+    with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     return TabBarView(
@@ -249,22 +275,28 @@ class _TabViewItemState extends State<TabViewItem>
   Widget build(BuildContext context) {
     return extended.NestedScrollViewInnerScrollPositionKeyWidget(
         widget.tabKey,
+        // myRefresh.RefreshIndicator(
+        // child:
         ListView.builder(
             itemBuilder: (c, i) {
-          return Container(
-            //decoration: BoxDecoration(border: Border.all(color: Colors.orange,width: 1.0)),
-            alignment: Alignment.center,
-            height: 60.0,
-            child: Text(widget.tabKey.toString() + ": List$i"),
-          );
-        }, itemCount: 100));
+              return Container(
+                //decoration: BoxDecoration(border: Border.all(color: Colors.orange,width: 1.0)),
+                alignment: Alignment.center,
+                height: 60.0,
+                child: Text(widget.tabKey.toString() + ": List$i"),
+              );
+            },
+            itemCount: 100)
+        //,
+        //onRefresh: onRefresh,
+        // )
+        );
   }
 
   // TODO: implement wantKeepAlive
   @override
   bool get wantKeepAlive => true;
 }
-
 
 class CommonSliverPersistentHeaderDelegate
     extends SliverPersistentHeaderDelegate {
@@ -290,4 +322,12 @@ class CommonSliverPersistentHeaderDelegate
     //print("shouldRebuild---------------");
     return oldDelegate != this;
   }
+}
+
+Future<Null> onRefresh() {
+  final Completer<Null> completer = new Completer<Null>();
+  new Timer(const Duration(seconds: 1), () {
+    completer.complete(null);
+  });
+  return completer.future.then((_) {});
 }
