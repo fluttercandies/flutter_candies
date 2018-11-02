@@ -16,7 +16,7 @@ class _PullToRefreshHeaderState extends State<PullToRefreshHeader> {
     return PullToRefreshNotification(
       color: Colors.blue,
       onRefresh: onRefresh,
-      maxDragoffset: 80.0,
+      maxDragOffset: 80.0,
       child: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(

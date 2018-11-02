@@ -56,7 +56,7 @@ class PullToRefreshNotification extends StatefulWidget {
       @required this.onRefresh,
       this.color,
       this.pullBackOnRefresh: false,
-      this.maxDragoffset
+      this.maxDragOffset
 //    this.notificationPredicate = nestedScrollViewScrollNotificationPredicate,
       })
       : assert(child != null),
@@ -77,14 +77,15 @@ class PullToRefreshNotification extends StatefulWidget {
   /// [Future] must complete when the refresh operation is finished.
   final RefreshCallback onRefresh;
 
-//  /// The progress indicator's foreground color. The current theme's
-//  /// [ThemeData.accentColor] by default.
+  /// The progress indicator's foreground color. The current theme's
+  /// /// [ThemeData.accentColor] by default. only for android
   final Color color;
 
   //whether start pull back animation when refresh.
   final bool pullBackOnRefresh;
 
-  final double maxDragoffset;
+  ///the max drag offset
+  final double maxDragOffset;
 
   @override
   PullToRefreshNotificationState createState() =>
@@ -124,7 +125,7 @@ class PullToRefreshNotificationState extends State<PullToRefreshNotification>
   double get _DragOffset => _dragOffset;
   set _DragOffset(double value) {
     if (value != null) {
-      value = math.min(value, widget.maxDragoffset ?? double.maxFinite);
+      value = math.min(value, widget.maxDragOffset ?? double.maxFinite);
     }
     if (_dragOffset != value) {
       _dragOffset = value;
