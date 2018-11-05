@@ -98,15 +98,18 @@ class _PullToRefreshImageState extends State<PullToRefreshImage> {
     );
   }
 
-  Future<Null> onRefresh() {
-    final Completer<Null> completer = new Completer<Null>();
+  Future<bool> onRefresh() {
+    final Completer<bool> completer = new Completer<bool>();
     new Timer(const Duration(seconds: 2), () {
-      completer.complete(null);
+      completer.complete(true);
     });
-    return completer.future.then((_) {
-      setState(() {
-        listlength += 10;
-      });
+    return completer.future.then((bool success) {
+      if (success) {
+        setState(() {
+          listlength += 10;
+        });
+      }
+      return success;
     });
   }
 }

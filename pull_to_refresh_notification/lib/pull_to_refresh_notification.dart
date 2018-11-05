@@ -31,7 +31,7 @@ const Duration _kIndicatorScaleDuration = Duration(milliseconds: 200);
 /// finished.
 ///
 /// Used by [PullToRefreshNotification.onRefresh].
-typedef RefreshCallback = Future<void> Function();
+typedef RefreshCallback = Future<bool> Function();
 
 // The state machine moves through these modes only when the scrollable
 // identified by scrollableKey has been scrolled to its min or max limit.
@@ -42,6 +42,7 @@ enum RefreshIndicatorMode {
   refresh, // Running the refresh callback.
   done, // Animating the indicator's fade-out after refreshing.
   canceled, // Animating the indicator's fade-out after not arming.
+  error, //refresh failed
 }
 
 class PullToRefreshNotification extends StatefulWidget {
@@ -353,7 +354,7 @@ class PullToRefreshNotificationState extends State<PullToRefreshNotification>
         _Mode = RefreshIndicatorMode.refresh;
         //});
 
-        final Future<void> refreshResult = widget.onRefresh();
+        final Future<bool> refreshResult = widget.onRefresh();
         assert(() {
           if (refreshResult == null)
             FlutterError.reportError(FlutterErrorDetails(
@@ -365,10 +366,14 @@ class PullToRefreshNotificationState extends State<PullToRefreshNotification>
           return true;
         }());
         if (refreshResult == null) return;
-        refreshResult.whenComplete(() {
+        refreshResult.then((bool success) {
           if (mounted && _Mode == RefreshIndicatorMode.refresh) {
             completer.complete();
-            _dismiss(RefreshIndicatorMode.done);
+            if (success) {
+              _dismiss(RefreshIndicatorMode.done);
+            } else
+              _Mode = RefreshIndicatorMode.error;
+            ;
           }
         });
       }
@@ -477,7 +482,7 @@ class PullToRefreshNotificationState extends State<PullToRefreshNotification>
       pullBackListener();
     } else {
       _onNoticed.add(PullToRefreshScrollNotificationInfo(
-          _Mode, _DragOffset, _getRefreshWidget()));
+          _Mode, _DragOffset, _getRefreshWidget(),this));
     }
   }
 
@@ -513,7 +518,7 @@ class PullToRefreshNotificationState extends State<PullToRefreshNotification>
     if (_dragOffset != _pullBackFactor.value) {
       _dragOffset = _pullBackFactor.value;
       _onNoticed.add(PullToRefreshScrollNotificationInfo(
-          _Mode, _dragOffset, _getRefreshWidget()));
+          _Mode, _dragOffset, _getRefreshWidget(),this));
       if (_dragOffset == 0.0) {
         _dragOffset = null;
       }
@@ -544,8 +549,9 @@ class PullToRefreshScrollNotificationInfo {
   final RefreshIndicatorMode mode;
   final double dragOffset;
   final Widget refreshWiget;
+  final PullToRefreshNotificationState pullToRefreshNotificationState;
   PullToRefreshScrollNotificationInfo(
-      this.mode, this.dragOffset, this.refreshWiget);
+      this.mode, this.dragOffset, this.refreshWiget,this.pullToRefreshNotificationState);
 }
 
 class PullToRefreshContainer extends StatefulWidget {
