@@ -62,18 +62,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView.builder(
-          itemBuilder: (c, i) {
-            return Container(
-              //decoration: BoxDecoration(border: Border.all(color: Colors.orange,width: 1.0)),
-              alignment: Alignment.center,
-              height: 60.0,
-              child: Text(": List$i"),
-            );
-          },
-          itemCount: 100,
-          physics: BouncingScrollPhysics()),
-      // _buildScaffoldBody(),
+      body: _buildScaffoldBody(),
     );
   }
 
