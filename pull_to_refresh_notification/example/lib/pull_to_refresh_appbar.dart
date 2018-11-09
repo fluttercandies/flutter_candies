@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:example/em_sliver_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh_notification/pull_to_refresh_notification.dart';
 import 'package:oktoast/oktoast.dart';
@@ -57,24 +58,34 @@ class _PullToRefreshAppbarState extends State<PullToRefreshAppbar> {
 //    if (mode != null && mode == RefreshIndicatorMode.done) {
 //      //showToast("Refresh done");
 //    }
-    return SliverAppBar(
-        pinned: true,
-        title: Text("PullToRefreshAppbar"),
-        centerTitle: true,
-        expandedHeight: 200.0 + offset,
-        actions: <Widget>[action],
-        flexibleSpace: FlexibleSpaceBar(
-            //centerTitle: true,
-            title: Text(
-              info?.mode?.toString() ?? "",
-              style: TextStyle(fontSize: 10.0),
-            ),
-            collapseMode: CollapseMode.pin,
-            background: Image.asset(
-              "assets/467141054.jpg",
-              //fit: offset > 0.0 ? BoxFit.cover : BoxFit.fill,
-              fit: BoxFit.cover,
-            )));
+//    return SliverAppBar(
+//        pinned: true,
+//        title: Text("PullToRefreshAppbar"),
+//        centerTitle: true,
+//        expandedHeight: 200.0 + offset,
+//        actions: <Widget>[action],
+//        flexibleSpace: FlexibleSpaceBar(
+//            //centerTitle: true,
+//            title: Text(
+//              info?.mode?.toString() ?? "",
+//              style: TextStyle(fontSize: 10.0),
+//            ),
+//            collapseMode: CollapseMode.pin,
+//            background: Image.asset(
+//              "assets/467141054.jpg",
+//              //fit: offset > 0.0 ? BoxFit.cover : BoxFit.fill,
+//              fit: BoxFit.cover,
+//            )));
+    return EmSliverAppBar(
+      title: Text("PullToRefreshAppbar"),
+      expandedHeight: 200.0 + offset,
+      background: Image.asset(
+        "assets/467141054.jpg",
+        //fit: offset > 0.0 ? BoxFit.cover : BoxFit.fill,
+        fit: BoxFit.fill,
+      ),
+      actions: <Widget>[action],
+    );
   }
 
   Future<bool> onRefresh() {
