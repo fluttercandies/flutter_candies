@@ -23,7 +23,7 @@ typedef NestedScrollViewHeaderSliversBuilder = List<Widget> Function(
 
 //it include statusBarHeight ,pinned appbar height ,pinned SliverPersistentHeader height
 //which are in NestedScrollViewHeaderSlivers
-typedef NestedScrollViewPinnedHeaderHeightBuilder = double Function();
+typedef NestedScrollViewPinnedHeaderSliverHeightBuilder = double Function();
 
 //it used to get the inner scrollable widget key, to avoid sync the scroll state for
 //Inner ScrollPositions (scrollables in NestedScrollView body)
@@ -185,7 +185,7 @@ class NestedScrollView extends StatefulWidget {
     this.reverse = false,
     this.physics,
     this.innerScrollPositionKeyBuilder,
-    this.pinnedHeaderHeightBuilder,
+    this.pinnedHeaderSliverHeightBuilder,
     @required this.headerSliverBuilder,
     @required this.body,
   })  : assert(scrollDirection != null),
@@ -241,7 +241,7 @@ class NestedScrollView extends StatefulWidget {
   final NestedScrollViewHeaderSliversBuilder headerSliverBuilder;
 
   //get the pinned header in NestedScrollView header.
-  final NestedScrollViewPinnedHeaderHeightBuilder pinnedHeaderHeightBuilder;
+  final NestedScrollViewPinnedHeaderSliverHeightBuilder pinnedHeaderSliverHeightBuilder;
 
   //get the current active key.
   final NestedScrollViewInnerScrollPositionKeyBuilder
@@ -308,7 +308,7 @@ class _NestedScrollViewState extends State<NestedScrollView> {
         this,
         widget.controller,
         _handleHasScrolledBodyChanged,
-        widget.pinnedHeaderHeightBuilder,
+        widget.pinnedHeaderSliverHeightBuilder,
         widget.innerScrollPositionKeyBuilder);
   }
 
@@ -482,7 +482,7 @@ class _NestedScrollCoordinator
       this._state,
       this._parent,
       this._onHasScrolledBodyChanged,
-      this.pinnedHeaderHeightBuilder,
+      this.pinnedHeaderSliverHeightBuilder,
       this.innerScrollPositionKeyBuilder) {
     final double initialScrollOffset = _parent?.initialScrollOffset ?? 0.0;
     _outerController = _NestedScrollController(this,
@@ -494,7 +494,7 @@ class _NestedScrollCoordinator
     );
   }
   final _NestedScrollViewState _state;
-  final NestedScrollViewPinnedHeaderHeightBuilder pinnedHeaderHeightBuilder;
+  final NestedScrollViewPinnedHeaderSliverHeightBuilder pinnedHeaderSliverHeightBuilder;
   //get the current active key.
   final NestedScrollViewInnerScrollPositionKeyBuilder
   innerScrollPositionKeyBuilder;
@@ -515,7 +515,7 @@ class _NestedScrollCoordinator
     return _innerController.nestedPositions;
   }
 
-  Iterable<_NestedScrollPosition> get _currentPositions {
+  Iterable<_NestedScrollPosition> get _currentInnerPositions {
     return _innerController
         .getCurrentNestedPositions(innerScrollPositionKeyBuilder);
   }
@@ -555,7 +555,7 @@ class _NestedScrollCoordinator
       _NestedScrollActivityGetter innerActivityGetter) {
     _outerPosition.beginActivity(newOuterActivity);
     bool scrolling = newOuterActivity.isScrolling;
-    for (_NestedScrollPosition position in _currentPositions) {
+    for (_NestedScrollPosition position in _currentInnerPositions) {
       final ScrollActivity newInnerActivity = innerActivityGetter(position);
       position.beginActivity(newInnerActivity);
       scrolling = scrolling && newInnerActivity.isScrolling;
@@ -602,7 +602,7 @@ class _NestedScrollCoordinator
     // are heading towards.
     _NestedScrollPosition innerPosition;
     if (velocity != 0.0) {
-      for (_NestedScrollPosition position in _currentPositions) {
+      for (_NestedScrollPosition position in _currentInnerPositions) {
         if (innerPosition != null) {
           if (velocity > 0.0) {
             if (innerPosition.pixels < position.pixels) continue;
@@ -847,7 +847,7 @@ class _NestedScrollCoordinator
       // different levels of overscroll.
       final double innerDelta = _outerPosition.applyClampedDragUpdate(delta);
       if (innerDelta != 0.0) {
-        for (_NestedScrollPosition position in _currentPositions)
+        for (_NestedScrollPosition position in _currentInnerPositions)
           position.applyFullDragUpdate(innerDelta);
       }
     } else {
@@ -857,7 +857,7 @@ class _NestedScrollCoordinator
       final List<double> overscrolls = <double>[];
 
       final List<_NestedScrollPosition> innerPositions =
-      _currentPositions.toList();
+      _currentInnerPositions.toList();
 
       for (_NestedScrollPosition position in innerPositions) {
         final double overscroll = position.applyClampedDragUpdate(delta);
@@ -1093,9 +1093,9 @@ class _NestedScrollPosition extends ScrollPosition
   @override
   bool applyContentDimensions(double minScrollExtent, double maxScrollExtent) {
     if (debugLabel == 'outer' &&
-        coordinator.pinnedHeaderHeightBuilder != null) {
+        coordinator.pinnedHeaderSliverHeightBuilder != null) {
       maxScrollExtent =
-          maxScrollExtent - coordinator.pinnedHeaderHeightBuilder();
+          maxScrollExtent - coordinator.pinnedHeaderSliverHeightBuilder();
       maxScrollExtent = math.max(0.0, maxScrollExtent);
     }
     return super.applyContentDimensions(minScrollExtent, maxScrollExtent);

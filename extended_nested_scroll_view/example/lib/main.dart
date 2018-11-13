@@ -92,12 +92,11 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     return NestedScrollViewRefreshIndicator(
       onRefresh: onRefresh,
       child: extended.NestedScrollView(
-        physics: BouncingScrollPhysics(),
         headerSliverBuilder: (c, f) {
           return _buildSliverHeader(primaryTabBar);
         },
         //
-        pinnedHeaderHeightBuilder: () {
+        pinnedHeaderSliverHeightBuilder: () {
           return pinnedHeaderHeight;
         },
         innerScrollPositionKeyBuilder: () {
