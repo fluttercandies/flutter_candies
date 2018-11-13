@@ -2,17 +2,17 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-class EmSliverAppBar extends StatefulWidget {
+class CustomSliverAppBar extends StatefulWidget {
   final Color backgroundColor;
   final double expandedHeight;
-  final List<Widget> actions;
+  final Widget action;
   final Widget leading;
   final Widget title;
   final Widget background;
-  EmSliverAppBar(
+  CustomSliverAppBar(
       {this.backgroundColor,
       this.expandedHeight,
-      this.actions,
+      this.action,
       this.leading,
       this.title,
       this.background});
@@ -20,7 +20,7 @@ class EmSliverAppBar extends StatefulWidget {
   _EmSliverAppBarState createState() => _EmSliverAppBarState();
 }
 
-class _EmSliverAppBarState extends State<EmSliverAppBar> {
+class _EmSliverAppBarState extends State<CustomSliverAppBar> {
   @override
   Widget build(BuildContext context) {
     var topPadding = MediaQuery.of(context).padding.top;
@@ -31,18 +31,24 @@ class _EmSliverAppBarState extends State<EmSliverAppBar> {
         backgroundColor: widget.backgroundColor,
         expandedHeight: widget.expandedHeight,
         title: widget.title,
-        actions: widget.actions,
+        action: widget.action,
         leading: widget.leading,
         topPadding: topPadding,
       ),
     );
+  }
+
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
   }
 }
 
 class EmSliverPersistentHeaderDelegate extends SliverPersistentHeaderDelegate {
   final Color backgroundColor;
   final double expandedHeight;
-  final List<Widget> actions;
+  final Widget action;
   final Widget leading;
   final Widget title;
   final Widget background;
@@ -50,7 +56,7 @@ class EmSliverPersistentHeaderDelegate extends SliverPersistentHeaderDelegate {
   EmSliverPersistentHeaderDelegate(
       {this.backgroundColor,
       this.expandedHeight,
-      this.actions,
+      this.action,
       this.leading,
       this.title,
       this.background,
@@ -63,7 +69,7 @@ class EmSliverPersistentHeaderDelegate extends SliverPersistentHeaderDelegate {
     // TODO: implement build
     List<Widget> rowChild = new List<Widget>();
     rowChild.add(leading ?? Container());
-    rowChild.addAll(actions);
+    rowChild.add(action ?? Container());
 
     var color = backgroundColor ?? themeData.primaryColor;
     //color = color.withOpacity(shrinkOffset / expandedHeight);
@@ -87,7 +93,7 @@ class EmSliverPersistentHeaderDelegate extends SliverPersistentHeaderDelegate {
             left: 0.0,
             right: 0.0,
             child: Opacity(
-              opacity: (shrinkOffset/ (maxExtent-minExtent)).clamp(0.0, 1.0),
+              opacity: (shrinkOffset / (maxExtent - minExtent)).clamp(0.0, 1.0),
               child: Container(
                 padding: EdgeInsets.only(top: topPadding),
                 alignment: Alignment.center,
@@ -113,9 +119,10 @@ class EmSliverPersistentHeaderDelegate extends SliverPersistentHeaderDelegate {
       ),
     );
 
-    return ClipRect(
+    return Material(
+        child: ClipRect(
       child: child,
-    );
+    ));
   }
 
   @override
@@ -129,6 +136,12 @@ class EmSliverPersistentHeaderDelegate extends SliverPersistentHeaderDelegate {
   @override
   bool shouldRebuild(EmSliverPersistentHeaderDelegate oldDelegate) {
     // TODO: implement shouldRebuild
-    return expandedHeight != oldDelegate.expandedHeight;
+    return expandedHeight != oldDelegate.expandedHeight ||
+        action != oldDelegate.action ||
+        leading != oldDelegate.leading ||
+        title != oldDelegate.title ||
+        backgroundColor != oldDelegate.backgroundColor ||
+        background != oldDelegate.background ||
+        topPadding != oldDelegate.topPadding;
   }
 }

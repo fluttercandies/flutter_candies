@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:example/em_sliver_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh_notification/pull_to_refresh_notification.dart';
 import 'package:oktoast/oktoast.dart';
@@ -76,17 +74,6 @@ class _PullToRefreshAppbarState extends State<PullToRefreshAppbar> {
               //fit: offset > 0.0 ? BoxFit.cover : BoxFit.fill,
               fit: BoxFit.cover,
             )));
-    return EmSliverAppBar(
-      title: Text("PullToRefreshAppbar",style: TextStyle(inherit: false),),
-      expandedHeight: 200.0 + offset,
-      background: Image.asset(
-        "assets/467141054.jpg",
-        //fit: offset > 0.0 ? BoxFit.cover : BoxFit.fill,
-        fit: BoxFit.fill,
-      ),
-      actions: <Widget>[action],
-      leading: null,
-    );
   }
 
   Future<bool> onRefresh() {
