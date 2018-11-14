@@ -18,7 +18,7 @@ dependencies:
 ```
 
 
-#Example for issue 1
+# Example for issue 1
 
 give total height of pinned sliver headers in pinnedHeaderSliverHeightBuilder callback
 ``` dart
@@ -38,9 +38,9 @@ give total height of pinned sliver headers in pinnedHeaderSliverHeightBuilder ca
         },
        
 ```
-#Example for issue 2
+# Example for issue 2
 
-###step1.
+### step1.
 
 Put your list which in tabview into NestedScrollViewInnerScrollPositionKeyWidget,and get unique a key
 ``` dart
@@ -63,7 +63,7 @@ Put your list which in tabview into NestedScrollViewInnerScrollPositionKeyWidget
         // )
         );
 ```
-##step 2
+### step 2
 
 get current tab key in innerScrollPositionKeyBuilder callback. this key should as same as in step 1 given.
 ``` dart
@@ -79,7 +79,7 @@ get current tab key in innerScrollPositionKeyBuilder callback. this key should a
           return Key(index);
         },
 ```
-#Example for NestedScrollView pull to refresh
+# Example for NestedScrollView pull to refresh
 
 NestedScrollViewRefreshIndicator is as the same as Flutter RefreshIndicator.
 ``` dart
