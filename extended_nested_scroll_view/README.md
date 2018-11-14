@@ -40,7 +40,7 @@ give total height of pinned sliver headers in pinnedHeaderSliverHeightBuilder ca
 ```
 # Example for issue 2
 
-### step1.
+### Step1.
 
 Put your list which in tabview into NestedScrollViewInnerScrollPositionKeyWidget,and get unique a key
 ``` dart
@@ -63,7 +63,7 @@ Put your list which in tabview into NestedScrollViewInnerScrollPositionKeyWidget
         // )
         );
 ```
-### step 2
+### Step 2
 
 get current tab key in innerScrollPositionKeyBuilder callback. this key should as same as in step 1 given.
 ``` dart
