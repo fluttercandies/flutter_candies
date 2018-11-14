@@ -83,7 +83,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     );
     var tabBarHeight = primaryTabBar.preferredSize.height;
     var pinnedHeaderHeight =
-        //statusBa height
+        //statusBar height
         statusBarHeight +
             //pinned SliverAppBar height in header
             kToolbarHeight +
