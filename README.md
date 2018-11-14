@@ -10,7 +10,7 @@
 
 3.pull to refresh is not work.
 
-[Chinese bolg]()
+[Chinese bolg](https://juejin.im/post/5bea43ade51d45544844010a)
 
 
 # pull_to_refresh_notification
