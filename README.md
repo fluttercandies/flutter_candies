@@ -28,10 +28,21 @@
 
 # widgets sample
 
-[widgets sample](https://github.com/zmtzawqlp/Flutter/tree/master/widgets_sample) widgets sample the flutter widgets
+[widgets sample](https://github.com/zmtzawqlp/Flutter/tree/master/widgets_sample)
 
-[Chinese bolg]()
+widgets learning sample
 
+it include following widgets:
+
+  Container,
+  RowColumn,
+  Image,
+  Text,
+  Icon,
+  Button,
+
+[Chinese bolg   Container,RowColumn,Image]()
+[Chinese bolg   Text,Icon,Button]()
 
 
 

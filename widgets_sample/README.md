@@ -2,7 +2,11 @@
 
 widgets learning sample
 
-## Getting Started
+it include following widgets:
 
-For help getting started with Flutter, view our online
-[documentation](https://flutter.io/).
+  Container,
+  RowColumn,
+  Image,
+  Text,
+  Icon,
+  Button,
