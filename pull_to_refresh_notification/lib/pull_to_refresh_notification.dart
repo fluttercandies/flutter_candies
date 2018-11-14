@@ -1,4 +1,3 @@
-
 import 'dart:async';
 import 'dart:io';
 import 'dart:math' as math;
@@ -50,16 +49,15 @@ class PullToRefreshNotification extends StatefulWidget {
   /// The [onRefresh], [child], and [notificationPredicate] arguments must be
   /// non-null. The default
   /// [displacement] is 40.0 logical pixels.
-  const PullToRefreshNotification(
-      {Key key,
-        @required this.child,
-        @required this.onRefresh,
-        this.color,
-        this.pullBackOnRefresh: false,
-        this.maxDragOffset,
-        this.notificationPredicate = defaultNotificationPredicate,
-      })
-      : assert(child != null),
+  const PullToRefreshNotification({
+    Key key,
+    @required this.child,
+    @required this.onRefresh,
+    this.color,
+    this.pullBackOnRefresh: false,
+    this.maxDragOffset,
+    this.notificationPredicate = defaultNotificationPredicate,
+  })  : assert(child != null),
         assert(onRefresh != null),
         assert(notificationPredicate != null),
         super(key: key);
@@ -100,7 +98,7 @@ class PullToRefreshNotification extends StatefulWidget {
 class PullToRefreshNotificationState extends State<PullToRefreshNotification>
     with TickerProviderStateMixin<PullToRefreshNotification> {
   final _onNoticed =
-  new StreamController<PullToRefreshScrollNotificationInfo>.broadcast();
+      new StreamController<PullToRefreshScrollNotificationInfo>.broadcast();
   Stream<PullToRefreshScrollNotificationInfo> get onNoticed =>
       _onNoticed.stream;
 
@@ -137,11 +135,11 @@ class PullToRefreshNotificationState extends State<PullToRefreshNotification>
   }
 
   static final Animatable<double> _threeQuarterTween =
-  Tween<double>(begin: 0.0, end: 0.75);
+      Tween<double>(begin: 0.0, end: 0.75);
   static final Animatable<double> _kDragSizeFactorLimitTween =
-  Tween<double>(begin: 0.0, end: _kDragSizeFactorLimit);
+      Tween<double>(begin: 0.0, end: _kDragSizeFactorLimit);
   static final Animatable<double> _oneToZeroTween =
-  Tween<double>(begin: 1.0, end: 0.0);
+      Tween<double>(begin: 1.0, end: 0.0);
 
   @override
   void initState() {
@@ -162,10 +160,10 @@ class PullToRefreshNotificationState extends State<PullToRefreshNotification>
     final ThemeData theme = Theme.of(context);
     _valueColor = _positionController.drive(
       ColorTween(
-          begin: (widget.color ?? theme.accentColor).withOpacity(0.0),
-          end: (widget.color ?? theme.accentColor).withOpacity(1.0))
+              begin: (widget.color ?? theme.accentColor).withOpacity(0.0),
+              end: (widget.color ?? theme.accentColor).withOpacity(1.0))
           .chain(CurveTween(
-          curve: const Interval(0.0, 1.0 / _kDragSizeFactorLimit))),
+              curve: const Interval(0.0, 1.0 / _kDragSizeFactorLimit))),
     );
     super.didChangeDependencies();
   }
@@ -189,9 +187,7 @@ class PullToRefreshNotificationState extends State<PullToRefreshNotification>
   bool _innerhandleScrollNotification(ScrollNotification notification) {
     if (!widget.notificationPredicate(notification)) return false;
     maxContainerExtent = math.max(
-        notification.metrics.viewportDimension, this.maxContainerExtent) /
-        3.0 *
-        2.0;
+        notification.metrics.viewportDimension, this.maxContainerExtent);
     if (notification is ScrollStartNotification &&
         notification.metrics.extentBefore == 0.0 &&
         _Mode == null &&
@@ -250,7 +246,7 @@ class PullToRefreshNotificationState extends State<PullToRefreshNotification>
           _dismiss(RefreshIndicatorMode.canceled);
           break;
         default:
-        // do nothing
+          // do nothing
           break;
       }
     }
@@ -313,28 +309,28 @@ class PullToRefreshNotificationState extends State<PullToRefreshNotification>
     // _handleScrollNotification in response to a ScrollEndNotification or
     // direction change.
     assert(newMode == RefreshIndicatorMode.canceled ||
-    newMode == RefreshIndicatorMode.done);
+        newMode == RefreshIndicatorMode.done);
     //setState(() {
     _Mode = newMode;
     //});
     switch (_Mode) {
-    case RefreshIndicatorMode.done:
-    await _scaleController.animateTo(1.0,
-    duration: _kIndicatorScaleDuration);
-    break;
-    case RefreshIndicatorMode.canceled:
-    await _positionController.animateTo(0.0,
-    duration: _kIndicatorScaleDuration);
-    break;
-    default:
-    assert(false);
+      case RefreshIndicatorMode.done:
+        await _scaleController.animateTo(1.0,
+            duration: _kIndicatorScaleDuration);
+        break;
+      case RefreshIndicatorMode.canceled:
+        await _positionController.animateTo(0.0,
+            duration: _kIndicatorScaleDuration);
+        break;
+      default:
+        assert(false);
     }
     if (mounted && _Mode == newMode) {
-    _DragOffset = null;
-    _isIndicatorAtTop = null;
-    //setState(() {
-    _Mode = null;
-    // });
+      _DragOffset = null;
+      _isIndicatorAtTop = null;
+      //setState(() {
+      _Mode = null;
+      // });
     }
     //_onInnerNoticed();
   }
@@ -347,7 +343,7 @@ class PullToRefreshNotificationState extends State<PullToRefreshNotification>
     _Mode = RefreshIndicatorMode.snap;
     _positionController
         .animateTo(1.0 / _kDragSizeFactorLimit,
-        duration: _kIndicatorSnapDuration)
+            duration: _kIndicatorSnapDuration)
         .then<void>((void value) {
       if (mounted && _Mode == RefreshIndicatorMode.snap) {
         assert(widget.onRefresh != null);
@@ -484,7 +480,7 @@ class PullToRefreshNotificationState extends State<PullToRefreshNotification>
       pullBackListener();
     } else {
       _onNoticed.add(PullToRefreshScrollNotificationInfo(
-          _Mode, _DragOffset, _getRefreshWidget(),this));
+          _Mode, _DragOffset, _getRefreshWidget(), this));
     }
   }
 
@@ -520,7 +516,7 @@ class PullToRefreshNotificationState extends State<PullToRefreshNotification>
     if (_dragOffset != _pullBackFactor.value) {
       _dragOffset = _pullBackFactor.value;
       _onNoticed.add(PullToRefreshScrollNotificationInfo(
-          _Mode, _dragOffset, _getRefreshWidget(),this));
+          _Mode, _dragOffset, _getRefreshWidget(), this));
       if (_dragOffset == 0.0) {
         _dragOffset = null;
       }
@@ -529,7 +525,7 @@ class PullToRefreshNotificationState extends State<PullToRefreshNotification>
 
   void _pullBack() {
     final Animatable<double> _pullBackTween =
-    Tween<double>(begin: _DragOffset ?? 0.0, end: 0.0);
+        Tween<double>(begin: _DragOffset ?? 0.0, end: 0.0);
     _pullBackFactor?.removeListener(pullBackListener);
     _pullBackController.reset();
     _pullBackFactor = _pullBackController.drive(_pullBackTween);
@@ -541,8 +537,7 @@ class PullToRefreshNotificationState extends State<PullToRefreshNotification>
 }
 
 //return true so that we can handle inner scroll notification
-bool defaultNotificationPredicate(
-    ScrollNotification notification) {
+bool defaultNotificationPredicate(ScrollNotification notification) {
   return true;
   return notification.depth == 0;
 }
@@ -552,8 +547,8 @@ class PullToRefreshScrollNotificationInfo {
   final double dragOffset;
   final Widget refreshWiget;
   final PullToRefreshNotificationState pullToRefreshNotificationState;
-  PullToRefreshScrollNotificationInfo(
-      this.mode, this.dragOffset, this.refreshWiget,this.pullToRefreshNotificationState);
+  PullToRefreshScrollNotificationInfo(this.mode, this.dragOffset,
+      this.refreshWiget, this.pullToRefreshNotificationState);
 }
 
 class PullToRefreshContainer extends StatefulWidget {
@@ -591,14 +586,14 @@ class RefreshProgressIndicator extends CircularProgressIndicator {
     Color backgroundColor,
     Animation<Color> valueColor,
     double strokeWidth =
-    2.0, // Different default than CircularProgressIndicator.
+        2.0, // Different default than CircularProgressIndicator.
   }) : super(
-    key: key,
-    value: value,
-    backgroundColor: backgroundColor,
-    valueColor: valueColor,
-    strokeWidth: strokeWidth,
-  );
+          key: key,
+          value: value,
+          backgroundColor: backgroundColor,
+          valueColor: valueColor,
+          strokeWidth: strokeWidth,
+        );
 
   @override
   _RefreshProgressIndicatorState createState() =>
@@ -624,7 +619,7 @@ class _RefreshProgressIndicatorState extends _CircularProgressIndicatorState {
   Widget _buildIndicator(BuildContext context, double headValue,
       double tailValue, int stepValue, double rotationValue) {
     final double arrowheadScale =
-    widget.value == null ? 0.0 : (widget.value * 2.0).clamp(0.0, 1.0);
+        widget.value == null ? 0.0 : (widget.value * 2.0).clamp(0.0, 1.0);
     return Container(
       alignment: Alignment.center,
       child: Container(
@@ -681,10 +676,10 @@ class CircularProgressIndicator extends ProgressIndicator {
     Animation<Color> valueColor,
     this.strokeWidth = 4.0,
   }) : super(
-      key: key,
-      value: value,
-      backgroundColor: backgroundColor,
-      valueColor: valueColor);
+            key: key,
+            value: value,
+            backgroundColor: backgroundColor,
+            valueColor: valueColor);
 
   /// The width of the line used to draw the circle.
   final double strokeWidth;
@@ -735,7 +730,7 @@ class _CircularProgressIndicatorState extends State<CircularProgressIndicator>
           valueColor: widget._getValueColor(context),
           value: widget.value, // may be null
           headValue:
-          headValue, // remaining arguments are ignored if widget.value is not null
+              headValue, // remaining arguments are ignored if widget.value is not null
           tailValue: tailValue,
           stepValue: stepValue,
           rotationValue: rotationValue,
@@ -779,14 +774,14 @@ class _RefreshProgressIndicatorPainter
     double strokeWidth,
     this.arrowheadScale,
   }) : super(
-    valueColor: valueColor,
-    value: value,
-    headValue: headValue,
-    tailValue: tailValue,
-    stepValue: stepValue,
-    rotationValue: rotationValue,
-    strokeWidth: strokeWidth,
-  );
+          valueColor: valueColor,
+          value: value,
+          headValue: headValue,
+          tailValue: tailValue,
+          stepValue: stepValue,
+          rotationValue: rotationValue,
+          strokeWidth: strokeWidth,
+        );
 
   final double arrowheadScale;
 
@@ -836,16 +831,16 @@ class _CircularProgressIndicatorPainter extends CustomPainter {
     this.rotationValue,
     this.strokeWidth,
   })  : arcStart = value != null
-      ? _startAngle
-      : _startAngle +
-      tailValue * 3 / 2 * math.pi +
-      rotationValue * math.pi * 1.7 -
-      stepValue * 0.8 * math.pi,
+            ? _startAngle
+            : _startAngle +
+                tailValue * 3 / 2 * math.pi +
+                rotationValue * math.pi * 1.7 -
+                stepValue * 0.8 * math.pi,
         arcSweep = value != null
             ? value.clamp(0.0, 1.0) * _sweep
             : math.max(
-            headValue * 3 / 2 * math.pi - tailValue * 3 / 2 * math.pi,
-            _epsilon);
+                headValue * 3 / 2 * math.pi - tailValue * 3 / 2 * math.pi,
+                _epsilon);
 
   final Color valueColor;
   final double value;
