@@ -6,6 +6,8 @@ extended nested scroll view to fix following issues.
 
 2.[inner scrollables in tabview sync issue](https://github.com/flutter/flutter/issues/21868)
 
+3.pull to refresh is not work.
+
 [Chinese bolg]()
 
 ### Add dependency
@@ -17,7 +19,8 @@ dependencies:
 
 
 #Example for issue 1
- give total height of pinned sliver headers in pinnedHeaderSliverHeightBuilder callback
+
+give total height of pinned sliver headers in pinnedHeaderSliverHeightBuilder callback
 ``` dart
  var tabBarHeight = primaryTabBar.preferredSize.height;
     var pinnedHeaderHeight =
@@ -36,7 +39,9 @@ dependencies:
        
 ```
 #Example for issue 2
+
 ###step1.
+
 Put your list which in tabview into NestedScrollViewInnerScrollPositionKeyWidget,and get unique a key
 ``` dart
  return extended.NestedScrollViewInnerScrollPositionKeyWidget(
@@ -59,6 +64,7 @@ Put your list which in tabview into NestedScrollViewInnerScrollPositionKeyWidget
         );
 ```
 ##step 2
+
 get current tab key in innerScrollPositionKeyBuilder callback. this key should as same as in step 1 given.
 ``` dart
  extended.NestedScrollView(
@@ -74,6 +80,7 @@ get current tab key in innerScrollPositionKeyBuilder callback. this key should a
         },
 ```
 #Example for NestedScrollView pull to refresh
+
 NestedScrollViewRefreshIndicator is as the same as Flutter RefreshIndicator.
 ``` dart
  NestedScrollViewRefreshIndicator(
