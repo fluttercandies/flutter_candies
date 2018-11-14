@@ -10,10 +10,9 @@ class PullToRefreshHeader extends StatefulWidget {
 
 class _PullToRefreshHeaderState extends State<PullToRefreshHeader> {
   int listlength = 50;
-  PullToRefreshNotification refreshNotification;
   @override
   Widget build(BuildContext context) {
-    refreshNotification = PullToRefreshNotification(
+   return PullToRefreshNotification(
       color: Colors.blue,
       onRefresh: onRefresh,
       maxDragOffset: 80.0,
@@ -45,7 +44,6 @@ class _PullToRefreshHeaderState extends State<PullToRefreshHeader> {
         ],
       ),
     );
-    return refreshNotification;
   }
 
   Widget buildPulltoRefreshHeader(PullToRefreshScrollNotificationInfo info) {

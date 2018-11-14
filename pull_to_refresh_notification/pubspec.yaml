@@ -1,8 +1,8 @@
 name: pull_to_refresh_notification
-description: A new Flutter package.
+description:  widget to build  pull to refresh effects
 version: 0.0.1
-author:
-homepage:
+author: zmtzapxh <zmtzapxh@live.com>
+homepage: https://github.com/zmtzawqlp/Flutter/tree/master/pull_to_refresh_notification
 
 environment:
   sdk: ">=2.0.0-dev.68.0 <3.0.0"

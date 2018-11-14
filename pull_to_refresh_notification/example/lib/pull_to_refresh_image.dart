@@ -46,7 +46,6 @@ class _PullToRefreshImageState extends State<PullToRefreshImage> {
     );
   }
 
-  double refreshOffset = null;
   Widget buildPulltoRefreshImage(PullToRefreshScrollNotificationInfo info) {
     print(info?.mode);
     print(info?.dragOffset);
