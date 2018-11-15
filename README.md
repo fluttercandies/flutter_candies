@@ -1,5 +1,5 @@
 # Flutter 
-custom flutter candies(widgets)  for you to make your flutter app  easier building, enjoy it  
+custom flutter candies(widgets) for you to make your flutter app easier building, enjoy it  
 
 # extended_nested_scroll_view
 
@@ -18,7 +18,7 @@ custom flutter candies(widgets)  for you to make your flutter app  easier buildi
 
 [pull_to_refresh_notification](https://github.com/zmtzawqlp/Flutter/tree/master/pull_to_refresh_notification) widget to build  pull to refresh effects.
 
-[Chinese bolg]()
+[Chinese bolg](https://juejin.im/post/5bebcc44f265da61682aedb8)
 
 ![](https://github.com/zmtzawqlp/Flutter/blob/master/gif/PullToRefreshAppbar.gif)
 
@@ -42,9 +42,9 @@ it include following widgets:
   Icon,
   Button,
 
-[Chinese bolg   Container,RowColumn,Image]()
+[Chinese bolg   Container,RowColumn,Image](https://juejin.im/post/5bdfd278e51d45783a42bd3c)
 
-[Chinese bolg   Text,Icon,Button]()
+[Chinese bolg   Text,Icon,Button](https://juejin.im/post/5bdfd9ee518825170b10151b)
 
 
 

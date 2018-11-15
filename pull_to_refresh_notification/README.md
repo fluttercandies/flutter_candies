@@ -2,7 +2,7 @@
 
 widget to build  pull to refresh effects.
 
-[Chinese bolg]()
+[Chinese bolg](https://juejin.im/post/5bebcc44f265da61682aedb8)
 
 # Sample 1 appbar
 build appbar to pull to refresh with PullToRefreshContainer
