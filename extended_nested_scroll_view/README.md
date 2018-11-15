@@ -10,14 +10,6 @@ extended nested scroll view to fix following issues.
 
 [Chinese bolg](https://juejin.im/post/5bea43ade51d45544844010a)
 
-### Add dependency
-
-```yaml
-dependencies:
-  extended_nested_scroll_view: x.x.x  #latest version
-```
-
-
 # Example for issue 1
 
 give total height of pinned sliver headers in pinnedHeaderSliverHeightBuilder callback

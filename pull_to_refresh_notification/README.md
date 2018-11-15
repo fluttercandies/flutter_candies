@@ -4,13 +4,6 @@ widget to build  pull to refresh effects.
 
 [Chinese bolg]()
 
-### Add dependency
-
-```yaml
-dependencies:
-  pull_to_refresh_notification: x.x.x  #latest version
-```
-
 # Sample 1 appbar
 build appbar to pull to refresh with PullToRefreshContainer
 
