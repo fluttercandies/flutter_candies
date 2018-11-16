@@ -1,5 +1,5 @@
 # Flutter 
-custom flutter candies(widgets) for you to make your flutter app easier building, enjoy it  
+custom flutter candies(widgets) for you to easily build flutter app, enjoy it  
 
 # extended_nested_scroll_view
 
