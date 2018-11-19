@@ -56,7 +56,10 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   //when primary tabcontroller tab,rebuild headerSliverBuilder
   void tabControlerListener() {
-    setState(() {});
+    //it will call twice when tab
+    if (primaryTC.indexIsChanging) {
+      setState(() {});
+    }
   }
 
   @override
