@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/loading_more_widgets.iml" filepath="$PROJECT_DIR$/loading_more_widgets.iml" />
+      <module fileurl="file://$PROJECT_DIR$/loading_more_list.iml" filepath="$PROJECT_DIR$/loading_more_list.iml" />
     </modules>
   </component>
 </project>

@@ -2,37 +2,47 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_more_list/empty_widget.dart';
 
 const Color textColor = Color(0xffdcdcdc);
 
-class LoadingIndicatorWidget extends StatelessWidget {
-  final LoadingIndicatorStatus status;
+class IndicatorWidget extends StatelessWidget {
+  final IndicatorStatus status;
   final Function tryAgain;
   final Widget text;
   final Widget progressIndicator;
   final Color backgroundColor;
-  LoadingIndicatorWidget(this.status,
-      {this.tryAgain, this.text, this.progressIndicator, this.backgroundColor});
+  final bool isSliver;
+  final String emptyMsg;
+  final Widget emptyWidget;
+  IndicatorWidget(this.status,
+      {this.tryAgain,
+      this.text,
+      this.progressIndicator,
+      this.backgroundColor,
+      this.isSliver: false,
+      this.emptyMsg,
+      this.emptyWidget});
   @override
   Widget build(BuildContext context) {
     if (progressIndicator != null) return progressIndicator;
     Widget widget;
-    bool full = status == LoadingIndicatorStatus.FullScreenBusying ||
-        status == LoadingIndicatorStatus.SliverFullScreenBusying;
+    bool full = (status == IndicatorStatus.FullScreenBusying);
+    double height = 35.0;
     switch (status) {
-      case LoadingIndicatorStatus.None:
-        widget = Container();
+      case IndicatorStatus.None:
+        widget = Container(height: 0.0);
+        height=0.0;
         break;
-      case LoadingIndicatorStatus.LoadingMoreBusying:
-      case LoadingIndicatorStatus.FullScreenBusying:
-      case LoadingIndicatorStatus.SliverFullScreenBusying:
+      case IndicatorStatus.LoadingMoreBusying:
+      case IndicatorStatus.FullScreenBusying:
         double indicatorSize = full ? 30.0 : 15.0;
         widget = Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Container(
-                margin: EdgeInsets.only(right: 0.0),
+                margin: EdgeInsets.only(right: 15.0),
                 height: indicatorSize,
                 width: indicatorSize,
                 child: getIndicator(context)),
@@ -52,9 +62,9 @@ class LoadingIndicatorWidget extends StatelessWidget {
           ],
         );
         break;
-      case LoadingIndicatorStatus.Error:
+      case IndicatorStatus.Error:
         widget = text ??
-            Text("there is some error.",
+            Text("load error.",
                 style: TextStyle(
                   color: textColor,
                 ));
@@ -67,26 +77,40 @@ class LoadingIndicatorWidget extends StatelessWidget {
           );
         }
         break;
-      case LoadingIndicatorStatus.NoMoreLoad:
+      case IndicatorStatus.NoMoreLoad:
         widget = text ??
             Text("No more items.",
                 style: TextStyle(
                   color: textColor,
                 ));
         break;
+      case IndicatorStatus.Empty:
+        widget = EmptyWidget(
+          emptyMsg??"Nothing here",
+          emptyWidget: emptyWidget,
+        );
+        break;
     }
 
     widget = Container(
         width: double.infinity,
-        height: full ? double.infinity : 35.0,
+        height: full ? double.infinity : height,
         child: widget,
         color: backgroundColor ?? Colors.grey[200],
         alignment: Alignment.center);
-    if (status == LoadingIndicatorStatus.SliverFullScreenBusying) {
-      widget = SliverFillRemaining(
-        child: widget,
-      );
+
+    if (isSliver) {
+      if (status == IndicatorStatus.FullScreenBusying) {
+        widget = SliverFillRemaining(
+          child: widget,
+        );
+      } else if (status == IndicatorStatus.Empty) {
+        widget = SliverToBoxAdapter(
+          child: widget,
+        );
+      }
     }
+
     return widget;
   }
 
@@ -103,12 +127,11 @@ class LoadingIndicatorWidget extends StatelessWidget {
   }
 }
 
-enum LoadingIndicatorStatus {
+enum IndicatorStatus {
   None,
   LoadingMoreBusying,
   FullScreenBusying,
-  //busy loading for sliver list
-  SliverFullScreenBusying,
   Error,
   NoMoreLoad,
+  Empty
 }

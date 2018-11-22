@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh_notification/pull_to_refresh_notification.dart';
-import 'package:oktoast/oktoast.dart';
 
 class PullToRefreshAppbar extends StatefulWidget {
   @override

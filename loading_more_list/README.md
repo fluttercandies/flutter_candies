@@ -1,6 +1,6 @@
-# loading_more_widgets
+# loading_more_list
 
-widgets to easily build loading more list
+easily build loading more list
 
 ## Getting Started
 
