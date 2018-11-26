@@ -69,6 +69,7 @@ class TuChongRepository extends LoadingMoreBase<TuChongItem> {
 
 ## 2.loading more for ListView/GridView
 ![](https://github.com/zmtzawqlp/Flutter_Candies/blob/master/gif/LoadingMoreListView.gif)
+
 ListConfig for ListView/Grid
 ```dart
  final Widget Function(BuildContext context, T item, int index) itemBuilder;
@@ -169,11 +170,13 @@ class ListConfig<T> extends LoadingMoreListConfig<T> {
   }
 ```
 and it also support to loading error
+
 ![](https://github.com/zmtzawqlp/Flutter_Candies/blob/master/gif/LoadingMoreError.gif)
 
 
 ## 3.loading more for Sliver or MultipleSlivers
 ![](https://github.com/zmtzawqlp/Flutter_Candies/blob/master/gif/LoadingMoreMultipleSliver.gif)
+
 SliverListConfig for SliverList/SliverGrid
 
 ```dart
@@ -314,6 +317,7 @@ and you can also use multiple sliver list.
 ```
 ## 4.loading more for CustomIndicator
 ![](https://github.com/zmtzawqlp/Flutter_Candies/blob/master/gif/LoadingMoreCustomIndicator.gif)
+
 provide indicatorBuilder and you can define your indicator base on loading status
 ```dart
  @override
