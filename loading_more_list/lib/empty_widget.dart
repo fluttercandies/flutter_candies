@@ -7,8 +7,8 @@ class EmptyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (emptyWidget != null) return emptyWidget;
-    var theme = Theme.of(context);
     return Container(
+      color: Colors.grey[200],
       margin: EdgeInsets.only(top: 30.0, bottom: 30.0),
       child: Center(
         child: Column(
@@ -16,20 +16,23 @@ class EmptyWidget extends StatelessWidget {
             SizedBox(
                 height: 180.0,
                 width: 180.0,
-                child: Image.asset(theme.brightness == Brightness.dark
-                    ? "assets/images/empty_dark.png"
-                    : "assets/images/empty_light.png")),
+                child: Image.asset(
+                  //https://flutter.io/docs/development/ui/assets-and-images
+                  "assets/empty.jpeg",
+//                  theme.brightness == Brightness.dark
+//                      ? "assets/empty_dark.png"
+//                      : "assets/empty_light.png",
+                  package: "loading_more_list",
+                )),
             Text(
               msg,
-              style: TextStyle(
-                  color: theme.brightness == Brightness.dark
-                      ? Color(0xFF171717)
-                      : Color(0xFFeeeeee)),
+              style: TextStyle(color: Colors.grey),
               textAlign: TextAlign.center,
             )
           ],
         ),
       ),
     );
+    ;
   }
 }

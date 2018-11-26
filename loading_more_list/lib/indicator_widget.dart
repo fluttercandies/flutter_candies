@@ -4,35 +4,31 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_more_list/empty_widget.dart';
 
-const Color textColor = Color(0xffdcdcdc);
-
-class IndicatorWidget extends StatelessWidget {
-  final IndicatorStatus status;
+class IndicatorWidget extends StatefulWidget {
+  IndicatorStatus status;
   final Function tryAgain;
   final Widget text;
-  final Widget progressIndicator;
   final Color backgroundColor;
   final bool isSliver;
-  final String emptyMsg;
-  final Widget emptyWidget;
   IndicatorWidget(this.status,
       {this.tryAgain,
       this.text,
-      this.progressIndicator,
       this.backgroundColor,
-      this.isSliver: false,
-      this.emptyMsg,
-      this.emptyWidget});
+      this.isSliver: false,});
+  @override
+  _IndicatorWidgetState createState() => _IndicatorWidgetState();
+}
+
+class _IndicatorWidgetState extends State<IndicatorWidget> {
   @override
   Widget build(BuildContext context) {
-    if (progressIndicator != null) return progressIndicator;
     Widget widget;
-    bool full = (status == IndicatorStatus.FullScreenBusying);
+    bool full = (this.widget.status == IndicatorStatus.FullScreenBusying);
     double height = 35.0;
-    switch (status) {
+    switch (this.widget.status) {
       case IndicatorStatus.None:
         widget = Container(height: 0.0);
-        height=0.0;
+        height = 0.0;
         break;
       case IndicatorStatus.LoadingMoreBusying:
       case IndicatorStatus.FullScreenBusying:
@@ -46,48 +42,30 @@ class IndicatorWidget extends StatelessWidget {
                 height: indicatorSize,
                 width: indicatorSize,
                 child: getIndicator(context)),
-            text ??
+            this.widget.text ??
                 (!full
                     ? Text(
                         "loading...",
-                        style: TextStyle(
-                          color: textColor,
-                        ),
                       )
                     : Text("loading...",
                         style: TextStyle(
-                            color: textColor,
                             fontWeight: FontWeight.bold,
                             fontSize: 28.0))),
           ],
         );
         break;
       case IndicatorStatus.Error:
-        widget = text ??
-            Text("load error.",
-                style: TextStyle(
-                  color: textColor,
-                ));
-        if (tryAgain != null) {
-          widget = GestureDetector(
-            onTap: () {
-              tryAgain();
-            },
-            child: widget,
-          );
-        }
+        widget = this.widget.text ??
+            Text(
+              "load failed,try again.",
+            );
         break;
       case IndicatorStatus.NoMoreLoad:
-        widget = text ??
-            Text("No more items.",
-                style: TextStyle(
-                  color: textColor,
-                ));
+        widget = this.widget.text ?? Text("No more items.");
         break;
       case IndicatorStatus.Empty:
         widget = EmptyWidget(
-          emptyMsg??"Nothing here",
-          emptyWidget: emptyWidget,
+          this.widget.text ?? "nothing here",
         );
         break;
     }
@@ -96,21 +74,31 @@ class IndicatorWidget extends StatelessWidget {
         width: double.infinity,
         height: full ? double.infinity : height,
         child: widget,
-        color: backgroundColor ?? Colors.grey[200],
+        color: this.widget.backgroundColor ?? Colors.grey[200],
         alignment: Alignment.center);
 
-    if (isSliver) {
-      if (status == IndicatorStatus.FullScreenBusying) {
+    if (this.widget.isSliver) {
+      if (this.widget.status == IndicatorStatus.FullScreenBusying) {
         widget = SliverFillRemaining(
           child: widget,
         );
-      } else if (status == IndicatorStatus.Empty) {
+      } else if (this.widget.status == IndicatorStatus.Empty) {
         widget = SliverToBoxAdapter(
           child: widget,
         );
       }
     }
-
+    if (this.widget.tryAgain != null &&
+        this.widget.status == IndicatorStatus.Error) {
+      widget = GestureDetector(
+        onTap: () {
+          //setState(() {
+          this.widget.tryAgain();
+          // });
+        },
+        child: widget,
+      );
+    }
     return widget;
   }
 

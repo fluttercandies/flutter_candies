@@ -23,11 +23,19 @@ class ListConfig<T> extends LoadingMoreListConfig<T> {
   final double cacheExtent;
   final int semanticChildCount;
 
+  /// Whether to show the overscroll glow on the side with negative scroll
+  /// offsets.
+  final bool showGlowLeading;
+
+  /// Whether to show the overscroll glow on the side with positive scroll
+  /// offsets.
+  final bool showGlowTrailing;
+
   ListConfig(
     @required itemBuilder,
     @required sourceList, {
-    bool showGlowLeading: true,
-    bool showGlowTrailing: true,
+    this.showGlowLeading: true,
+    this.showGlowTrailing: true,
     LoadingMoreIndicatorBuilder indicatorBuilder,
     SliverGridDelegate gridDelegate,
     this.scrollDirection = Axis.vertical,
@@ -45,10 +53,7 @@ class ListConfig<T> extends LoadingMoreListConfig<T> {
     this.cacheExtent,
     this.semanticChildCount,
   }) : super(itemBuilder, sourceList,
-            showGlowLeading: showGlowLeading,
-            showGlowTrailing: showGlowTrailing,
-            indicatorBuilder: indicatorBuilder,
-            gridDelegate: gridDelegate);
+            indicatorBuilder: indicatorBuilder, gridDelegate: gridDelegate);
 
   @override
   Widget buildContent(BuildContext context, LoadingMoreBase<T> source) {
@@ -99,8 +104,10 @@ class ListConfig<T> extends LoadingMoreListConfig<T> {
 
 //config for SliverList and SliverGrid
 class SliverListConfig<T> extends LoadingMoreListConfig<T> {
-  //only show no more for last one of slivers .
-  final bool isLastOne;
+  //whether show no more  .
+  bool showNoMore = true;
+  //whether show fullscreenLoading for multiple sliver
+  bool showFullScreenLoading = true;
 
   //auto add sliver into a customscrollivew
   //final bool addIntoCustomScrollView;
@@ -110,13 +117,12 @@ class SliverListConfig<T> extends LoadingMoreListConfig<T> {
   final bool addSemanticIndexes;
   final SemanticIndexCallback semanticIndexCallback;
   final int semanticIndexOffset;
+  //final List<LoadingMoreBase<T>> sourceLists;
 
   SliverListConfig(
     @required itemBuilder,
     @required sourceList, {
-    bool showGlowLeading: true,
-    bool showGlowTrailing: true,
-    this.isLastOne: true,
+    //this.showNoMore: true,
     //this.addIntoCustomScrollView: false,
     LoadingMoreIndicatorBuilder indicatorBuilder,
     SliverGridDelegate gridDelegate,
@@ -125,33 +131,50 @@ class SliverListConfig<T> extends LoadingMoreListConfig<T> {
     this.addSemanticIndexes = true,
     this.semanticIndexCallback = _kDefaultSemanticIndexCallback,
     this.semanticIndexOffset = 0,
+    //this.sourceLists,
   }) : super(itemBuilder, sourceList,
-            showGlowLeading: showGlowLeading,
-            showGlowTrailing: showGlowTrailing,
-            indicatorBuilder: indicatorBuilder,
-            gridDelegate: gridDelegate);
+            indicatorBuilder: indicatorBuilder, gridDelegate: gridDelegate) {}
 
   @override
   Widget buildContent(BuildContext context, LoadingMoreBase<T> source) {
     // TODO: implement BuilderContent
+    //first load
+    if (source == null) {
+      sourceList.onRefresh();
+    }
+
+    if (!showFullScreenLoading && source == null && sourceList.hasMore) {
+      return SliverToBoxAdapter(
+        child: indicatorBuilder != null
+            ? indicatorBuilder(context, IndicatorStatus.LoadingMoreBusying)
+            : IndicatorWidget(
+                IndicatorStatus.LoadingMoreBusying,
+              ),
+      );
+    }
+    return _innerBuilderContent(context, source);
+  }
+
+  Widget _innerBuilderContent(
+    BuildContext context,
+    LoadingMoreBase<T> source,
+  ) {
     Widget widget = super.buildContent(context, source);
     if (widget == null) {
       int lastOne = 1;
-      if (!isLastOne && !source.hasMore) {
+      if (!showNoMore && !source.hasMore) {
         lastOne = 0;
       }
-      if (gridDelegate != null) {
-        widget = SliverGrid(
-            delegate: new SliverChildBuilderDelegate(buildItem,
-                addAutomaticKeepAlives: addAutomaticKeepAlives,
-                addRepaintBoundaries: addRepaintBoundaries,
-                addSemanticIndexes: addSemanticIndexes,
-                semanticIndexCallback: semanticIndexCallback,
-                semanticIndexOffset: semanticIndexOffset,
-                childCount: source.length + lastOne),
-            gridDelegate: gridDelegate);
-      } else {
-        widget = SliverList(
+      widget = _innerBuilderList(context, source, lastOne);
+    }
+    return widget;
+  }
+
+  Widget _innerBuilderList(
+      BuildContext context, LoadingMoreBase<T> source, int lastOne) {
+    Widget widget;
+    if (gridDelegate != null) {
+      widget = SliverGrid(
           delegate: new SliverChildBuilderDelegate(buildItem,
               addAutomaticKeepAlives: addAutomaticKeepAlives,
               addRepaintBoundaries: addRepaintBoundaries,
@@ -159,8 +182,17 @@ class SliverListConfig<T> extends LoadingMoreListConfig<T> {
               semanticIndexCallback: semanticIndexCallback,
               semanticIndexOffset: semanticIndexOffset,
               childCount: source.length + lastOne),
-        );
-      }
+          gridDelegate: gridDelegate);
+    } else {
+      widget = SliverList(
+        delegate: new SliverChildBuilderDelegate(buildItem,
+            addAutomaticKeepAlives: addAutomaticKeepAlives,
+            addRepaintBoundaries: addRepaintBoundaries,
+            addSemanticIndexes: addSemanticIndexes,
+            semanticIndexCallback: semanticIndexCallback,
+            semanticIndexOffset: semanticIndexOffset,
+            childCount: source.length + lastOne),
+      );
     }
     return widget;
   }
@@ -169,14 +201,6 @@ class SliverListConfig<T> extends LoadingMoreListConfig<T> {
 class LoadingMoreListConfig<T> {
   //Item builder
   final Widget Function(BuildContext context, T item, int index) itemBuilder;
-
-  /// Whether to show the overscroll glow on the side with negative scroll
-  /// offsets.
-  final bool showGlowLeading;
-
-  /// Whether to show the overscroll glow on the side with positive scroll
-  /// offsets.
-  final bool showGlowTrailing;
 
   //source list
   final LoadingMoreBase<T> sourceList;
@@ -193,17 +217,15 @@ class LoadingMoreListConfig<T> {
   }
 
   LoadingMoreListConfig(@required this.itemBuilder, @required this.sourceList,
-      {this.showGlowLeading: true,
-      this.showGlowTrailing: true,
-      this.indicatorBuilder,
-      this.gridDelegate});
+      {this.indicatorBuilder, this.gridDelegate})
+      : assert(itemBuilder != null),
+        assert(sourceList != null);
 
   Widget buildContent(BuildContext context, LoadingMoreBase<T> source) {
     //full screen loading
     if (source == null) {
-//      if (sourceList != null) {
-//        sourceList.onRefresh();
-//      }
+      //first load
+      sourceList.onRefresh();
       if (indicatorBuilder != null)
         return indicatorBuilder(context, IndicatorStatus.FullScreenBusying);
       return IndicatorWidget(
@@ -217,10 +239,13 @@ class LoadingMoreListConfig<T> {
     // }
     //empty
     else if (source.length == 0) {
+      var widget = buildErrorItem(context);
+      if (widget != null) return widget;
+
       if (indicatorBuilder != null)
-        return indicatorBuilder(context, IndicatorStatus.Empty);
+        return indicatorBuilder(context, sourceList.indicatorStatus);
       return IndicatorWidget(
-        IndicatorStatus.Empty,
+        sourceList.indicatorStatus,
         isSliver: isSliver,
       );
     }
@@ -230,20 +255,16 @@ class LoadingMoreListConfig<T> {
 
   Widget buildItem(BuildContext context, int index) {
     if (index == sourceList.length) {
-      if (sourceList.hasMore) {
-        sourceList.loadMore();
-      }
+      var widget = buildErrorItem(context);
+      if (widget != null) return widget;
+
       var status = sourceList.hasMore
           ? IndicatorStatus.LoadingMoreBusying
           : IndicatorStatus.NoMoreLoad;
 
-//      //if it is not last one, it show not show no more.
-//      if (isSliver && status == IndicatorStatus.NoMoreLoad) {
-//        var sliver = this as SliverListConfig<T>;
-//        if (!sliver.isLastOne) {
-//          status = IndicatorStatus.None;
-//        }
-//      }
+      if (sourceList.hasMore) {
+        sourceList.loadMore();
+      }
 
       if (indicatorBuilder != null) return indicatorBuilder(context, status);
       return IndicatorWidget(
@@ -253,6 +274,24 @@ class LoadingMoreListConfig<T> {
     }
     return itemBuilder(context, sourceList[index], index);
   }
+
+  Widget buildErrorItem(BuildContext context) {
+    var hasError = sourceList.indicatorStatus == IndicatorStatus.Error;
+    if (hasError) {
+      if (indicatorBuilder != null)
+        return indicatorBuilder(context, IndicatorStatus.Error);
+      return IndicatorWidget(
+        IndicatorStatus.Error,
+        isSliver: isSliver,
+        tryAgain: () {
+          sourceList.onRefresh();
+        },
+      );
+    }
+    return null;
+  }
+
+  bool get hasMore => sourceList.hasMore;
 }
 
 typedef LoadingMoreIndicatorBuilder = Widget Function(

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'dart:collection';
+import 'package:loading_more_list/indicator_widget.dart';
 import 'package:loading_more_list/refresh_base.dart';
 
 class LoadingMoreBase<T> extends ListBase<T>
@@ -22,8 +23,35 @@ class LoadingMoreBase<T> extends ListBase<T>
   bool get hasMore => true;
   bool isLoading = false;
 
-  @override
-  Future<bool> loadMore() async {}
+  IndicatorStatus indicatorStatus = IndicatorStatus.None;
+
+  Future<bool> loadMore() async {
+    if (isLoading || !hasMore) return true;
+    // TODO: implement loadMore
+
+    var preStatus = indicatorStatus;
+    indicatorStatus = this.length == 0
+        ? IndicatorStatus.FullScreenBusying
+        : IndicatorStatus.LoadingMoreBusying;
+
+    if (preStatus == IndicatorStatus.Error) {
+      onStateChanged(this);
+    }
+    isLoading = true;
+    var isSuccess = await getData();
+    isLoading = false;
+    if (isSuccess) {
+      if (this.length == 0) indicatorStatus = IndicatorStatus.Empty;
+    } else {
+      indicatorStatus = IndicatorStatus.Error;
+    }
+    onStateChanged(this);
+    return isSuccess;
+  }
+
+  Future<bool> getData() async {
+    return true;
+  }
 
   @override
   Future<bool> onRefresh() async {
@@ -35,9 +63,9 @@ class LoadingMoreBase<T> extends ListBase<T>
   set length(int newLength) => _array.length = newLength;
 
   @override
-  void collectionChanged(LoadingMoreBase<T> source) {
+  void onStateChanged(LoadingMoreBase<T> source) {
     // TODO: implement notice
-    super.collectionChanged(source);
+    super.onStateChanged(source);
   }
 }
 
@@ -45,8 +73,8 @@ class _LoadingMoreBloc<T> {
   final _rebuild = new StreamController<LoadingMoreBase<T>>.broadcast();
   Stream<LoadingMoreBase<T>> get rebuild => _rebuild.stream;
 
-  void collectionChanged(LoadingMoreBase<T> source) {
-    _rebuild.sink.add(source);
+  void onStateChanged(LoadingMoreBase<T> source) {
+    if (!_rebuild?.isClosed) _rebuild.sink.add(source);
   }
 
   void dispose() {
