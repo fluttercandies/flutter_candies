@@ -38,7 +38,7 @@ class LoadingMoreBase<T> extends ListBase<T>
       onStateChanged(this);
     }
     isLoading = true;
-    var isSuccess = await getData();
+    var isSuccess = await loadData();
     isLoading = false;
     if (isSuccess) {
       if (this.length == 0) indicatorStatus = IndicatorStatus.Empty;
@@ -49,7 +49,7 @@ class LoadingMoreBase<T> extends ListBase<T>
     return isSuccess;
   }
 
-  Future<bool> getData() async {
+  Future<bool> loadData() async {
     return true;
   }
 

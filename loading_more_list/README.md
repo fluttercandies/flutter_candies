@@ -2,11 +2,13 @@
 
 easily build loading more list
 
+[Chinese bolg](https://juejin.im/post/5bebcc44f265da61682aedb8)
+
 # how to use it
 ## 1. prepare for loading more collection
 First, you need to extend [LoadingMoreBase](https://github.com/zmtzawqlp/Flutter_Candies/blob/master/loading_more_list/lib/loading_more_base.dart) and 
 override getData method to get your list item. 
-if you want to override onLoad method,
+if you want to override loadMore method,
 please take care of staus in this method.
 
 ```dart
