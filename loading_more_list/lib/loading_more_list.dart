@@ -8,10 +8,7 @@ class LoadingMoreList<T> extends StatelessWidget {
   final ListConfig<T> listConfig;
 
   LoadingMoreList(this.listConfig,{Key key})
-      : super(key: key) {
-    //it should have one conifg
-
-  }
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<LoadingMoreBase>(

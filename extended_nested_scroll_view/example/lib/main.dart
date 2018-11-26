@@ -55,11 +55,16 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   }
 
   //when primary tabcontroller tab,rebuild headerSliverBuilder
+  //click fire twice ,gesture fire onetime
+  int index;
   void tabControlerListener() {
-    //it will call twice when tab
-    if (primaryTC.indexIsChanging) {
+    if (index != primaryTC.index)
+    //if(primaryTC.indexIsChanging)
+    //if(primaryTC.previousIndex!=primaryTC.index)
+    {
       setState(() {});
     }
+    index = primaryTC.index;
   }
 
   @override
@@ -264,7 +269,6 @@ class _TabViewItemState extends State<TabViewItem>
 
   @override
   Widget build(BuildContext context) {
-
     return extended.NestedScrollViewInnerScrollPositionKeyWidget(
         widget.tabKey,
         // myRefresh.RefreshIndicator(

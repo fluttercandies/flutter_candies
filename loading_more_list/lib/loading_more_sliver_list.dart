@@ -6,7 +6,7 @@ import 'package:loading_more_list/loading_more_base.dart';
 class LoadingMoreSliverList<T> extends StatelessWidget {
   final SliverListConfig<T> sliverListConfig;
 
-  LoadingMoreSliverList(this.sliverListConfig, {Key key}) : super(key: key) {}
+  LoadingMoreSliverList(this.sliverListConfig, {Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<LoadingMoreBase>(
@@ -51,7 +51,8 @@ class LoadingMoreCustomScrollView extends StatefulWidget {
     this.semanticChildCount,
     this.showGlowLeading: true,
     this.showGlowTrailing: true,
-  }) : assert(slivers != null);
+  })  : assert(slivers != null),
+        super(key: key);
   @override
   _LoadingMoreCustomScrollViewState createState() =>
       _LoadingMoreCustomScrollViewState();
