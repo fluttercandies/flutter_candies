@@ -59,7 +59,9 @@ class ListConfig<T> extends LoadingMoreListConfig<T> {
   Widget buildContent(BuildContext context, LoadingMoreBase<T> source) {
     // TODO: implement BuilderContent
     Widget widget = super.buildContent(context, source);
+
     if (widget == null) {
+      var count = itemCount ?? source.length;
       if (gridDelegate != null) {
         widget = GridView.builder(
           gridDelegate: gridDelegate,
@@ -76,7 +78,7 @@ class ListConfig<T> extends LoadingMoreListConfig<T> {
           cacheExtent: cacheExtent,
           semanticChildCount: semanticChildCount,
           itemBuilder: buildItem,
-          itemCount: source.length + 1,
+          itemCount: count + 1,
         );
       } else {
         widget = ListView.builder(
@@ -94,7 +96,7 @@ class ListConfig<T> extends LoadingMoreListConfig<T> {
           cacheExtent: cacheExtent,
           semanticChildCount: semanticChildCount,
           itemBuilder: buildItem,
-          itemCount: source.length + 1,
+          itemCount: count + 1,
         );
       }
     }
@@ -109,21 +111,16 @@ class SliverListConfig<T> extends LoadingMoreListConfig<T> {
   //whether show fullscreenLoading for multiple sliver
   bool showFullScreenLoading = true;
 
-  //auto add sliver into a customscrollivew
-  //final bool addIntoCustomScrollView;
-
   final bool addAutomaticKeepAlives;
   final bool addRepaintBoundaries;
   final bool addSemanticIndexes;
   final SemanticIndexCallback semanticIndexCallback;
   final int semanticIndexOffset;
-  //final List<LoadingMoreBase<T>> sourceLists;
+  final int childCount;
 
   SliverListConfig(
     @required itemBuilder,
     @required sourceList, {
-    //this.showNoMore: true,
-    //this.addIntoCustomScrollView: false,
     LoadingMoreIndicatorBuilder indicatorBuilder,
     SliverGridDelegate gridDelegate,
     this.addAutomaticKeepAlives = true,
@@ -131,9 +128,9 @@ class SliverListConfig<T> extends LoadingMoreListConfig<T> {
     this.addSemanticIndexes = true,
     this.semanticIndexCallback = _kDefaultSemanticIndexCallback,
     this.semanticIndexOffset = 0,
-    //this.sourceLists,
+    this.childCount,
   }) : super(itemBuilder, sourceList,
-            indicatorBuilder: indicatorBuilder, gridDelegate: gridDelegate) {}
+            indicatorBuilder: indicatorBuilder, gridDelegate: gridDelegate);
 
   @override
   Widget buildContent(BuildContext context, LoadingMoreBase<T> source) {
@@ -173,6 +170,7 @@ class SliverListConfig<T> extends LoadingMoreListConfig<T> {
   Widget _innerBuilderList(
       BuildContext context, LoadingMoreBase<T> source, int lastOne) {
     Widget widget;
+    var count = childCount ?? source.length;
     if (gridDelegate != null) {
       widget = SliverGrid(
           delegate: new SliverChildBuilderDelegate(buildItem,
@@ -181,7 +179,7 @@ class SliverListConfig<T> extends LoadingMoreListConfig<T> {
               addSemanticIndexes: addSemanticIndexes,
               semanticIndexCallback: semanticIndexCallback,
               semanticIndexOffset: semanticIndexOffset,
-              childCount: source.length + lastOne),
+              childCount: count + lastOne),
           gridDelegate: gridDelegate);
     } else {
       widget = SliverList(
@@ -191,7 +189,7 @@ class SliverListConfig<T> extends LoadingMoreListConfig<T> {
             addSemanticIndexes: addSemanticIndexes,
             semanticIndexCallback: semanticIndexCallback,
             semanticIndexOffset: semanticIndexOffset,
-            childCount: source.length + lastOne),
+            childCount: count + lastOne),
       );
     }
     return widget;

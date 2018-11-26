@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:loading_more_list/list_config.dart';
 import 'package:loading_more_list/loading_more_base.dart';
 
+//loading more for listview and gridview
 class LoadingMoreList<T> extends StatelessWidget {
   final ListConfig<T> listConfig;
 
