@@ -28,7 +28,6 @@ class _SliverGridDemoState extends State<SliverGridDemo> {
 
   @override
   Widget build(BuildContext context) {
-
     return Material(
       child: LoadingMoreCustomScrollView(
         slivers: <Widget>[
@@ -36,22 +35,18 @@ class _SliverGridDemoState extends State<SliverGridDemo> {
             pinned: true,
             title: Text("SliverGridDemo"),
           ),
-          LoadingMoreSliverList(
-              SliverListConfig<TuChongItem>(
-                  ItemBuilder.itemBuilder, listSourceRepository,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 3.0,
-                    mainAxisSpacing: 3.0,
+          LoadingMoreSliverList(SliverListConfig<TuChongItem>(
+            ItemBuilder.itemBuilder, listSourceRepository,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 3.0,
+              mainAxisSpacing: 3.0,
 //                    childAspectRatio: 0.5
-                  ),
-                //isLastOne: false
-                  )
-          )
+            ),
+            //isLastOne: false
+          ))
         ],
       ),
     );
-
-
   }
 }

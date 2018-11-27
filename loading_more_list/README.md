@@ -2,7 +2,7 @@
 
 easily build loading more list
 
-[Chinese bolg](https://juejin.im/post/5bebcc44f265da61682aedb8)
+[Chinese bolg](https://juejin.im/post/5bfb9cb7e51d45592b766769)
 
 # how to use it
 ## 1. prepare for loading more collection

@@ -64,8 +64,9 @@ class _LoadingMoreCustomScrollViewState
   Widget build(BuildContext context) {
     List<Widget> widgets = List<Widget>();
     bool showFullScreenLoading = true;
-    var loadingMoreWidgets =
-        List.castFrom<Widget, LoadingMoreSliverList>(widget.slivers);
+    var loadingMoreWidgets = widget.slivers.where((x) {
+      return x is LoadingMoreSliverList;
+    });
 
     if (loadingMoreWidgets.length > 1) {
       if (widget.reverse) {
@@ -124,15 +125,25 @@ class _LoadingMoreCustomScrollViewState
     //reach the pixels to loading more
     if (notification.metrics.axisDirection == AxisDirection.down &&
         notification.metrics.pixels >= notification.metrics.maxScrollExtent) {
-      for (int i = 0; i < widget.slivers.length; i++) {
-        var item = widget.slivers[i];
-        if (item is LoadingMoreSliverList &&
-            item.sliverListConfig.sourceList.hasMore &&
-            !item.sliverListConfig.sourceList.isLoading) {
-          setState(() {
-            item.sliverListConfig.sourceList.loadMore();
-          });
-          break;
+      var loadingMoreWidgets = widget.slivers
+          .where((x) {
+            return x is LoadingMoreSliverList;
+          })
+          .map<LoadingMoreSliverList>((f) => f as LoadingMoreSliverList)
+          .toList();
+      if (loadingMoreWidgets.length > 0) {
+        if (widget.reverse) {
+          loadingMoreWidgets = loadingMoreWidgets.reversed;
+        }
+        for (int i = 0; i < loadingMoreWidgets.length; i++) {
+          var item = loadingMoreWidgets[i];
+          if (item.sliverListConfig.sourceList.hasMore &&
+              !item.sliverListConfig.sourceList.isLoading) {
+            setState(() {
+              item.sliverListConfig.sourceList.loadMore();
+            });
+            break;
+          }
         }
       }
     }

@@ -30,7 +30,7 @@ custom flutter candies(widgets) for you to easily build flutter app, enjoy it
 
 [loading_more_list](https://github.com/zmtzawqlp/Flutter/tree/master/loading_more_list) easily build loading more list.
 
-[Chinese bolg](https://juejin.im/post/5bebcc44f265da61682aedb8)
+[Chinese bolg](https://juejin.im/post/5bfb9cb7e51d45592b766769)
 
 ![](https://github.com/zmtzawqlp/Flutter/blob/master/gif/LoadingMoreListView.gif)
 
