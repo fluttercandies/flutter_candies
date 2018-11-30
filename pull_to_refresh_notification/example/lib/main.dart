@@ -1,4 +1,3 @@
-import 'dart:async';
 
 import 'package:example/pull_to_refresh_appbar.dart';
 import 'package:example/pull_to_refresh_header.dart';

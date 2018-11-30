@@ -1,8 +1,8 @@
 name: loading_more_list
 description: easily build loading more list
 version: 0.0.1
-author:
-homepage:
+author: zmtzapxh <zmtzapxh@live.com>
+homepage: https://github.com/zmtzawqlp/Flutter/tree/master/loading_more_list
 
 environment:
   sdk: ">=2.0.0-dev.68.0 <3.0.0"

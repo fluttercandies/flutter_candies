@@ -53,7 +53,7 @@ class _MultipleSliverDemoState extends State<MultipleSliverDemo> {
             ),
           ),
           SliverPersistentHeader(
-            delegate: CommonSliverPersistentHeaderDelegate(
+            delegate: CommonExtentSliverPersistentHeaderDelegate(
                 Container(
                   alignment: Alignment.center,
                   child: Text("Pinned Content"),
@@ -78,18 +78,18 @@ class _MultipleSliverDemoState extends State<MultipleSliverDemo> {
   }
 }
 
-class CommonSliverPersistentHeaderDelegate
+class CommonExtentSliverPersistentHeaderDelegate
     extends SliverPersistentHeaderDelegate {
   final Widget child;
-  final double height;
+  final double extent;
 
-  CommonSliverPersistentHeaderDelegate(this.child, this.height);
-
-  @override
-  double get minExtent => height;
+  CommonExtentSliverPersistentHeaderDelegate(this.child, this.extent);
 
   @override
-  double get maxExtent => height;
+  double get minExtent => extent;
+
+  @override
+  double get maxExtent => extent;
 
   @override
   Widget build(
@@ -98,7 +98,7 @@ class CommonSliverPersistentHeaderDelegate
   }
 
   @override
-  bool shouldRebuild(CommonSliverPersistentHeaderDelegate oldDelegate) {
+  bool shouldRebuild(CommonExtentSliverPersistentHeaderDelegate oldDelegate) {
     //print("shouldRebuild---------------");
     return oldDelegate != this;
   }
