@@ -74,7 +74,9 @@ class _MyHomePageState extends State<MyHomePage> {
       setState(() {
         msg = "cancel";
       });
-    } catch (e) {}
+    } catch (e) {
+
+    }
   }
 
   void cancel() {
@@ -92,6 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
         body: Column(
           children: <Widget>[
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 FlatButton(
                     onPressed: () {
