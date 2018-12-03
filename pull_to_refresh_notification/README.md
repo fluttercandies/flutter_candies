@@ -1,5 +1,7 @@
 # pull_to_refresh_notification
 
+[![pub package](https://img.shields.io/pub/v/pull_to_refresh_notification.svg)](https://pub.dartlang.org/packages/pull_to_refresh_notification)
+
 widget to build  pull to refresh effects.
 
 [Chinese bolg](https://juejin.im/post/5bebcc44f265da61682aedb8)

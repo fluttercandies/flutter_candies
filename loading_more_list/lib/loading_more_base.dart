@@ -56,6 +56,7 @@ class LoadingMoreBase<T> extends ListBase<T>
   @override
   Future<bool> onRefresh() async {
     // TODO: implement OnRefresh
+    return true;
   }
 
   @override
@@ -74,10 +75,10 @@ class _LoadingMoreBloc<T> {
   Stream<LoadingMoreBase<T>> get rebuild => _rebuild.stream;
 
   void onStateChanged(LoadingMoreBase<T> source) {
-    if (!_rebuild?.isClosed) _rebuild.sink.add(source);
+    if (!_rebuild.isClosed) _rebuild.sink.add(source);
   }
 
   void dispose() {
-    _rebuild?.close();
+    _rebuild.close();
   }
 }

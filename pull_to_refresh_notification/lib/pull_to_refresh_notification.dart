@@ -136,8 +136,6 @@ class PullToRefreshNotificationState extends State<PullToRefreshNotification>
 
   static final Animatable<double> _threeQuarterTween =
       Tween<double>(begin: 0.0, end: 0.75);
-  static final Animatable<double> _kDragSizeFactorLimitTween =
-      Tween<double>(begin: 0.0, end: _kDragSizeFactorLimit);
   static final Animatable<double> _oneToZeroTween =
       Tween<double>(begin: 1.0, end: 0.0);
 
@@ -643,9 +641,7 @@ class _RefreshProgressIndicatorState extends _CircularProgressIndicatorState {
   }
 }
 
-const double _kLinearProgressIndicatorHeight = 6.0;
 const double _kMinCircularProgressIndicatorSize = 36.0;
-const int _kIndeterminateLinearDuration = 1800;
 
 final Animatable<double> _kStrokeHeadTween = CurveTween(
   curve: const Interval(0.0, 0.5, curve: Curves.fastOutSlowIn),
@@ -916,8 +912,6 @@ abstract class ProgressIndicator extends StatefulWidget {
   /// [ThemeData.accentColor].
   final Animation<Color> valueColor;
 
-  Color _getBackgroundColor(BuildContext context) =>
-      backgroundColor ?? Theme.of(context).backgroundColor;
   Color _getValueColor(BuildContext context) =>
       valueColor?.value ?? Theme.of(context).accentColor;
 

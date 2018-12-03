@@ -1,5 +1,7 @@
 # loading_more_list
 
+[![pub package](https://img.shields.io/pub/v/loading_more_list.svg)](https://pub.dartlang.org/packages/loading_more_list)
+
 easily build loading more list
 
 [Chinese bolg](https://juejin.im/post/5bfb9cb7e51d45592b766769)

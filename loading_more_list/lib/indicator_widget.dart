@@ -10,11 +10,13 @@ class IndicatorWidget extends StatefulWidget {
   final Widget text;
   final Color backgroundColor;
   final bool isSliver;
-  IndicatorWidget(this.status,
-      {this.tryAgain,
-      this.text,
-      this.backgroundColor,
-      this.isSliver: false,});
+  IndicatorWidget(
+    this.status, {
+    this.tryAgain,
+    this.text,
+    this.backgroundColor,
+    this.isSliver: false,
+  });
   @override
   _IndicatorWidgetState createState() => _IndicatorWidgetState();
 }
@@ -49,8 +51,7 @@ class _IndicatorWidgetState extends State<IndicatorWidget> {
                       )
                     : Text("loading...",
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 28.0))),
+                            fontWeight: FontWeight.bold, fontSize: 28.0))),
           ],
         );
         break;

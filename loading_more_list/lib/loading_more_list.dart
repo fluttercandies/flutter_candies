@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:loading_more_list/list_config.dart';
 import 'package:loading_more_list/loading_more_base.dart';
@@ -7,8 +6,7 @@ import 'package:loading_more_list/loading_more_base.dart';
 class LoadingMoreList<T> extends StatelessWidget {
   final ListConfig<T> listConfig;
 
-  LoadingMoreList(this.listConfig,{Key key})
-      : super(key: key);
+  LoadingMoreList(this.listConfig, {Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<LoadingMoreBase>(
@@ -26,22 +24,24 @@ class LoadingMoreList<T> extends StatelessWidget {
   }
 
   bool _handleScrollNotification(ScrollNotification notification) {
-    if (notification.depth != 0) return false;
+    //if (notification.depth != 0) return false;
 
     //reach the pixels to loading more
     if (notification.metrics.axisDirection == AxisDirection.down &&
-        notification.metrics.pixels >=
-            notification.metrics.maxScrollExtent) {
+        notification.metrics.pixels >= notification.metrics.maxScrollExtent) {
       if (listConfig.hasMore) {
         listConfig.sourceList?.loadMore();
       }
     }
+    return false;
   }
 
   bool _handleGlowNotification(OverscrollIndicatorNotification notification) {
     if ((notification.leading && !listConfig.showGlowLeading) ||
         (!notification.leading && !listConfig.showGlowTrailing)) {
       notification.disallowGlow();
+      return true;
     }
+    return false;
   }
 }

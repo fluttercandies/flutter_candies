@@ -147,12 +147,15 @@ class _LoadingMoreCustomScrollViewState
         }
       }
     }
+    return false;
   }
 
   bool _handleGlowNotification(OverscrollIndicatorNotification notification) {
     if ((notification.leading && !widget.showGlowLeading) ||
         (!notification.leading && !widget.showGlowTrailing)) {
       notification.disallowGlow();
+      return true;
     }
+    return false;
   }
 }

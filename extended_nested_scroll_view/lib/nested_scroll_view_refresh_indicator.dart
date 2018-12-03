@@ -469,5 +469,4 @@ class NestedScrollViewRefreshIndicatorState
 bool nestedScrollViewScrollNotificationPredicate(
     ScrollNotification notification) {
   return true;
-  return notification.depth == 0;
 }
