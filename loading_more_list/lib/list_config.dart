@@ -141,12 +141,16 @@ class SliverListConfig<T> extends LoadingMoreListConfig<T> {
     }
 
     if (!showFullScreenLoading && source == null && sourceList.hasMore) {
+      Widget widget = null;
+      if (indicatorBuilder != null)
+        widget = indicatorBuilder(context, IndicatorStatus.LoadingMoreBusying);
+      widget = widget ??
+          IndicatorWidget(
+            IndicatorStatus.LoadingMoreBusying,
+          );
+
       return SliverToBoxAdapter(
-        child: indicatorBuilder != null
-            ? indicatorBuilder(context, IndicatorStatus.LoadingMoreBusying)
-            : IndicatorWidget(
-                IndicatorStatus.LoadingMoreBusying,
-              ),
+        child: widget,
       );
     }
     return _innerBuilderContent(context, source);
@@ -224,12 +228,17 @@ class LoadingMoreListConfig<T> {
     if (source == null) {
       //first load
       sourceList.onRefresh();
+
+      Widget widget = null;
       if (indicatorBuilder != null)
-        return indicatorBuilder(context, IndicatorStatus.FullScreenBusying);
-      return IndicatorWidget(
-        IndicatorStatus.FullScreenBusying,
-        isSliver: isSliver,
-      );
+        widget = indicatorBuilder(context, IndicatorStatus.FullScreenBusying);
+      widget = widget ??
+          IndicatorWidget(
+            IndicatorStatus.FullScreenBusying,
+            isSliver: isSliver,
+          );
+
+      return widget;
     }
     //show list
     //else if (source.length > 0) {
@@ -240,12 +249,15 @@ class LoadingMoreListConfig<T> {
       var widget = buildErrorItem(context);
       if (widget != null) return widget;
 
+      Widget widget1 = null;
       if (indicatorBuilder != null)
-        return indicatorBuilder(context, sourceList.indicatorStatus);
-      return IndicatorWidget(
-        sourceList.indicatorStatus,
-        isSliver: isSliver,
-      );
+        widget1 = indicatorBuilder(context, sourceList.indicatorStatus);
+      widget1 = widget1 ??
+          IndicatorWidget(
+            sourceList.indicatorStatus,
+            isSliver: isSliver,
+          );
+      return widget1;
     }
 
     return null;
@@ -264,11 +276,16 @@ class LoadingMoreListConfig<T> {
         sourceList.loadMore();
       }
 
-      if (indicatorBuilder != null) return indicatorBuilder(context, status);
-      return IndicatorWidget(
-        status,
-        isSliver: isSliver,
-      );
+      Widget widget1 = null;
+      if (indicatorBuilder != null)
+        widget1 = indicatorBuilder(context, status);
+      widget1 = widget1 ??
+          IndicatorWidget(
+            status,
+            isSliver: isSliver,
+          );
+      return widget1;
+
     }
     return itemBuilder(context, sourceList[index], index);
   }
@@ -276,15 +293,18 @@ class LoadingMoreListConfig<T> {
   Widget buildErrorItem(BuildContext context) {
     var hasError = sourceList.indicatorStatus == IndicatorStatus.Error;
     if (hasError) {
+      Widget widget = null;
       if (indicatorBuilder != null)
-        return indicatorBuilder(context, IndicatorStatus.Error);
-      return IndicatorWidget(
-        IndicatorStatus.Error,
-        isSliver: isSliver,
-        tryAgain: () {
-          sourceList.onRefresh();
-        },
-      );
+        widget = indicatorBuilder(context, IndicatorStatus.Error);
+      widget = widget ??
+          IndicatorWidget(
+            IndicatorStatus.Error,
+            isSliver: isSliver,
+              tryAgain: () {
+                sourceList.onRefresh();
+              }
+          );
+      return widget;
     }
     return null;
   }
