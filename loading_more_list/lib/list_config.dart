@@ -277,15 +277,13 @@ class LoadingMoreListConfig<T> {
       }
 
       Widget widget1 = null;
-      if (indicatorBuilder != null)
-        widget1 = indicatorBuilder(context, status);
+      if (indicatorBuilder != null) widget1 = indicatorBuilder(context, status);
       widget1 = widget1 ??
           IndicatorWidget(
             status,
             isSliver: isSliver,
           );
       return widget1;
-
     }
     return itemBuilder(context, sourceList[index], index);
   }
@@ -297,13 +295,12 @@ class LoadingMoreListConfig<T> {
       if (indicatorBuilder != null)
         widget = indicatorBuilder(context, IndicatorStatus.Error);
       widget = widget ??
-          IndicatorWidget(
-            IndicatorStatus.Error,
-            isSliver: isSliver,
+          IndicatorWidget(IndicatorStatus.Error, isSliver: isSliver,
               tryAgain: () {
-                sourceList.onRefresh();
-              }
-          );
+            sourceList.length == 0
+                ? sourceList.onRefresh()
+                : sourceList.loadMore();
+          });
       return widget;
     }
     return null;
