@@ -291,6 +291,9 @@ class PullToRefreshNotificationState extends State<PullToRefreshNotification>
         _Mode == RefreshIndicatorMode.armed);
     double newValue =
         _DragOffset / (containerExtent * _kDragContainerExtentPercentage);
+    if (widget.maxDragOffset != null) {
+      newValue = _DragOffset / widget.maxDragOffset;
+    }
     if (_Mode == RefreshIndicatorMode.armed)
       newValue = math.max(newValue, 1.0 / _kDragSizeFactorLimit);
     _positionController.value =

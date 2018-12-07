@@ -1,3 +1,7 @@
+## [0.1.1]
+
+* Fix threshold to refresh not right when set maxDragOffset
+
 ## [0.1.0]
 
 * Upgrade Some Commments.
