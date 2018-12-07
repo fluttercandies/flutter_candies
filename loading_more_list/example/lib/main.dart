@@ -3,6 +3,7 @@ import 'package:example/demo/custom_indicator_demo.dart';
 import 'package:example/demo/grid_view_demo.dart';
 import 'package:example/demo/list_view_demo.dart';
 import 'package:example/demo/multiple_sliver_demo.dart';
+import 'package:example/demo/nested_scroll_view_demo.dart';
 import 'package:example/demo/sliver_grid_demo.dart';
 import 'package:example/demo/sliver_list_demo.dart';
 import 'package:flutter/material.dart';
@@ -55,6 +56,9 @@ class _MyHomePageState extends State<MyHomePage> {
         "Show how to build loading more multiple sliver list quickly"));
     pages.add(Page(PageType.CustomIndicator,
         "Show how to build loading more list with custom indicator quickly"));
+    pages.add(Page(PageType.NestedScrollView,
+        "Show how to build loading more list in NestedScrollView quickly"));
+
     super.initState();
   }
 
@@ -105,6 +109,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 case PageType.CustomIndicator:
                   pageWidget = new CustomIndicatorDemo();
                   break;
+                case PageType.NestedScrollView:
+                  pageWidget = new NestedScrollViewDemo();
+                  break;
               }
               Navigator.push(context,
                   new MaterialPageRoute(builder: (BuildContext context) {
@@ -132,4 +139,5 @@ enum PageType {
   SliverGrid,
   MultipleSliver,
   CustomIndicator,
+  NestedScrollView
 }

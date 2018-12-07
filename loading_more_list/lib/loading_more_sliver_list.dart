@@ -7,10 +7,11 @@ class LoadingMoreSliverList<T> extends StatelessWidget {
   final SliverListConfig<T> sliverListConfig;
 
   LoadingMoreSliverList(this.sliverListConfig, {Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<LoadingMoreBase>(
-      builder: (d, s) {
+      builder: (b, s) {
         return sliverListConfig.buildContent(context, s.data);
       },
       stream: sliverListConfig.sourceList?.rebuild,
@@ -38,21 +39,35 @@ class LoadingMoreCustomScrollView extends StatefulWidget {
   /// offsets.
   final bool showGlowTrailing;
 
-  LoadingMoreCustomScrollView({
-    Key key,
-    this.scrollDirection = Axis.vertical,
-    this.reverse = false,
-    this.controller,
-    this.primary,
-    this.physics,
-    this.shrinkWrap = false,
-    this.cacheExtent,
-    this.slivers = const <Widget>[],
-    this.semanticChildCount,
-    this.showGlowLeading: true,
-    this.showGlowTrailing: true,
-  })  : assert(slivers != null),
-        super(key: key);
+  //in case : in loadingmore sliverlist in NestedScrollView,you should rebuild CustomScrollView,
+  //so that viewport can be computed again.
+  final bool rebuildCustomScrollView;
+
+  List<LoadingMoreSliverList> _loadingMoreWidgets;
+
+  LoadingMoreCustomScrollView(
+      {Key key,
+      this.scrollDirection = Axis.vertical,
+      this.reverse = false,
+      this.controller,
+      this.primary,
+      this.physics,
+      this.shrinkWrap = false,
+      this.cacheExtent,
+      this.slivers = const <Widget>[],
+      this.semanticChildCount,
+      this.showGlowLeading: true,
+      this.showGlowTrailing: true,
+      this.rebuildCustomScrollView: false})
+      : assert(slivers != null),
+        super(key: key) {
+    _loadingMoreWidgets = slivers
+        .where((x) {
+          return x is LoadingMoreSliverList;
+        })
+        .map<LoadingMoreSliverList>((f) => f as LoadingMoreSliverList)
+        .toList();
+  }
   @override
   _LoadingMoreCustomScrollViewState createState() =>
       _LoadingMoreCustomScrollViewState();
@@ -64,43 +79,38 @@ class _LoadingMoreCustomScrollViewState
   Widget build(BuildContext context) {
     List<Widget> widgets = List<Widget>();
     bool showFullScreenLoading = true;
-    var loadingMoreWidgets = widget.slivers.where((x) {
-      return x is LoadingMoreSliverList;
-    });
-
-    if (loadingMoreWidgets.length > 1) {
+    var loadingMoreWidgets = this.widget._loadingMoreWidgets;
+    print("_LoadingMoreCustomScrollViewState_build---------------");
+    if (loadingMoreWidgets.length > 0) {
+      var slivers = widget.slivers;
       if (widget.reverse) {
-        for (int i = widget.slivers.length - 1; i >= 0; i--) {
-          var item = widget.slivers[i];
-          widgets.add(item);
-          if (item is LoadingMoreSliverList) {
-            item.sliverListConfig.showFullScreenLoading = showFullScreenLoading;
-            showFullScreenLoading = false;
-            item.sliverListConfig.showNoMore = loadingMoreWidgets.first == item;
-            if (item.sliverListConfig.sourceList.hasMore) {
-              break;
-            }
-          }
-        }
-      } else {
-        for (int i = 0; i < widget.slivers.length; i++) {
-          var item = widget.slivers[i];
-          widgets.add(item);
-          if (item is LoadingMoreSliverList) {
+        slivers = slivers.reversed;
+        loadingMoreWidgets = loadingMoreWidgets.reversed;
+      }
+
+      for (int i = 0; i < slivers.length; i++) {
+        var item = slivers[i];
+        widgets.add(item);
+        if (item is LoadingMoreSliverList) {
+          if (loadingMoreWidgets.length > 1) {
             item.sliverListConfig.showFullScreenLoading = showFullScreenLoading;
             showFullScreenLoading = false;
             item.sliverListConfig.showNoMore = loadingMoreWidgets.last == item;
-            if (item.sliverListConfig.sourceList.hasMore) {
-              break;
-            }
+          }
+          if (widget.rebuildCustomScrollView) {
+            item.sliverListConfig.sourceList.rebuild.listen(onDataChanged);
+            widgets.remove(item);
+            widgets.add(item.sliverListConfig
+                .buildContent(context, item.sliverListConfig.sourceList));
+          }
+
+          if (item.sliverListConfig.sourceList.hasMore) {
+            break;
           }
         }
       }
     } else {
-      widgets = widget.slivers;
-      if (widget.reverse) {
-        widgets = widgets.reversed;
-      }
+      widgets = widget.reverse ? widget.slivers.reversed : widget.slivers;
     }
 
     return NotificationListener<ScrollNotification>(
@@ -117,6 +127,7 @@ class _LoadingMoreCustomScrollViewState
               controller: widget.controller,
               slivers: widgets,
             )));
+    // }
   }
 
   bool _handleScrollNotification(ScrollNotification notification) {
@@ -125,25 +136,36 @@ class _LoadingMoreCustomScrollViewState
     //reach the pixels to loading more
     if (notification.metrics.axisDirection == AxisDirection.down &&
         notification.metrics.pixels >= notification.metrics.maxScrollExtent) {
-      var loadingMoreWidgets = widget.slivers
-          .where((x) {
-            return x is LoadingMoreSliverList;
-          })
-          .map<LoadingMoreSliverList>((f) => f as LoadingMoreSliverList)
-          .toList();
+      var loadingMoreWidgets = this.widget._loadingMoreWidgets;
+
       if (loadingMoreWidgets.length > 0) {
         if (widget.reverse) {
           loadingMoreWidgets = loadingMoreWidgets.reversed;
         }
+
+        LoadingMoreSliverList preList;
         for (int i = 0; i < loadingMoreWidgets.length; i++) {
           var item = loadingMoreWidgets[i];
-          if (item.sliverListConfig.sourceList.hasMore &&
+
+          var preListIsloading =
+              preList?.sliverListConfig?.sourceList?.isLoading ?? false;
+
+          if (!preListIsloading &&
+              item.sliverListConfig.sourceList.hasMore &&
               !item.sliverListConfig.sourceList.isLoading) {
-            setState(() {
+            //new one
+            //in case : loadingMoreWidgets.length>1
+            //setState to add next list into view
+            if (preList != item && loadingMoreWidgets.length > 1) {
+              setState(() {
+                item.sliverListConfig.sourceList.loadMore();
+              });
+            } else {
               item.sliverListConfig.sourceList.loadMore();
-            });
+            }
             break;
           }
+          preList = item;
         }
       }
     }
@@ -157,5 +179,11 @@ class _LoadingMoreCustomScrollViewState
       return true;
     }
     return false;
+  }
+
+  void onDataChanged(LoadingMoreBase data) {
+    if (data != null) {
+      setState(() {});
+    }
   }
 }

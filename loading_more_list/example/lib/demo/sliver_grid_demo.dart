@@ -30,6 +30,7 @@ class _SliverGridDemoState extends State<SliverGridDemo> {
   Widget build(BuildContext context) {
     return Material(
       child: LoadingMoreCustomScrollView(
+        showGlowLeading: false,
         slivers: <Widget>[
           SliverAppBar(
             pinned: true,

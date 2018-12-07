@@ -46,6 +46,8 @@ custom flutter candies(widgets) for you to easily build flutter app, enjoy it
 
 ![](https://github.com/zmtzawqlp/Flutter/blob/master/gif/LoadingMoreCustomIndicator.gif)
 
+![](https://github.com/zmtzawqlp/Flutter/blob/master/gif/LoadingMoreNestedScrollView.gif)
+
 # widgets sample
 
 [widgets sample](https://github.com/zmtzawqlp/Flutter/tree/master/widgets_sample)

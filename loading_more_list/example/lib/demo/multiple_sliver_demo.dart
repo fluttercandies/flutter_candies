@@ -24,8 +24,8 @@ class _MultipleSliverDemoState extends State<MultipleSliverDemo> {
 
   @override
   void dispose() {
-    listSourceRepository?.dispose();
-    listSourceRepository1?.dispose();
+    listSourceRepository.dispose();
+    listSourceRepository1.dispose();
     // TODO: implement dispose
     super.dispose();
   }

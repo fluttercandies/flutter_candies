@@ -12,13 +12,20 @@ class TuChongRepository extends LoadingMoreBase<TuChongItem> {
   @override
   // TODO: implement hasMore
   bool _hasMore = true;
-  bool get hasMore => _hasMore && length < 20;
+  bool forceRefresh = false;
+  bool get hasMore => (_hasMore && length < 20) || forceRefresh;
 
   @override
-  Future<bool> onRefresh() async {
+  Future<bool> refresh([bool clearBeforeRequest = false]) async {
     // TODO: implement onRefresh
+    _hasMore = true;
     pageindex = 1;
-    return loadMore();
+    //force to refresh list when you don't want clear list before request
+    //for the case, if your list already has 20 items.
+    forceRefresh = !clearBeforeRequest;
+    var result = await super.refresh(clearBeforeRequest);
+    forceRefresh = false;
+    return result;
   }
 
   @override
@@ -52,6 +59,8 @@ class TuChongRepository extends LoadingMoreBase<TuChongItem> {
 
       _hasMore = source.feedList.length != 0;
       pageindex++;
+//      this.clear();
+//      _hasMore=false;
       isSuccess = true;
     } catch (exception) {
       isSuccess = false;

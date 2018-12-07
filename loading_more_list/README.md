@@ -424,4 +424,14 @@ provide indicatorBuilder and you can define your indicator base on loading statu
   }
 ```
 
+## 5.loading more for CustomIndicator
+![](https://github.com/zmtzawqlp/Flutter_Candies/blob/master/gif/LoadingMoreNestedScrollView.gif)
+
+show how to use loading more list in NestedScrollView. in this demo, also support pull to refresh.
+
+Tab0: show 
+Tab1:
+Tab2:
+
+
 Please see the example app of this for a full example.

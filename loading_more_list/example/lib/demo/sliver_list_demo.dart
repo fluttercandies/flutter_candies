@@ -28,19 +28,18 @@ class _SliverListDemoState extends State<SliverListDemo> {
 
   @override
   Widget build(BuildContext context) {
-
     return Material(
       child: LoadingMoreCustomScrollView(
+        showGlowLeading: false,
         slivers: <Widget>[
           SliverAppBar(
             pinned: true,
             title: Text("SliverListDemo"),
           ),
-          LoadingMoreSliverList(
-              SliverListConfig<TuChongItem>(
-                ItemBuilder.itemBuilder, listSourceRepository,
-                //isLastOne: false
-              ))
+          LoadingMoreSliverList(SliverListConfig<TuChongItem>(
+            ItemBuilder.itemBuilder, listSourceRepository,
+            //isLastOne: false
+          ))
         ],
       ),
     );

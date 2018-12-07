@@ -1,10 +1,11 @@
 import 'dart:async';
 
 import 'dart:collection';
+import 'package:flutter/foundation.dart';
 import 'package:loading_more_list/indicator_widget.dart';
 import 'package:loading_more_list/refresh_base.dart';
 
-class LoadingMoreBase<T> extends ListBase<T>
+abstract class LoadingMoreBase<T> extends ListBase<T>
     with _LoadingMoreBloc<T>, RefreshBase {
   var _array = <T>[];
 
@@ -23,24 +24,29 @@ class LoadingMoreBase<T> extends ListBase<T>
   bool get hasMore => true;
   bool isLoading = false;
 
+  //do not change this in out side
   IndicatorStatus indicatorStatus = IndicatorStatus.None;
 
+  @protected
+  @mustCallSuper
   Future<bool> loadMore() async {
+    var preStatus = indicatorStatus;
+    indicatorStatus = IndicatorStatus.LoadingMoreBusying;
+    if (preStatus != indicatorStatus) {
+      onStateChanged(this);
+    }
+    return await _innerloadData();
+  }
+
+  Future<bool> _innerloadData() async {
     if (isLoading || !hasMore) return true;
     // TODO: implement loadMore
 
-    var preStatus = indicatorStatus;
-    indicatorStatus = this.length == 0
-        ? IndicatorStatus.FullScreenBusying
-        : IndicatorStatus.LoadingMoreBusying;
-
-    if (preStatus == IndicatorStatus.Error) {
-      onStateChanged(this);
-    }
     isLoading = true;
     var isSuccess = await loadData();
     isLoading = false;
     if (isSuccess) {
+      indicatorStatus = IndicatorStatus.None;
       if (this.length == 0) indicatorStatus = IndicatorStatus.Empty;
     } else {
       indicatorStatus = IndicatorStatus.Error;
@@ -49,14 +55,30 @@ class LoadingMoreBase<T> extends ListBase<T>
     return isSuccess;
   }
 
-  Future<bool> loadData() async {
-    return true;
+  @protected
+  Future<bool> loadData();
+
+  @override
+  @protected
+  @mustCallSuper
+  Future<bool> refresh([bool clearBeforeRequest = false]) async {
+    // TODO: implement OnRefresh
+    if (clearBeforeRequest) this.clear();
+    var preStatus = indicatorStatus;
+    indicatorStatus = IndicatorStatus.FullScreenBusying;
+    if (preStatus != indicatorStatus) {
+      onStateChanged(this);
+    }
+    return await _innerloadData();
   }
 
   @override
-  Future<bool> onRefresh() async {
+  @protected
+  @mustCallSuper
+  Future<bool> errorRefresh() async {
     // TODO: implement OnRefresh
-    return true;
+    if (this.length == 0) return await refresh(false);
+    return await loadMore();
   }
 
   @override
@@ -64,6 +86,8 @@ class LoadingMoreBase<T> extends ListBase<T>
   set length(int newLength) => _array.length = newLength;
 
   @override
+  @protected
+  @mustCallSuper
   void onStateChanged(LoadingMoreBase<T> source) {
     // TODO: implement notice
     super.onStateChanged(source);

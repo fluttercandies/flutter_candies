@@ -135,12 +135,14 @@ class SliverListConfig<T> extends LoadingMoreListConfig<T> {
   @override
   Widget buildContent(BuildContext context, LoadingMoreBase<T> source) {
     // TODO: implement BuilderContent
-    //first load
-    if (source == null) {
-      sourceList.onRefresh();
-    }
+    var widget = buildErrorItem(context);
+    if (widget != null) return widget;
+    if (!showFullScreenLoading &&
+        (source == null ||
+            (source.length == 0 &&
+                source.hasMore && !source.isLoading))) {
+      sourceList.refresh();
 
-    if (!showFullScreenLoading && source == null && sourceList.hasMore) {
       Widget widget = null;
       if (indicatorBuilder != null)
         widget = indicatorBuilder(context, IndicatorStatus.LoadingMoreBusying);
@@ -224,10 +226,16 @@ class LoadingMoreListConfig<T> {
         assert(sourceList != null);
 
   Widget buildContent(BuildContext context, LoadingMoreBase<T> source) {
+
+    var widget = buildErrorItem(context);
+    if (widget != null) return widget;
+
     //full screen loading
-    if (source == null) {
+    if (source == null ||
+        (source.length == 0 &&
+            source.hasMore && !source.isLoading)) {
       //first load
-      sourceList.onRefresh();
+      sourceList.refresh();
 
       Widget widget = null;
       if (indicatorBuilder != null)
@@ -246,9 +254,6 @@ class LoadingMoreListConfig<T> {
     // }
     //empty
     else if (source.length == 0) {
-      var widget = buildErrorItem(context);
-      if (widget != null) return widget;
-
       Widget widget1 = null;
       if (indicatorBuilder != null)
         widget1 = indicatorBuilder(context, sourceList.indicatorStatus);
@@ -297,9 +302,7 @@ class LoadingMoreListConfig<T> {
       widget = widget ??
           IndicatorWidget(IndicatorStatus.Error, isSliver: isSliver,
               tryAgain: () {
-            sourceList.length == 0
-                ? sourceList.onRefresh()
-                : sourceList.loadMore();
+            sourceList.errorRefresh();
           });
       return widget;
     }
