@@ -1,3 +1,7 @@
+## [0.1.1]
+
+* Handle map body.
+
 ## [0.1.0]
 
 * Upgrade Some Commments.

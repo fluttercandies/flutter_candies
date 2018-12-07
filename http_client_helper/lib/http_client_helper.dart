@@ -33,7 +33,10 @@ class HttpClientHelper {
       int millisecondsDelay = 100,
       int retries = 3}) async {
     cancelToken?.throwIfCancellationRequested();
-
+    if (body is Map) {
+      body = utf8.encode(json.encode(body));
+      headers['content-type'] = 'application/json';
+    }
     return await RetryHelper.tryRun<Response>(() {
       return CancellationTokenSource.register(
           cancelToken,
