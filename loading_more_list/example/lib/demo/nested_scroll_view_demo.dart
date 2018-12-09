@@ -75,7 +75,7 @@ class _NestedScrollViewDemoState extends State<NestedScrollViewDemo>
         color: Colors.blue,
         pullBackOnRefresh: true,
         onRefresh: onRefresh,
-        //maxDragOffset: 100.0,
+        maxDragOffset: 100.0,
         child: extended.NestedScrollView(
           pinnedHeaderSliverHeightBuilder: () {
             return pinnedHeaderHeight;

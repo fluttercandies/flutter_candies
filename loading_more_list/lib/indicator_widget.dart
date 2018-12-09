@@ -25,7 +25,8 @@ class _IndicatorWidgetState extends State<IndicatorWidget> {
   @override
   Widget build(BuildContext context) {
     Widget widget;
-    bool full = (this.widget.status == IndicatorStatus.FullScreenBusying);
+    bool full = (this.widget.status == IndicatorStatus.FullScreenBusying ||
+        this.widget.status == IndicatorStatus.FullScreenError);
     double height = 35.0;
     switch (this.widget.status) {
       case IndicatorStatus.None:
@@ -56,6 +57,7 @@ class _IndicatorWidgetState extends State<IndicatorWidget> {
         );
         break;
       case IndicatorStatus.Error:
+      case IndicatorStatus.FullScreenError:
         widget = this.widget.text ??
             Text(
               "load failed,try again.",
@@ -78,19 +80,9 @@ class _IndicatorWidgetState extends State<IndicatorWidget> {
         color: this.widget.backgroundColor ?? Colors.grey[200],
         alignment: Alignment.center);
 
-    if (this.widget.isSliver) {
-      if (this.widget.status == IndicatorStatus.FullScreenBusying) {
-        widget = SliverFillRemaining(
-          child: widget,
-        );
-      } else if (this.widget.status == IndicatorStatus.Empty) {
-        widget = SliverToBoxAdapter(
-          child: widget,
-        );
-      }
-    }
     if (this.widget.tryAgain != null &&
-        this.widget.status == IndicatorStatus.Error) {
+        (this.widget.status == IndicatorStatus.Error ||
+            this.widget.status == IndicatorStatus.FullScreenError)) {
       widget = GestureDetector(
         onTap: () {
           //setState(() {
@@ -100,6 +92,20 @@ class _IndicatorWidgetState extends State<IndicatorWidget> {
         child: widget,
       );
     }
+
+    if (this.widget.isSliver) {
+      if (this.widget.status == IndicatorStatus.FullScreenBusying ||
+          this.widget.status == IndicatorStatus.FullScreenError) {
+        widget = SliverFillRemaining(
+          child: widget,
+        );
+      } else if (this.widget.status == IndicatorStatus.Empty) {
+        widget = SliverToBoxAdapter(
+          child: widget,
+        );
+      }
+    }
+
     return widget;
   }
 
@@ -121,6 +127,7 @@ enum IndicatorStatus {
   LoadingMoreBusying,
   FullScreenBusying,
   Error,
+  FullScreenError,
   NoMoreLoad,
   Empty
 }

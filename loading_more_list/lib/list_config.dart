@@ -109,7 +109,7 @@ class SliverListConfig<T> extends LoadingMoreListConfig<T> {
   //whether show no more  .
   bool showNoMore = true;
   //whether show fullscreenLoading for multiple sliver
-  bool showFullScreenLoading = true;
+  //bool showFullScreenLoading = true;
 
   final bool addAutomaticKeepAlives;
   final bool addRepaintBoundaries;
@@ -135,26 +135,27 @@ class SliverListConfig<T> extends LoadingMoreListConfig<T> {
   @override
   Widget buildContent(BuildContext context, LoadingMoreBase<T> source) {
     // TODO: implement BuilderContent
-    var widget = buildErrorItem(context);
-    if (widget != null) return widget;
-    if (!showFullScreenLoading &&
-        (source == null ||
-            (source.length == 0 &&
-                source.hasMore && !source.isLoading))) {
-      sourceList.refresh();
-
-      Widget widget = null;
-      if (indicatorBuilder != null)
-        widget = indicatorBuilder(context, IndicatorStatus.LoadingMoreBusying);
-      widget = widget ??
-          IndicatorWidget(
-            IndicatorStatus.LoadingMoreBusying,
-          );
-
-      return SliverToBoxAdapter(
-        child: widget,
-      );
-    }
+    //handle multiple sliver list in case showFullScreenLoading is false
+//    if (!showFullScreenLoading &&
+//        (source == null ||
+//            (source.length == 0 &&
+//                source.indicatorStatus == IndicatorStatus.FullScreenBusying))) {
+//      if (source == null || !source.isLoading) {
+//        //first load
+//        sourceList.refresh();
+//      }
+//      Widget widget = null;
+//      if (indicatorBuilder != null)
+//        widget = indicatorBuilder(context, IndicatorStatus.LoadingMoreBusying);
+//      widget = widget ??
+//          IndicatorWidget(
+//            IndicatorStatus.LoadingMoreBusying,
+//          );
+//
+//      return SliverToBoxAdapter(
+//        child: widget,
+//      );
+//    }
     return _innerBuilderContent(context, source);
   }
 
@@ -226,17 +227,14 @@ class LoadingMoreListConfig<T> {
         assert(sourceList != null);
 
   Widget buildContent(BuildContext context, LoadingMoreBase<T> source) {
-
-    var widget = buildErrorItem(context);
-    if (widget != null) return widget;
-
-    //full screen loading
+    //from stream builder or from refresh
     if (source == null ||
         (source.length == 0 &&
-            source.hasMore && !source.isLoading)) {
-      //first load
-      sourceList.refresh();
-
+            source.indicatorStatus == IndicatorStatus.FullScreenBusying)) {
+      if (source == null || !source.isLoading) {
+        //first load
+        sourceList.refresh();
+      }
       Widget widget = null;
       if (indicatorBuilder != null)
         widget = indicatorBuilder(context, IndicatorStatus.FullScreenBusying);
@@ -248,12 +246,10 @@ class LoadingMoreListConfig<T> {
 
       return widget;
     }
-    //show list
-    //else if (source.length > 0) {
-
-    // }
     //empty
-    else if (source.length == 0) {
+    else if (source.length == 0 &&
+            source.indicatorStatus == IndicatorStatus.Empty ||
+        source.indicatorStatus == IndicatorStatus.FullScreenError) {
       Widget widget1 = null;
       if (indicatorBuilder != null)
         widget1 = indicatorBuilder(context, sourceList.indicatorStatus);
@@ -261,10 +257,18 @@ class LoadingMoreListConfig<T> {
           IndicatorWidget(
             sourceList.indicatorStatus,
             isSliver: isSliver,
+            tryAgain: source.indicatorStatus == IndicatorStatus.FullScreenError
+                ? () {
+                    sourceList.errorRefresh();
+                  }
+                : null,
           );
       return widget1;
     }
+    //show list
+    //else if (source.length > 0) {
 
+    // }
     return null;
   }
 
@@ -310,6 +314,8 @@ class LoadingMoreListConfig<T> {
   }
 
   bool get hasMore => sourceList.hasMore;
+  bool get hasError => sourceList.hasError;
+  bool get isLoading =>sourceList.isLoading;
 }
 
 typedef LoadingMoreIndicatorBuilder = Widget Function(

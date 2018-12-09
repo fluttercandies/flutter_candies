@@ -25,7 +25,7 @@ abstract class LoadingMoreBase<T> extends ListBase<T>
   bool isLoading = false;
 
   //do not change this in out side
-  IndicatorStatus indicatorStatus = IndicatorStatus.None;
+  IndicatorStatus indicatorStatus = IndicatorStatus.FullScreenBusying;
 
   @protected
   @mustCallSuper
@@ -49,7 +49,11 @@ abstract class LoadingMoreBase<T> extends ListBase<T>
       indicatorStatus = IndicatorStatus.None;
       if (this.length == 0) indicatorStatus = IndicatorStatus.Empty;
     } else {
-      indicatorStatus = IndicatorStatus.Error;
+      if (indicatorStatus == IndicatorStatus.FullScreenBusying) {
+        indicatorStatus = IndicatorStatus.FullScreenError;
+      } else {
+        indicatorStatus = IndicatorStatus.Error;
+      }
     }
     onStateChanged(this);
     return isSuccess;
@@ -91,6 +95,11 @@ abstract class LoadingMoreBase<T> extends ListBase<T>
   void onStateChanged(LoadingMoreBase<T> source) {
     // TODO: implement notice
     super.onStateChanged(source);
+  }
+
+  bool get hasError {
+    return indicatorStatus == IndicatorStatus.FullScreenError ||
+        indicatorStatus == IndicatorStatus.Error;
   }
 }
 

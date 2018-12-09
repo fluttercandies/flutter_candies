@@ -57,7 +57,7 @@ class _CustomIndicatorDemoState extends State<CustomIndicatorDemo> {
   //in this demo, we define all status.
   Widget _buildIndicator(BuildContext context, IndicatorStatus status) {
     Widget widget;
-    bool full = (status == IndicatorStatus.FullScreenBusying);
+    bool full = (status == IndicatorStatus.FullScreenBusying || status ==IndicatorStatus.FullScreenError);
     double height = 35.0;
     switch (status) {
       case IndicatorStatus.None:
@@ -87,6 +87,7 @@ class _CustomIndicatorDemoState extends State<CustomIndicatorDemo> {
         );
         break;
       case IndicatorStatus.Error:
+      case IndicatorStatus.FullScreenError:
         widget = Text(
           "加载失败，搞个川川",
         );
@@ -108,21 +109,10 @@ class _CustomIndicatorDemoState extends State<CustomIndicatorDemo> {
         color: Colors.grey[200],
         alignment: Alignment.center);
 
-//    if (isSliver) {
-//      if (status == IndicatorStatus.FullScreenBusying) {
-//        widget = SliverFillRemaining(
-//          child: widget,
-//        );
-//      } else if (status == IndicatorStatus.Empty) {
-//        widget = SliverToBoxAdapter(
-//          child: widget,
-//        );
-//      }
-//    }
-    if (status == IndicatorStatus.Error) {
+    if (status == IndicatorStatus.Error || status ==IndicatorStatus.FullScreenError) {
       widget = GestureDetector(
         onTap: () {
-          listSourceRepository.loadMore();
+          listSourceRepository.errorRefresh();
         },
         child: widget,
       );

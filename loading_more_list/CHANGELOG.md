@@ -1,3 +1,9 @@
+## [0.1.2]
+
+* Add FullScreenError status.
+* Fix issues for sliver list in NestedScrollView.
+* Add NestedScrollView demo for loading more list
+
 ## [0.1.1]
 
 * Correct try again when it has error.

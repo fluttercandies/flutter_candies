@@ -93,8 +93,8 @@ class _LoadingMoreCustomScrollViewState
         widgets.add(item);
         if (item is LoadingMoreSliverList) {
           if (loadingMoreWidgets.length > 1) {
-            item.sliverListConfig.showFullScreenLoading = showFullScreenLoading;
-            showFullScreenLoading = false;
+//            item.sliverListConfig.showFullScreenLoading = showFullScreenLoading;
+//            showFullScreenLoading = false;
             item.sliverListConfig.showNoMore = loadingMoreWidgets.last == item;
           }
           if (widget.rebuildCustomScrollView) {
@@ -151,17 +151,23 @@ class _LoadingMoreCustomScrollViewState
               preList?.sliverListConfig?.sourceList?.isLoading ?? false;
 
           if (!preListIsloading &&
-              item.sliverListConfig.sourceList.hasMore &&
-              !item.sliverListConfig.sourceList.isLoading) {
+              item.sliverListConfig.hasMore &&
+              !item.sliverListConfig.isLoading &&
+              !item.sliverListConfig.hasError) {
             //new one
             //in case : loadingMoreWidgets.length>1
             //setState to add next list into view
             if (preList != item && loadingMoreWidgets.length > 1) {
+              //if(item.sliverListConfig.sourceList)
               setState(() {
-                item.sliverListConfig.sourceList.loadMore();
+                item.sliverListConfig.sourceList.length == 0
+                    ? item.sliverListConfig.sourceList?.refresh()
+                    : item.sliverListConfig.sourceList?.loadMore();
               });
             } else {
-              item.sliverListConfig.sourceList.loadMore();
+              item.sliverListConfig.sourceList.length == 0
+                  ? item.sliverListConfig.sourceList?.refresh()
+                  : item.sliverListConfig.sourceList?.loadMore();
             }
             break;
           }
@@ -182,8 +188,8 @@ class _LoadingMoreCustomScrollViewState
   }
 
   void onDataChanged(LoadingMoreBase data) {
-    if (data != null) {
-      setState(() {});
-    }
+    //if (data != null) {
+    setState(() {});
+    //}
   }
 }

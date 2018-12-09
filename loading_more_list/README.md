@@ -429,9 +429,8 @@ provide indicatorBuilder and you can define your indicator base on loading statu
 
 show how to use loading more list in NestedScrollView. in this demo, also support pull to refresh.
 
-Tab0: show 
-Tab1:
-Tab2:
-
+Tab0: This is a single sliver List with no pinned header
+Tab1: This is multiple loading sliver List with pinned header
+Tab2: This is a single ListView with pinned header
 
 Please see the example app of this for a full example.

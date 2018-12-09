@@ -29,8 +29,10 @@ class LoadingMoreList<T> extends StatelessWidget {
     //reach the pixels to loading more
     if (notification.metrics.axisDirection == AxisDirection.down &&
         notification.metrics.pixels >= notification.metrics.maxScrollExtent) {
-      if (listConfig.hasMore) {
-        listConfig.sourceList?.loadMore();
+      if (listConfig.hasMore && !listConfig.hasError && !listConfig.isLoading) {
+        listConfig.sourceList.length == 0
+            ? listConfig.sourceList?.refresh()
+            : listConfig.sourceList?.loadMore();
       }
     }
     return false;
