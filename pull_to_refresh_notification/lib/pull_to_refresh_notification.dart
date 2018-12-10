@@ -184,8 +184,10 @@ class PullToRefreshNotificationState extends State<PullToRefreshNotification>
 
   bool _innerhandleScrollNotification(ScrollNotification notification) {
     if (!widget.notificationPredicate(notification)) return false;
-    maxContainerExtent = math.max(
-        notification.metrics.viewportDimension, this.maxContainerExtent);
+    if (notification.depth != 0) {
+      maxContainerExtent = math.max(
+          notification.metrics.viewportDimension, this.maxContainerExtent);
+    }
     if (notification is ScrollStartNotification &&
         notification.metrics.extentBefore == 0.0 &&
         _Mode == null &&
