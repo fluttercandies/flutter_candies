@@ -44,7 +44,7 @@ class ListConfig<T> extends LoadingMoreListConfig<T> {
     this.primary,
     this.physics,
     this.shrinkWrap = false,
-    this.padding,
+    this.padding = const EdgeInsets.all(0.0),
     this.itemExtent,
     this.itemCount,
     this.addAutomaticKeepAlives = true,
@@ -315,7 +315,7 @@ class LoadingMoreListConfig<T> {
 
   bool get hasMore => sourceList.hasMore;
   bool get hasError => sourceList.hasError;
-  bool get isLoading =>sourceList.isLoading;
+  bool get isLoading => sourceList.isLoading;
 }
 
 typedef LoadingMoreIndicatorBuilder = Widget Function(
