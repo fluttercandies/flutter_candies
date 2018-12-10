@@ -1,3 +1,11 @@
+## [0.1.4]
+
+* make all loading_more_list darts as library loading_more_list
+
+## [0.1.3]
+
+* fix issue about IndicatorWidget.
+
 ## [0.1.2]
 
 * Add FullScreenError status.
