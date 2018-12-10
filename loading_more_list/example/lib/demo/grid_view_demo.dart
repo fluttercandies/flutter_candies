@@ -2,10 +2,7 @@ import 'package:example/common/item_builder.dart';
 import 'package:example/common/tu_chong_repository.dart';
 import 'package:example/common/tu_chong_source.dart';
 import 'package:flutter/material.dart';
-import 'package:loading_more_list/list_config.dart';
 import 'package:loading_more_list/loading_more_list.dart';
-import 'package:flutter_advanced_networkimage/flutter_advanced_networkimage.dart';
-import 'package:flutter_advanced_networkimage/transition_to_image.dart';
 
 class GridViewDemo extends StatefulWidget {
   @override

@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'dart:collection';
 import 'package:flutter/foundation.dart';
-import 'package:loading_more_list/indicator_widget.dart';
-import 'package:loading_more_list/refresh_base.dart';
+import 'package:loading_more_list/src/indicator_widget.dart';
+import 'package:loading_more_list/src/refresh_base.dart';
 
 abstract class LoadingMoreBase<T> extends ListBase<T>
     with _LoadingMoreBloc<T>, RefreshBase {

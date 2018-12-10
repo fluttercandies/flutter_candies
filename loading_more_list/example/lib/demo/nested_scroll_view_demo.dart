@@ -4,11 +4,7 @@ import 'package:example/common/tu_chong_source.dart';
 import 'package:flutter/material.dart';
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart'
     as extended;
-import 'package:loading_more_list/indicator_widget.dart';
-import 'package:loading_more_list/list_config.dart';
-import 'package:loading_more_list/loading_more_base.dart';
 import 'package:loading_more_list/loading_more_list.dart';
-import 'package:loading_more_list/loading_more_sliver_list.dart';
 import 'package:pull_to_refresh_notification/pull_to_refresh_notification.dart';
 
 class NestedScrollViewDemo extends StatefulWidget {

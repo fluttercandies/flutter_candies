@@ -1,7 +1,5 @@
 import 'package:example/common/http_factory.dart';
-import 'package:http/http.dart';
-import 'package:loading_more_list/indicator_widget.dart';
-import 'package:loading_more_list/loading_more_base.dart';
+import 'package:loading_more_list/loading_more_list.dart';
 import 'package:example/common/tu_chong_source.dart';
 import 'dart:async';
 import 'dart:convert';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:loading_more_list/list_config.dart';
-import 'package:loading_more_list/loading_more_base.dart';
+import 'package:loading_more_list/src/list_config.dart';
+import 'package:loading_more_list/src/loading_more_base.dart';
 
 //loading more for sliverlist and sliverGrid
 class LoadingMoreSliverList<T> extends StatelessWidget {

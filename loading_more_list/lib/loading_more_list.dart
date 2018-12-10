@@ -1,49 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:loading_more_list/list_config.dart';
-import 'package:loading_more_list/loading_more_base.dart';
+//Flutter plugin for building a loading more list with loadingMoreList and loadingMoreSliverList quickly.
 
-//loading more for listview and gridview
-class LoadingMoreList<T> extends StatelessWidget {
-  final ListConfig<T> listConfig;
+library loading_more_list;
 
-  LoadingMoreList(this.listConfig, {Key key}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return StreamBuilder<LoadingMoreBase>(
-      builder: (d, s) {
-        return NotificationListener<ScrollNotification>(
-          //key: _key,
-          onNotification: _handleScrollNotification,
-          child: NotificationListener<OverscrollIndicatorNotification>(
-              onNotification: _handleGlowNotification,
-              child: listConfig.buildContent(context, s.data)),
-        );
-      },
-      stream: listConfig.sourceList?.rebuild,
-    );
-  }
-
-  bool _handleScrollNotification(ScrollNotification notification) {
-    //if (notification.depth != 0) return false;
-
-    //reach the pixels to loading more
-    if (notification.metrics.axisDirection == AxisDirection.down &&
-        notification.metrics.pixels >= notification.metrics.maxScrollExtent) {
-      if (listConfig.hasMore && !listConfig.hasError && !listConfig.isLoading) {
-        listConfig.sourceList.length == 0
-            ? listConfig.sourceList?.refresh()
-            : listConfig.sourceList?.loadMore();
-      }
-    }
-    return false;
-  }
-
-  bool _handleGlowNotification(OverscrollIndicatorNotification notification) {
-    if ((notification.leading && !listConfig.showGlowLeading) ||
-        (!notification.leading && !listConfig.showGlowTrailing)) {
-      notification.disallowGlow();
-      return true;
-    }
-    return false;
-  }
-}
+export 'src/empty_widget.dart';
+export 'src/indicator_widget.dart';
+export 'src/list_config.dart';
+export 'src/loading_more_base.dart';
+export 'src/loading_more_list.dart';
+export 'src/loading_more_sliver_list.dart';
+export 'src/refresh_base.dart';

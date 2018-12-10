@@ -5,9 +5,6 @@ import 'package:example/common/tu_chong_repository.dart';
 import 'package:example/common/tu_chong_source.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:loading_more_list/empty_widget.dart';
-import 'package:loading_more_list/indicator_widget.dart';
-import 'package:loading_more_list/list_config.dart';
 import 'package:loading_more_list/loading_more_list.dart';
 
 class CustomIndicatorDemo extends StatefulWidget {

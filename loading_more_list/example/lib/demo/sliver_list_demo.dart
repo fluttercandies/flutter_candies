@@ -2,8 +2,7 @@ import 'package:example/common/item_builder.dart';
 import 'package:example/common/tu_chong_repository.dart';
 import 'package:example/common/tu_chong_source.dart';
 import 'package:flutter/material.dart';
-import 'package:loading_more_list/list_config.dart';
-import 'package:loading_more_list/loading_more_sliver_list.dart';
+import 'package:loading_more_list/loading_more_list.dart';
 
 class SliverListDemo extends StatefulWidget {
   @override

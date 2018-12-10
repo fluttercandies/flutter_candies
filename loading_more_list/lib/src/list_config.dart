@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:loading_more_list/indicator_widget.dart';
-import 'package:loading_more_list/loading_more_base.dart';
+import 'package:loading_more_list/src/indicator_widget.dart';
+import 'package:loading_more_list/src/loading_more_base.dart';
 
 int _kDefaultSemanticIndexCallback(Widget _, int localIndex) {
   return localIndex;
