@@ -1,4 +1,4 @@
-import 'cancellation_token.dart';
+import 'package:http_client_helper/src/cancellation_token.dart';
 
 class RetryHelper {
   //try again，after millisecondsDelay time
@@ -10,7 +10,7 @@ class RetryHelper {
     bool Function() throwThenExpction,
   }) async {
     int attempts = 0;
-    while (attempts < retries) {
+    while (attempts <= retries) {
       attempts++;
       print("try at ${attempts} times");
       try {

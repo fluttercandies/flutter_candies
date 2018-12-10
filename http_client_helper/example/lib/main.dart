@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:http_client_helper/cancellation_token.dart';
 import 'package:http_client_helper/http_client_helper.dart';
 
 void main() => runApp(MyApp());

@@ -1,3 +1,11 @@
+## [0.1.3]
+
+* make all http_client_helper darts as library http_client_helper
+
+## [0.1.2]
+
+* Fix retries for retry helper.
+
 ## [0.1.1]
 
 * Handle map body.
