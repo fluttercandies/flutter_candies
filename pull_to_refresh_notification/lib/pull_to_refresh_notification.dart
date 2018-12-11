@@ -126,7 +126,8 @@ class PullToRefreshNotificationState extends State<PullToRefreshNotification>
   double get _DragOffset => _dragOffset;
   set _DragOffset(double value) {
     if (value != null) {
-      value = math.min(value, widget.maxDragOffset ?? double.maxFinite);
+      value = math.max(
+          0.0, math.min(value, widget.maxDragOffset ?? double.maxFinite));
     }
     if (_dragOffset != value) {
       _dragOffset = value;

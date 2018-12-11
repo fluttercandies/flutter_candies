@@ -1,3 +1,7 @@
+## [0.1.3]
+
+* Fix issue in case negative value of _dragOffset
+
 ## [0.1.2]
 
 * Fix issue in case notification.depth != 0
