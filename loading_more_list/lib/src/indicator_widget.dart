@@ -13,10 +13,10 @@ class IndicatorWidget extends StatelessWidget {
   Widget emptyWidget;
   IndicatorWidget(this.status,
       {this.tryAgain,
-        this.text,
-        this.backgroundColor,
-        this.isSliver: false,
-        this.emptyWidget});
+      this.text,
+      this.backgroundColor,
+      this.isSliver: false,
+      this.emptyWidget});
   @override
   @override
   Widget build(BuildContext context) {
@@ -34,9 +34,9 @@ class IndicatorWidget extends StatelessWidget {
               margin: EdgeInsets.only(right: 5.0),
               height: 15.0,
               width: 15.0,
-              child:getIndicator(context),
+              child: getIndicator(context),
             ),
-            Text(text??"loading...")
+            Text(text ?? "loading...")
           ],
         );
         widget = _setbackground(false, widget, 35.0);
@@ -50,9 +50,9 @@ class IndicatorWidget extends StatelessWidget {
               margin: EdgeInsets.only(right: 0.0),
               height: 30.0,
               width: 30.0,
-              child:getIndicator(context),
+              child: getIndicator(context),
             ),
-           Text(text??"loading...")
+            Text(text ?? "loading...")
           ],
         );
         widget = _setbackground(true, widget, double.infinity);
@@ -60,12 +60,15 @@ class IndicatorWidget extends StatelessWidget {
           widget = SliverFillRemaining(
             child: widget,
           );
+        } else {
+          widget = CustomScrollView(
+            slivers: <Widget>[
+              SliverFillRemaining(
+                child: widget,
+              )
+            ],
+          );
         }
-//        else {
-//          widget = SingleChildScrollView(
-        //  child: widget,
-        // );
-        //}
         break;
       case IndicatorStatus.Error:
         widget = Text(
@@ -98,12 +101,15 @@ class IndicatorWidget extends StatelessWidget {
           widget = SliverFillRemaining(
             child: widget,
           );
+        } else {
+          widget = CustomScrollView(
+            slivers: <Widget>[
+              SliverFillRemaining(
+                child: widget,
+              )
+            ],
+          );
         }
-//        else {
-//          widget = SingleChildScrollView(
-//            child: widget,
-//          );
-//        }
         break;
       case IndicatorStatus.NoMoreLoad:
         widget = Text(text ?? "No more items.");
@@ -119,12 +125,15 @@ class IndicatorWidget extends StatelessWidget {
           widget = SliverToBoxAdapter(
             child: widget,
           );
+        } else {
+          widget = CustomScrollView(
+            slivers: <Widget>[
+              SliverFillRemaining(
+                child: widget,
+              )
+            ],
+          );
         }
-        //else {
-//          widget = SingleChildScrollView(
-//            child: widget,
-//          );
-//        }
         break;
     }
     return widget;
@@ -143,16 +152,15 @@ class IndicatorWidget extends StatelessWidget {
   Widget getIndicator(BuildContext context) {
     return Platform.isIOS
         ? CupertinoActivityIndicator(
-      animating: true,
-      radius: 16.0,
-    )
+            animating: true,
+            radius: 16.0,
+          )
         : CircularProgressIndicator(
-      strokeWidth: 2.0,
-      valueColor: AlwaysStoppedAnimation(Theme.of(context).primaryColor),
-    );
+            strokeWidth: 2.0,
+            valueColor: AlwaysStoppedAnimation(Theme.of(context).primaryColor),
+          );
   }
 }
-
 
 enum IndicatorStatus {
   None,
