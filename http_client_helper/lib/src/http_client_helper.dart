@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+
 import 'package:http/http.dart';
 import 'package:http_client_helper/src/cancellation_token.dart';
 import 'package:http_client_helper/src/retry_helper.dart';
@@ -32,10 +33,10 @@ class HttpClientHelper {
       int millisecondsDelay = 100,
       int retries = 3}) async {
     cancelToken?.throwIfCancellationRequested();
-    if (body is Map) {
-      body = utf8.encode(json.encode(body));
-      headers['content-type'] = 'application/json';
-    }
+//    if (body is Map) {
+//      body = utf8.encode(json.encode(body));
+//      headers['content-type'] = 'application/json';
+//    }
     return await RetryHelper.tryRun<Response>(() {
       return CancellationTokenSource.register(
           cancelToken,

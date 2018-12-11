@@ -1,3 +1,7 @@
+## [0.1.4]
+
+* remove map to string for post
+
 ## [0.1.3]
 
 * make all http_client_helper darts as library http_client_helper
