@@ -1,3 +1,7 @@
+## [0.1.6]
+
+* add isloadMoreAction parameter for LoadData method.
+
 ## [0.1.5]
 
 * fix issue about full screen status in IndicatorWidget

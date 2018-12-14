@@ -27,7 +27,7 @@ class TuChongRepository extends LoadingMoreBase<TuChongItem> {
   }
 
   @override
-  Future<bool> loadData() async {
+  Future<bool> loadData([bool isloadMoreAction = false]) async {
     // TODO: implement getData
     String url = "";
     if (this.length == 0) {
