@@ -58,13 +58,13 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   //click fire twice ,gesture fire onetime
   int index;
   void tabControlerListener() {
-    if (index != primaryTC.index)
-    //if(primaryTC.indexIsChanging)
-    //if(primaryTC.previousIndex!=primaryTC.index)
-    {
-      setState(() {});
-    }
-    index = primaryTC.index;
+//    if (index != primaryTC.index)
+//    //if(primaryTC.indexIsChanging)
+//    //if(primaryTC.previousIndex!=primaryTC.index)
+//    {
+//      setState(() {});
+//    }
+//    index = primaryTC.index;
   }
 
   @override
@@ -96,7 +96,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
             //pinned SliverAppBar height in header
             kToolbarHeight +
             //pinned tabbar height in header
-            (primaryTC.index == 0 ? tabBarHeight * 2 : tabBarHeight);
+            tabBarHeight;
     return NestedScrollViewRefreshIndicator(
       onRefresh: onRefresh,
       child: extended.NestedScrollView(
@@ -193,34 +193,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
               //color: Colors.white,
             ),
             primaryTabBar.preferredSize.height)));
-
-    if (primaryTC.index == 0) {
-      var secondaryTabBar = new TabBar(
-        controller: secondaryTC,
-        labelColor: Colors.blue,
-        indicatorColor: Colors.blue,
-        indicatorSize: TabBarIndicatorSize.label,
-        indicatorWeight: 2.0,
-        isScrollable: false,
-        unselectedLabelColor: Colors.grey,
-        tabs: [
-          Tab(text: "Tab00"),
-          Tab(text: "Tab01"),
-          Tab(text: "Tab02"),
-          Tab(text: "Tab03"),
-        ],
-      );
-
-      widgets.add(SliverPersistentHeader(
-          pinned: true,
-          floating: false,
-          delegate: CommonSliverPersistentHeaderDelegate(
-              Container(
-                child: secondaryTabBar,
-                //color: Colors.white,
-              ),
-              secondaryTabBar.preferredSize.height)));
-    }
     return widgets;
   }
 }
@@ -235,14 +207,43 @@ class SecondaryTabView extends StatefulWidget {
 class _SecondaryTabViewState extends State<SecondaryTabView>
     with AutomaticKeepAliveClientMixin {
   @override
+  void initState() {
+    // TODO: implement initState
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return TabBarView(
+    var secondaryTabBar = new TabBar(
       controller: widget.tc,
+      labelColor: Colors.blue,
+      indicatorColor: Colors.blue,
+      indicatorSize: TabBarIndicatorSize.label,
+      indicatorWeight: 2.0,
+      isScrollable: false,
+      unselectedLabelColor: Colors.grey,
+      tabs: [
+        Tab(text: "Tab00"),
+        Tab(text: "Tab01"),
+        Tab(text: "Tab02"),
+        Tab(text: "Tab03"),
+      ],
+    );
+    return Column(
       children: <Widget>[
-        TabViewItem(Key("Tab00")),
-        TabViewItem(Key("Tab01")),
-        TabViewItem(Key("Tab02")),
-        TabViewItem(Key("Tab03")),
+        secondaryTabBar,
+        Expanded(
+          child: TabBarView(
+            controller: widget.tc,
+            children: <Widget>[
+              TabViewItem(Key("Tab00")),
+              TabViewItem(Key("Tab01")),
+              TabViewItem(Key("Tab02")),
+              TabViewItem(Key("Tab03")),
+            ],
+          ),
+        )
       ],
     );
   }
