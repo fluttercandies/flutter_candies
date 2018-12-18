@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loading_more_list/src/glow_notification_widget.dart';
 import 'package:loading_more_list/src/list_config.dart';
 import 'package:loading_more_list/src/loading_more_base.dart';
 
@@ -115,9 +116,8 @@ class _LoadingMoreCustomScrollViewState
 
     return NotificationListener<ScrollNotification>(
         onNotification: _handleScrollNotification,
-        child: NotificationListener<OverscrollIndicatorNotification>(
-            onNotification: _handleGlowNotification,
-            child: CustomScrollView(
+        child: GlowNotificationWidget(
+            CustomScrollView(
               semanticChildCount: widget.semanticChildCount,
               shrinkWrap: widget.shrinkWrap,
               scrollDirection: widget.scrollDirection,
@@ -126,7 +126,9 @@ class _LoadingMoreCustomScrollViewState
               cacheExtent: widget.cacheExtent,
               controller: widget.controller,
               slivers: widgets,
-            )));
+            ),
+            showGlowLeading: widget.showGlowLeading,
+            showGlowTrailing: widget.showGlowTrailing));
     // }
   }
 
@@ -174,15 +176,6 @@ class _LoadingMoreCustomScrollViewState
           preList = item;
         }
       }
-    }
-    return false;
-  }
-
-  bool _handleGlowNotification(OverscrollIndicatorNotification notification) {
-    if ((notification.leading && !widget.showGlowLeading) ||
-        (!notification.leading && !widget.showGlowTrailing)) {
-      notification.disallowGlow();
-      return true;
     }
     return false;
   }

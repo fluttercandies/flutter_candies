@@ -1,3 +1,7 @@
+## [0.1.7]
+
+* add GlowNotificationWidget for overscroll glow.
+
 ## [0.1.6]
 
 * add isloadMoreAction parameter for LoadData method.

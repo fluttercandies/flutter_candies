@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loading_more_list/src/glow_notification_widget.dart';
 import 'package:loading_more_list/src/list_config.dart';
 import 'package:loading_more_list/src/loading_more_base.dart';
 
@@ -11,12 +12,12 @@ class LoadingMoreList<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     return StreamBuilder<LoadingMoreBase>(
       builder: (d, s) {
-        return NotificationListener<ScrollNotification>(
-          //key: _key,
-          onNotification: _handleScrollNotification,
-          child: NotificationListener<OverscrollIndicatorNotification>(
+        return GlowNotificationWidget(
+          NotificationListener<OverscrollIndicatorNotification>(
               onNotification: _handleGlowNotification,
               child: listConfig.buildContent(context, s.data)),
+          showGlowLeading: listConfig.showGlowLeading,
+          showGlowTrailing: listConfig.showGlowTrailing,
         );
       },
       stream: listConfig.sourceList?.rebuild,
