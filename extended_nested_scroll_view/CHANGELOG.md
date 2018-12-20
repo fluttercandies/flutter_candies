@@ -1,3 +1,7 @@
+## [0.1.2]
+
+* Remove unused method.
+
 ## [0.1.1]
 
 * Update demo.

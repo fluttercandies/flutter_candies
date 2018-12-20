@@ -1470,12 +1470,12 @@ class SliverOverlapAbsorberHandle extends ChangeNotifier {
   double get scrollExtent => _scrollExtent;
   double _scrollExtent;
 
-  void _setExtents(double layoutValue, double scrollValue) {
-    assert(_writers == 1,
-    'Multiple RenderSliverOverlapAbsorbers have been provided the same SliverOverlapAbsorberHandle.');
-    _layoutExtent = layoutValue;
-    _scrollExtent = scrollValue;
-  }
+//  void _setExtents(double layoutValue, double scrollValue) {
+//    assert(_writers == 1,
+//    'Multiple RenderSliverOverlapAbsorbers have been provided the same SliverOverlapAbsorberHandle.');
+//    _layoutExtent = layoutValue;
+//    _scrollExtent = scrollValue;
+//  }
 
   void _markNeedsLayout() => notifyListeners();
 
