@@ -1,8 +1,7 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
-import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart'
-    as extended;
+import 'package:flutter/material.dart' hide NestedScrollView;
+import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:extended_nested_scroll_view/nested_scroll_view_refresh_indicator.dart';
 
 void main() => runApp(MyApp());
@@ -99,7 +98,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
             tabBarHeight;
     return NestedScrollViewRefreshIndicator(
       onRefresh: onRefresh,
-      child: extended.NestedScrollView(
+      child: NestedScrollView(
         headerSliverBuilder: (c, f) {
           return _buildSliverHeader(primaryTabBar);
         },
@@ -121,7 +120,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           controller: primaryTC,
           children: <Widget>[
             SecondaryTabView(secondaryTC),
-            extended.NestedScrollViewInnerScrollPositionKeyWidget(
+            NestedScrollViewInnerScrollPositionKeyWidget(
                 Key("Tab1"),
                 ListView.builder(
                   //store Page state
@@ -270,7 +269,7 @@ class _TabViewItemState extends State<TabViewItem>
 
   @override
   Widget build(BuildContext context) {
-    return extended.NestedScrollViewInnerScrollPositionKeyWidget(
+    return NestedScrollViewInnerScrollPositionKeyWidget(
         widget.tabKey,
         // myRefresh.RefreshIndicator(
         // child:
