@@ -1,3 +1,7 @@
+## [0.1.4]
+
+* Remove dead code.
+
 ## [0.1.3]
 
 * Fix issue in case negative value of _dragOffset

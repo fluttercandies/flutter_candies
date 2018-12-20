@@ -543,7 +543,7 @@ class PullToRefreshNotificationState extends State<PullToRefreshNotification>
 //return true so that we can handle inner scroll notification
 bool defaultNotificationPredicate(ScrollNotification notification) {
   return true;
-  return notification.depth == 0;
+  //return notification.depth == 0;
 }
 
 class PullToRefreshScrollNotificationInfo {
