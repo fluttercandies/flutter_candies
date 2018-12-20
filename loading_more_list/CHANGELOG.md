@@ -1,3 +1,7 @@
+## [0.1.8]
+
+* export 'src/glow_notification_widget.dart';
+
 ## [0.1.7]
 
 * add GlowNotificationWidget for overscroll glow.

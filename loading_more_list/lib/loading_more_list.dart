@@ -9,3 +9,4 @@ export 'src/loading_more_base.dart';
 export 'src/loading_more_list.dart';
 export 'src/loading_more_sliver_list.dart';
 export 'src/refresh_base.dart';
+export 'src/glow_notification_widget.dart';
