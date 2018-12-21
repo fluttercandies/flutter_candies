@@ -1,3 +1,7 @@
+## [0.1.4]
+
+* Update readme.
+
 ## [0.1.3]
 
 * Update demo.
