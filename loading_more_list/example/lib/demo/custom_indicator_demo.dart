@@ -40,7 +40,8 @@ class _CustomIndicatorDemoState extends State<CustomIndicatorDemo> {
           Expanded(
             child: LoadingMoreList(
               ListConfig<TuChongItem>(
-                ItemBuilder.itemBuilder, listSourceRepository,
+                ItemBuilder.itemBuilder,
+                listSourceRepository,
                 indicatorBuilder: _buildIndicator,
                 padding: EdgeInsets.all(0.0),
               ),
@@ -54,11 +55,11 @@ class _CustomIndicatorDemoState extends State<CustomIndicatorDemo> {
   //you can use IndicatorWidget or build yourself widget
   //in this demo, we define all status.
   Widget _buildIndicator(BuildContext context, IndicatorStatus status) {
-    bool isSliver=false;
+    //if your list is sliver list ,you should build sliver indicator for it
+    //isSliver=true, when use it in sliver list
+    bool isSliver = false;
+
     Widget widget;
-    bool full = (status == IndicatorStatus.FullScreenBusying ||
-        status == IndicatorStatus.FullScreenError);
-    double height = 35.0;
     switch (status) {
       case IndicatorStatus.None:
         widget = Container(height: 0.0);
@@ -74,7 +75,7 @@ class _CustomIndicatorDemoState extends State<CustomIndicatorDemo> {
               width: 15.0,
               child: getIndicator(context),
             ),
-            Text("正在加载...稍等一下")
+            Text("正在加载...不要着急")
           ],
         );
         widget = _setbackground(false, widget, 35.0);
@@ -85,12 +86,12 @@ class _CustomIndicatorDemoState extends State<CustomIndicatorDemo> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Container(
-              margin: EdgeInsets.only(right:10.0),
+              margin: EdgeInsets.only(right: 0.0),
               height: 30.0,
               width: 30.0,
               child: getIndicator(context),
             ),
-            Text("正在加载...稍等一下")
+            Text("正在加载...不要着急")
           ],
         );
         widget = _setbackground(true, widget, double.infinity);
@@ -98,68 +99,77 @@ class _CustomIndicatorDemoState extends State<CustomIndicatorDemo> {
           widget = SliverFillRemaining(
             child: widget,
           );
+        } else {
+          widget = CustomScrollView(
+            slivers: <Widget>[
+              SliverFillRemaining(
+                child: widget,
+              )
+            ],
+          );
         }
-//        else {
-//          widget = SingleChildScrollView(
-        //  child: widget,
-        // );
-        //}
         break;
       case IndicatorStatus.Error:
         widget = Text(
-           "加载失败，点击重试",
+          "好像出现了问题呢？",
         );
         widget = _setbackground(false, widget, 35.0);
 
-          widget = GestureDetector(
-            onTap: () {
-              listSourceRepository.errorRefresh();
-            },
-            child: widget,
-          );
+        widget = GestureDetector(
+          onTap: () {
+            listSourceRepository.errorRefresh();
+          },
+          child: widget,
+        );
 
         break;
       case IndicatorStatus.FullScreenError:
         widget = Text(
-          "加载失败，点击重试",
+          "好像出现了问题呢？",
         );
         widget = _setbackground(true, widget, double.infinity);
-          widget = GestureDetector(
-            onTap: () {
-              listSourceRepository.errorRefresh();
-            },
-            child: widget,
-          );
+        widget = GestureDetector(
+          onTap: () {
+            listSourceRepository.errorRefresh();
+          },
+          child: widget,
+        );
         if (isSliver) {
           widget = SliverFillRemaining(
             child: widget,
           );
+        } else {
+          widget = CustomScrollView(
+            slivers: <Widget>[
+              SliverFillRemaining(
+                child: widget,
+              )
+            ],
+          );
         }
-//        else {
-//          widget = SingleChildScrollView(
-//            child: widget,
-//          );
-//        }
         break;
       case IndicatorStatus.NoMoreLoad:
-        widget = Text("没有更多了，不要拖了。。。");
+        widget = Text("没有更多的了。。不要拖了");
         widget = _setbackground(false, widget, 35.0);
         break;
       case IndicatorStatus.Empty:
         widget = EmptyWidget(
-          "这里只有空",
+          "这里是空气！",
         );
         widget = _setbackground(true, widget, double.infinity);
         if (isSliver) {
           widget = SliverToBoxAdapter(
             child: widget,
           );
+        } else {
+          widget = CustomScrollView(
+            slivers: <Widget>[
+              SliverFillRemaining(
+                child: widget,
+              )
+            ],
+          );
         }
-        //else {
-//          widget = SingleChildScrollView(
-//            child: widget,
-//          );
-//        }
         break;
     }
     return widget;
@@ -178,14 +188,12 @@ class _CustomIndicatorDemoState extends State<CustomIndicatorDemo> {
   Widget getIndicator(BuildContext context) {
     return Platform.isIOS
         ? CupertinoActivityIndicator(
-      animating: true,
-      radius: 16.0,
-    )
+            animating: true,
+            radius: 16.0,
+          )
         : CircularProgressIndicator(
-      strokeWidth: 2.0,
-      valueColor: AlwaysStoppedAnimation(Theme
-          .of(context)
-          .primaryColor),
-    );
+            strokeWidth: 2.0,
+            valueColor: AlwaysStoppedAnimation(Theme.of(context).primaryColor),
+          );
   }
 }

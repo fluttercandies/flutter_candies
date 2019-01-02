@@ -1,6 +1,10 @@
+## [0.1.9]
+
+* update CustomIndicatorDemo in case sliver indicator.
+
 ## [0.1.8]
 
-* export 'src/glow_notification_widget.dart';
+* export 'src/glow_notification_widget.dart'.
 
 ## [0.1.7]
 
