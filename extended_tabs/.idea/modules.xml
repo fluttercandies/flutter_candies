@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/loading_more_list.iml" filepath="$PROJECT_DIR$/loading_more_list.iml" />
+      <module fileurl="file://$PROJECT_DIR$/extended_tabs.iml" filepath="$PROJECT_DIR$/extended_tabs.iml" />
     </modules>
   </component>
 </project>

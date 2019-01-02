@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/Fullter_Sample/widgets_sample/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/Fullter_Sample/widgets_sample/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/Fullter_Sample/widgets_sample/build" />
+      <excludeFolder url="file://$MODULE_DIR$/extended_nested_scroll_view/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/extended_nested_scroll_view/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/extended_nested_scroll_view/build" />
+      <excludeFolder url="file://$MODULE_DIR$/extended_nested_scroll_view/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/extended_nested_scroll_view/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/extended_nested_scroll_view/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/extended_tabs/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/extended_tabs/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/extended_tabs/build" />
+      <excludeFolder url="file://$MODULE_DIR$/extended_tabs/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/extended_tabs/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/extended_tabs/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/http_client_helper/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/http_client_helper/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/http_client_helper/build" />
+      <excludeFolder url="file://$MODULE_DIR$/http_client_helper/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/http_client_helper/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/http_client_helper/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/loading_more_list/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/loading_more_list/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/loading_more_list/build" />
+      <excludeFolder url="file://$MODULE_DIR$/loading_more_list/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/loading_more_list/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/loading_more_list/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/loading_more_widgets/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/loading_more_widgets/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/loading_more_widgets/build" />
+      <excludeFolder url="file://$MODULE_DIR$/pull_to_refresh_notification/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/pull_to_refresh_notification/build" />
+      <excludeFolder url="file://$MODULE_DIR$/pull_to_refresh_notification/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/pull_to_refresh_notification/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/widgets_sample/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/widgets_sample/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/widgets_sample/build" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Dart SDK" level="project" />
+    <orderEntry type="library" name="Dart Packages" level="project" />
+  </component>
+</module>

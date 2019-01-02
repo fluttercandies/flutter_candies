@@ -48,6 +48,13 @@ custom flutter candies(widgets) for you to easily build flutter app, enjoy it
 
 ![](https://github.com/zmtzawqlp/Flutter/blob/master/gif/LoadingMoreNestedScrollView.gif)
 
+# extended_tabs
+[![pub package](https://img.shields.io/pub/v/extended_tabs.svg)](https://pub.dartlang.org/packages/extended_tabs)
+
+[extended_tabs](https://github.com/zmtzawqlp/Flutter/tree/master/extended_tabs) extended tab bar view include color tabIndicator,linkWithAncestor(scroll ancestor tabbarView when current is over scroll),page cache extent
+
+![](https://github.com/zmtzawqlp/Flutter_Candies/blob/master/gif/ExtendedTabs.gif)
+
 # widgets sample
 
 [widgets sample](https://github.com/zmtzawqlp/Flutter/tree/master/widgets_sample)
