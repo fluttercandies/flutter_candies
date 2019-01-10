@@ -1,3 +1,8 @@
+## [0.2.0]
+
+* fix LoadingMoreList not listen onScrollNotification
+* add onScrollNotification listen call back for LoadingMoreList and LoadingMoreCustomScrollView
+
 ## [0.1.9]
 
 * update CustomIndicatorDemo in case sliver indicator.

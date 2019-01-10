@@ -46,6 +46,10 @@ class LoadingMoreCustomScrollView extends StatefulWidget {
 
   List<LoadingMoreSliverList> _loadingMoreWidgets;
 
+  /// Called when a ScrollNotification of the appropriate type arrives at this
+  /// location in the tree.
+  final NotificationListenerCallback<ScrollNotification> onScrollNotification;
+
   LoadingMoreCustomScrollView(
       {Key key,
       this.scrollDirection = Axis.vertical,
@@ -59,7 +63,8 @@ class LoadingMoreCustomScrollView extends StatefulWidget {
       this.semanticChildCount,
       this.showGlowLeading: true,
       this.showGlowTrailing: true,
-      this.rebuildCustomScrollView: false})
+      this.rebuildCustomScrollView: false,
+      this.onScrollNotification})
       : assert(slivers != null),
         super(key: key) {
     _loadingMoreWidgets = slivers
@@ -133,7 +138,10 @@ class _LoadingMoreCustomScrollViewState
   }
 
   bool _handleScrollNotification(ScrollNotification notification) {
-    //if (notification.depth != 0) return false;
+    if (widget.onScrollNotification != null)
+      widget.onScrollNotification(notification);
+
+    if (notification.depth != 0) return false;
 
     //reach the pixels to loading more
     if (notification.metrics.axisDirection == AxisDirection.down &&
