@@ -1,3 +1,7 @@
+## [0.1.5]
+
+* add new ExtendedNestedScrollView to slove issue more smartly.
+
 ## [0.1.4]
 
 * Update readme.

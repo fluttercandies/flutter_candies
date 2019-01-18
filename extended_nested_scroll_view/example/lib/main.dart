@@ -1,8 +1,9 @@
-import 'dart:async';
-
+import 'package:example/common/common.dart';
+import 'package:example/extended_nested_scroll_view_demo.dart';
+import 'package:example/old_extened_nested_scroll_view_demo.dart';
 import 'package:flutter/material.dart' hide NestedScrollView;
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
-import 'package:extended_nested_scroll_view/nested_scroll_view_refresh_indicator.dart';
+import 'package:extended_nested_scroll_view/src/nested_scroll_view_refresh_indicator.dart';
 
 void main() => runApp(MyApp());
 
@@ -35,295 +36,73 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
-  TabController primaryTC;
-  TabController secondaryTC;
+  List<Page> pages = new List<Page>();
   @override
   void initState() {
-    primaryTC = new TabController(length: 2, vsync: this);
-    primaryTC.addListener(tabControlerListener);
-    secondaryTC = new TabController(length: 4, vsync: this);
     // TODO: implement initState
+    pages.add(Page(PageType.Old,
+        "extended nested scroll view to fix pinned header and inner scrollables sync issues."));
+    pages.add(Page(PageType.New,
+        "new one to solve inner scrollables sync issues more smartly"));
     super.initState();
   }
 
   @override
-  void dispose() {
-    primaryTC.removeListener(tabControlerListener);
-    // TODO: implement dispose
-    super.dispose();
-  }
-
-  //when primary tabcontroller tab,rebuild headerSliverBuilder
-  //click fire twice ,gesture fire onetime
-  int index;
-  void tabControlerListener() {
-//    if (index != primaryTC.index)
-//    //if(primaryTC.indexIsChanging)
-//    //if(primaryTC.previousIndex!=primaryTC.index)
-//    {
-//      setState(() {});
-//    }
-//    index = primaryTC.index;
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _buildScaffoldBody(),
-    );
-  }
+    // TODO: implement build
 
-  Widget _buildScaffoldBody() {
-    final double statusBarHeight = MediaQuery.of(context).padding.top;
-    var primaryTabBar = new TabBar(
-      controller: primaryTC,
-      labelColor: Colors.blue,
-      indicatorColor: Colors.blue,
-      indicatorSize: TabBarIndicatorSize.label,
-      indicatorWeight: 2.0,
-      isScrollable: false,
-      unselectedLabelColor: Colors.grey,
-      tabs: [
-        Tab(text: "Tab0"),
-        Tab(text: "Tab1"),
-      ],
-    );
-    var tabBarHeight = primaryTabBar.preferredSize.height;
-    var pinnedHeaderHeight =
-        //statusBar height
-        statusBarHeight +
-            //pinned SliverAppBar height in header
-            kToolbarHeight +
-            //pinned tabbar height in header
-            tabBarHeight;
-    return NestedScrollViewRefreshIndicator(
-      onRefresh: onRefresh,
-      child: NestedScrollView(
-        headerSliverBuilder: (c, f) {
-          return _buildSliverHeader(primaryTabBar);
-        },
-        //
-        pinnedHeaderSliverHeightBuilder: () {
-          return pinnedHeaderHeight;
-        },
-        innerScrollPositionKeyBuilder: () {
-          var index = "Tab";
-          if (primaryTC.index == 0) {
-            index +=
-                (primaryTC.index.toString() + secondaryTC.index.toString());
-          } else {
-            index += primaryTC.index.toString();
-          }
-          return Key(index);
-        },
-        body: TabBarView(
-          controller: primaryTC,
-          children: <Widget>[
-            SecondaryTabView(secondaryTC),
-            NestedScrollViewInnerScrollPositionKeyWidget(
-                Key("Tab1"),
-                ListView.builder(
-                  //store Page state
-                  key: PageStorageKey("Tab1"),
-                  itemBuilder: (c, i) {
-                    return Container(
-                      alignment: Alignment.center,
-                      height: 60.0,
-                      child: Text(Key("Tab1").toString() + ": ListView$i"),
-                    );
-                  },
-                  itemCount: 50,
-                ))
-          ],
-        ),
-      ),
-    );
-  }
-
-  List<Widget> _buildSliverHeader(TabBar primaryTabBar) {
-    var widgets = <Widget>[];
-
-    widgets.add(SliverAppBar(
-        pinned: true,
-        expandedHeight: 200.0,
-        flexibleSpace: FlexibleSpaceBar(
-            //centerTitle: true,
-            collapseMode: CollapseMode.pin,
-            background: Image.asset(
-              "assets/467141054.jpg",
-              fit: BoxFit.fill,
-            ))));
-
-    widgets.add(SliverGrid(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 4,
-        crossAxisSpacing: 0.0,
-        mainAxisSpacing: 0.0,
-      ),
-      delegate: new SliverChildBuilderDelegate(
-        (BuildContext context, int index) {
-          return Container(
-            alignment: Alignment.center,
-            height: 60.0,
-            child: Text("Gird$index"),
-            decoration: BoxDecoration(
-                border: Border.all(color: Colors.orange, width: 1.0)),
-          );
-        },
-        childCount: 11,
-      ),
-    ));
-
-    widgets.add(SliverList(
-        delegate: SliverChildBuilderDelegate((c, i) {
-      return Container(
-        alignment: Alignment.center,
-        height: 60.0,
-        child: Text("SliverList$i"),
-      );
-    }, childCount: 4)));
-
-    widgets.add(SliverPersistentHeader(
-        pinned: true,
-        floating: false,
-        delegate: CommonSliverPersistentHeaderDelegate(
-            Container(
-              child: primaryTabBar,
-              //color: Colors.white,
+    return ListView.builder(
+      itemBuilder: (_, int index) {
+        var page = pages[index];
+        var pageWidget = null;
+        return Container(
+          margin: EdgeInsets.all(20.0),
+          child: GestureDetector(
+            behavior: HitTestBehavior.translucent,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  (index + 1).toString() +
+                      "." +
+                      page.type.toString().replaceAll("PageType.", ""),
+                  style: TextStyle(inherit: false),
+                ),
+                Text(
+                  page.description,
+                  style: TextStyle(inherit: false, color: Colors.grey),
+                )
+              ],
             ),
-            primaryTabBar.preferredSize.height)));
-    return widgets;
-  }
-}
-
-class SecondaryTabView extends StatefulWidget {
-  final TabController tc;
-  SecondaryTabView(this.tc);
-  @override
-  _SecondaryTabViewState createState() => _SecondaryTabViewState();
-}
-
-class _SecondaryTabViewState extends State<SecondaryTabView>
-    with AutomaticKeepAliveClientMixin {
-  @override
-  void initState() {
-    // TODO: implement initState
-
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    var secondaryTabBar = new TabBar(
-      controller: widget.tc,
-      labelColor: Colors.blue,
-      indicatorColor: Colors.blue,
-      indicatorSize: TabBarIndicatorSize.label,
-      indicatorWeight: 2.0,
-      isScrollable: false,
-      unselectedLabelColor: Colors.grey,
-      tabs: [
-        Tab(text: "Tab00"),
-        Tab(text: "Tab01"),
-        Tab(text: "Tab02"),
-        Tab(text: "Tab03"),
-      ],
-    );
-    return Column(
-      children: <Widget>[
-        secondaryTabBar,
-        Expanded(
-          child: TabBarView(
-            controller: widget.tc,
-            children: <Widget>[
-              TabViewItem(Key("Tab00")),
-              TabViewItem(Key("Tab01")),
-              TabViewItem(Key("Tab02")),
-              TabViewItem(Key("Tab03")),
-            ],
-          ),
-        )
-      ],
-    );
-  }
-
-  // TODO: implement wantKeepAlive
-  @override
-  bool get wantKeepAlive => true;
-}
-
-class TabViewItem extends StatefulWidget {
-  final Key tabKey;
-  TabViewItem(this.tabKey);
-  @override
-  _TabViewItemState createState() => _TabViewItemState();
-}
-
-class _TabViewItemState extends State<TabViewItem>
-    with AutomaticKeepAliveClientMixin {
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return NestedScrollViewInnerScrollPositionKeyWidget(
-        widget.tabKey,
-        // myRefresh.RefreshIndicator(
-        // child:
-        ListView.builder(
-            itemBuilder: (c, i) {
-              return Container(
-                //decoration: BoxDecoration(border: Border.all(color: Colors.orange,width: 1.0)),
-                alignment: Alignment.center,
-                height: 60.0,
-                child: Text(widget.tabKey.toString() + ": List$i"),
-              );
+            onTap: () {
+              switch (page.type) {
+                case PageType.Old:
+                  pageWidget = new OldExtendedNestedScrollViewDemo();
+                  break;
+                case PageType.New:
+                  pageWidget = new ExtendedNestedScrollViewDemo();
+                  break;
+              }
+              Navigator.push(context,
+                  new MaterialPageRoute(builder: (BuildContext context) {
+                return pageWidget;
+              }));
             },
-            itemCount: 100)
-        //,
-        //onRefresh: onRefresh,
-        // )
+          ),
         );
-  }
-
-  // TODO: implement wantKeepAlive
-  @override
-  bool get wantKeepAlive => true;
-}
-
-class CommonSliverPersistentHeaderDelegate
-    extends SliverPersistentHeaderDelegate {
-  final Widget child;
-  final double height;
-
-  CommonSliverPersistentHeaderDelegate(this.child, this.height);
-
-  @override
-  double get minExtent => height;
-
-  @override
-  double get maxExtent => height;
-
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return child;
-  }
-
-  @override
-  bool shouldRebuild(CommonSliverPersistentHeaderDelegate oldDelegate) {
-    //print("shouldRebuild---------------");
-    return oldDelegate != this;
+      },
+      itemCount: pages.length,
+    );
   }
 }
 
-Future<Null> onRefresh() {
-  final Completer<Null> completer = new Completer<Null>();
-  new Timer(const Duration(seconds: 1), () {
-    completer.complete(null);
-  });
-  return completer.future.then((_) {});
+class Page {
+  final PageType type;
+  final String description;
+  Page(this.type, this.description);
+}
+
+enum PageType {
+  Old,
+  New,
 }
