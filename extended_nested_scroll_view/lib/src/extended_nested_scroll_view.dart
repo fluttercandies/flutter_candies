@@ -180,7 +180,7 @@ class ExtendedNestedScrollView extends StatefulWidget {
     this.physics,
     this.pinnedHeaderSliverHeightBuilder,
     this.pinnedHeaderSliverHeight,
-    this.keepOnlyOneNestedScrollPositionActive: true,
+    this.keepOnlyOneInnerNestedScrollPositionActive: true,
     @required this.headerSliverBuilder,
     @required this.body,
   })  : assert(scrollDirection != null),
@@ -205,8 +205,8 @@ class ExtendedNestedScrollView extends StatefulWidget {
   ///AutomaticKeepAliveClientMixin or PageStorageKey,
   ///[_innerController.nestedPositions] will have more one,
   ///when you scroll, it will scroll all of nestedPositions
-  ///set [keepOnlyOneNestedScrollPositionActive] true to avoid it.
-  final bool keepOnlyOneNestedScrollPositionActive;
+  ///set [keepOnlyOneInnerNestedScrollPositionActive] true to avoid it.
+  final bool keepOnlyOneInnerNestedScrollPositionActive;
 
   /// An object that can be used to control the position to which the outer
   /// scroll view is scrolled.
@@ -376,7 +376,7 @@ class _ExtendedNestedScrollViewState extends State<ExtendedNestedScrollView> {
       ),
     );
 
-    if (widget.keepOnlyOneNestedScrollPositionActive) {
+    if (widget.keepOnlyOneInnerNestedScrollPositionActive) {
       ///get notifications and compute active one in _innerController.nestedPositions
       return NotificationListener<ScrollNotification>(
           onNotification: (ScrollNotification notification) {
@@ -532,7 +532,7 @@ class _NestedScrollCoordinator
   ///call them when scroll
   Iterable<_NestedScrollPosition> get _activedInnerPositions {
     var list = _innerController.nestedPositions;
-    if (_state.widget.keepOnlyOneNestedScrollPositionActive &&
+    if (_state.widget.keepOnlyOneInnerNestedScrollPositionActive &&
         list.length > 1) {
       var temp = list.where((item) {
         return item._isActived;
@@ -1043,6 +1043,7 @@ class _NestedScrollPosition extends ScrollPosition
     _parent?.attach(this);
   }
 
+  ///whether it is actived
   bool _isActived = true;
 
   ///zmt
@@ -1093,15 +1094,6 @@ class _NestedScrollPosition extends ScrollPosition
     }
     return super.applyContentDimensions(minScrollExtent, maxScrollExtent);
   }
-
-  // @override
-//  void forcePixels(double value) {
-////    if (debugLabel == 'inner') {
-////      print("forcePixels ${key?.scrollPositionKey}");
-////    }
-//    // TODO: implement forcePixels
-//    super.forcePixels(value);
-//  }
 
   @override
   AxisDirection get axisDirection => context.axisDirection;
