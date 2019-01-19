@@ -5,6 +5,7 @@
 import 'dart:async';
 import 'dart:math' as math;
 
+import 'package:extended_nested_scroll_view/src/nested_scroll_view_inner_scroll_position_key_widget.dart';
 import 'package:extended_nested_scroll_view/src/util.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/painting.dart';
@@ -201,11 +202,13 @@ class ExtendedNestedScrollView extends StatefulWidget {
   ///if your pinned header will not changed, use this instead  of  [pinnedHeaderSliverHeightBuilder]
   final double pinnedHeaderSliverHeight;
 
-  ///when ExtendedNestedScrollView body has tabBarView and its' childs are
+  ///when ExtendedNestedScrollView body has [TabBarView]/[PageView] and its' children are
   ///AutomaticKeepAliveClientMixin or PageStorageKey,
   ///[_innerController.nestedPositions] will have more one,
   ///when you scroll, it will scroll all of nestedPositions
   ///set [keepOnlyOneInnerNestedScrollPositionActive] true to avoid it.
+  ///notice: only for Axis.horizontal PageView/TabBarView and
+  ///[scrollDirection] must be Axis.vertical.
   final bool keepOnlyOneInnerNestedScrollPositionActive;
 
   /// An object that can be used to control the position to which the outer
@@ -309,6 +312,16 @@ class _ExtendedNestedScrollViewState extends State<ExtendedNestedScrollView> {
 
   @override
   void initState() {
+    ///when ExtendedNestedScrollView body has tabBarView and its' childs are
+    ///AutomaticKeepAliveClientMixin or PageStorageKey,
+    ///[_innerController.nestedPositions] will have more one,
+    ///when you scroll, it will scroll all of nestedPositions
+    ///set [keepOnlyOneInnerNestedScrollPositionActive] true to avoid it.
+    ///notice: only for Axis.horizontal PageView/TabBarView and
+    ///[scrollDirection] must be Axis.vertical.
+    assert(!(widget.keepOnlyOneInnerNestedScrollPositionActive &&
+        widget.scrollDirection == Axis.vertical));
+
     super.initState();
     _coordinator = _NestedScrollCoordinator(
         this, widget.controller, _handleHasScrolledBodyChanged);
@@ -529,7 +542,7 @@ class _NestedScrollCoordinator
   }
 
   ///zmt
-  ///call them when scroll
+  ///scroll only for actived one
   Iterable<_NestedScrollPosition> get _activedInnerPositions {
     var list = _innerController.nestedPositions;
     if (_state.widget.keepOnlyOneInnerNestedScrollPositionActive &&
@@ -538,7 +551,6 @@ class _NestedScrollCoordinator
         return item._isActived;
       });
       if (temp.length != 1) {
-        print("_activedInnerPositions is not equal one ${temp.length}");
         return list;
       }
       return temp;
@@ -985,7 +997,7 @@ class _NestedScrollController extends ScrollController {
   }
 
   ///zmt
-  ///compute activated nested Position when page changed
+  ///compute activated one when page changed
   void _computeActivatedNestedPosition(ScrollNotification notification,
       {Duration delay: const Duration(milliseconds: 100)}) {
     ///if layout is not completed, the data will has some gap.
@@ -993,9 +1005,23 @@ class _NestedScrollController extends ScrollController {
     ///delay it in case.
     ///to do
     Future.delayed(delay, () {
+      /// this is the page changed of PageView's renderBox,
+      /// it maybe not the renderBox of [nestedPositions]
+      /// because it maybe has more one tabbarview or pageview in NestedScrollView body
+      final RenderBox pageChangedRenderBox =
+          notification.context.findRenderObject();
+
+      int activeCount = 0;
       nestedPositions.forEach((item) {
-        item._computeActived(notification);
+        item._computeActived(pageChangedRenderBox);
+        if (item._isActived) activeCount++;
       });
+
+      if (activeCount > 1) {
+        print(
+            "activeCount more than 1, please report to zmtzawqlp@live.com and show your case.");
+      }
+
       coordinator.updateCanDrag();
     });
   }
@@ -1045,36 +1071,78 @@ class _NestedScrollPosition extends ScrollPosition
 
   ///whether it is actived
   bool _isActived = true;
+  //RenderBox _renderBox;
 
   ///zmt
   ///whether it's actived in its' owner viewport
-  void _computeActived(ScrollNotification notification) {
-    var context = (this.context as ScrollableState)?.context;
-    if (context == null) {
-      _isActived = true;
-      return;
+  void _computeActived(RenderBox pageChangedRenderBox) {
+    try {
+      var context = (this.context as ScrollableState)?.context;
+      if (context == null) {
+        _isActived = false;
+        return;
+      }
+      final RenderBox renderBox = context.findRenderObject();
+
+      if (renderBox == null) {
+        _isActived = false;
+        return;
+      }
+
+//      if (!isInSameTree(renderBox, ancestor)) {
+//        _isActived = false;
+//        return;
+//      }
+
+      ///the nearest pageview/tabview
+      final RenderBox parentRenderBox = _getParentPageViewRenderBox(context);
+
+      /// just for test
+//      var key = context.ancestorWidgetOfExactType(
+//              typeOf<NestedScrollViewInnerScrollPositionKeyWidget>())
+//          as NestedScrollViewInnerScrollPositionKeyWidget;
+
+      _isActived = _childIsActivedInViewport(renderBox, pageChangedRenderBox) &&
+          _childIsActivedInViewport(renderBox, parentRenderBox);
+
+      ///print("${key?.scrollPositionKey} ${_isActived}");
+    } catch (e, stack) {
+      print(e);
+      _isActived = false;
     }
-    final RenderBox renderBox = context.findRenderObject();
+  }
 
-    if (renderBox == null) {
-      _isActived = true;
-      return;
-    }
-    RenderBox ancestor = notification.context.findRenderObject();
-    final Offset position =
-        renderBox.localToGlobal(Offset.zero, ancestor: ancestor);
+  ///whether child is zero to parent
+  bool _childIsActivedInViewport(RenderBox child, RenderBox parent) {
+    Size parentSize = parent?.size ?? Size(0.0, 0.0);
+    final Offset position = child.localToGlobal(Offset.zero, ancestor: parent);
 
-    Size ancestorSize = ancestor?.size ?? Size(0 / 0, 0.0);
-
-    final Offset size = Offset(ancestorSize.width - renderBox.size.width,
-        ancestorSize.height - renderBox.size.height);
+    ///remove the margin/padding
+    final Offset size = Offset(parentSize.width - child.size.width,
+        parentSize.height - child.size.height);
 
     ///if layout is not completed, the data will has some gap.
     ///need more accurate time to compute
     ///to do
-    _isActived = ((position.dx - size.dx).abs() < 1 &&
+    bool childIsActivedInViewport = ((position.dx - size.dx).abs() < 1 &&
         (position.dy - size.dy).abs() < 1);
-    //print("${_isActived}");
+    return childIsActivedInViewport;
+  }
+
+  ///the nearest pageview/tabbarview
+  RenderBox _getParentPageViewRenderBox(BuildContext context) {
+    ScrollableState parent =
+        context.ancestorStateOfType(TypeMatcher<ScrollableState>());
+    if (parent == null) {
+      return null;
+    }
+
+    ///find horizontal pageview/tabbarview
+    if (parent.widget.controller is! PageController ||
+        parent.widget.axis != Axis.horizontal) {
+      return _getParentPageViewRenderBox(parent.context);
+    }
+    return parent.context.findRenderObject();
   }
 
   @override

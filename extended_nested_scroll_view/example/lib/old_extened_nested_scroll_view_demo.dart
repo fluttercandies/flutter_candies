@@ -98,7 +98,7 @@ class _OldExtendedNestedScrollViewDemoState
                 child: TabBarView(
                   controller: primaryTC,
                   children: <Widget>[
-                    SecondaryTabView(secondaryTC, true),
+                    SecondaryTabView("Tab0", secondaryTC, true),
                     NestedScrollViewInnerScrollPositionKeyWidget(
                         Key("Tab1"),
                         ListView.builder(

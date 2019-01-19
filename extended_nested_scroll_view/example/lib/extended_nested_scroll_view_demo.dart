@@ -13,11 +13,13 @@ class _ExtendedNestedScrollViewDemoState
     extends State<ExtendedNestedScrollViewDemo> with TickerProviderStateMixin {
   TabController primaryTC;
   TabController secondaryTC;
+  TabController secondaryTC1;
   @override
   void initState() {
-    primaryTC = new TabController(length: 2, vsync: this);
+    primaryTC = new TabController(length: 3, vsync: this);
     primaryTC.addListener(tabControlerListener);
     secondaryTC = new TabController(length: 4, vsync: this);
+    secondaryTC1 = new TabController(length: 4, vsync: this);
     // TODO: implement initState
     super.initState();
   }
@@ -62,6 +64,7 @@ class _ExtendedNestedScrollViewDemoState
       tabs: [
         Tab(text: "Tab0"),
         Tab(text: "Tab1"),
+        Tab(text: "Tab2"),
       ],
     );
     var tabBarHeight = primaryTabBar.preferredSize.height;
@@ -85,15 +88,16 @@ class _ExtendedNestedScrollViewDemoState
                 child: TabBarView(
                   controller: primaryTC,
                   children: <Widget>[
-                    SecondaryTabView(secondaryTC, false),
+                    SecondaryTabView("Tab0",secondaryTC, true),
+                    SecondaryTabView("Tab1",secondaryTC1, true),
                     ListView.builder(
                       //store Page state
-                      key: PageStorageKey("Tab1"),
+                      key: PageStorageKey("Tab2"),
                       itemBuilder: (c, i) {
                         return Container(
                           alignment: Alignment.center,
                           height: 60.0,
-                          child: Text(Key("Tab1").toString() + ": ListView$i"),
+                          child: Text(Key("Tab2").toString() + ": ListView$i"),
                         );
                       },
                       itemCount: 50,

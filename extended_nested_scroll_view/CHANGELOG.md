@@ -1,3 +1,7 @@
+## [0.1.6]
+
+* fix: Actived [_NestedScrollPosition] is not right for multiple
+
 ## [0.1.5]
 
 * add new ExtendedNestedScrollView to slove issue more smartly.

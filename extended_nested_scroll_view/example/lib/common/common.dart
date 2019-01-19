@@ -4,9 +4,10 @@ import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart';
 
 class SecondaryTabView extends StatefulWidget {
+  final String tabKey;
   final TabController tc;
   final bool oldDemo;
-  SecondaryTabView(this.tc, this.oldDemo);
+  SecondaryTabView(this.tabKey,this.tc, this.oldDemo);
   @override
   _SecondaryTabViewState createState() => _SecondaryTabViewState();
 }
@@ -31,10 +32,10 @@ class _SecondaryTabViewState extends State<SecondaryTabView>
       isScrollable: false,
       unselectedLabelColor: Colors.grey,
       tabs: [
-        Tab(text: "Tab00"),
-        Tab(text: "Tab01"),
-        Tab(text: "Tab02"),
-        Tab(text: "Tab03"),
+        Tab(text: widget.tabKey+"0"),
+        Tab(text: widget.tabKey+"1"),
+        Tab(text: widget.tabKey+"2"),
+        Tab(text: widget.tabKey+"3"),
       ],
     );
     return Column(
@@ -44,10 +45,10 @@ class _SecondaryTabViewState extends State<SecondaryTabView>
           child: TabBarView(
             controller: widget.tc,
             children: <Widget>[
-              TabViewItem(Key("Tab00"), widget.oldDemo),
-              TabViewItem(Key("Tab01"), widget.oldDemo),
-              TabViewItem(Key("Tab02"), widget.oldDemo),
-              TabViewItem(Key("Tab03"), widget.oldDemo),
+              TabViewItem(Key(widget.tabKey+"0"), widget.oldDemo),
+              TabViewItem(Key(widget.tabKey+"1"), widget.oldDemo),
+              TabViewItem(Key(widget.tabKey+"2"), widget.oldDemo),
+              TabViewItem(Key(widget.tabKey+"3"), widget.oldDemo),
             ],
           ),
         )
