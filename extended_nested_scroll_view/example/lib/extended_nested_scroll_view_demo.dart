@@ -67,7 +67,7 @@ class _ExtendedNestedScrollViewDemoState
         Tab(text: "Tab2"),
       ],
     );
-    var tabBarHeight = primaryTabBar.preferredSize.height;
+    //var tabBarHeight = primaryTabBar.preferredSize.height;
     var pinnedHeaderHeight =
         //statusBar height
         statusBarHeight +

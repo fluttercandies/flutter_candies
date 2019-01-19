@@ -12,21 +12,43 @@ NestedScrollView: extended nested scroll view to fix following issues.
 
 [Chinese bolg](https://juejin.im/post/5bea43ade51d45544844010a)
 
+new ExtendedNestedScrollView
+# Example for issue 1
+# Example for issue 2
+[Chinese bolg](https://juejin.im/post/5c42d91c518825261f73683b)
+
+you only need to care about pinnedHeaderHeight.
+issue 2 will be handled with keepOnlyOneInnerNestedScrollPositionActive is true.
+
+``` dart
+    var pinnedHeaderHeight =
+        //statusBar height
+        statusBarHeight +
+            //pinned SliverAppBar height in header
+            kToolbarHeight;
+
+ child: ExtendedNestedScrollView(
+          headerSliverBuilder: (c, f) {
+            return buildSliverHeader(false);
+          },
+          //
+          pinnedHeaderSliverHeight: pinnedHeaderHeight,
+```
+
+
+old ExtendedNestedScrollView
 # Example for issue 1
 
 give total height of pinned sliver headers in pinnedHeaderSliverHeightBuilder callback
 ``` dart
  var tabBarHeight = primaryTabBar.preferredSize.height;
-    var pinnedHeaderHeight =
-        //statusBar height
-        statusBarHeight +
-            //pinned SliverAppBar height in header
-            kToolbarHeight +
-            //pinned tabbar height in header
-            (primaryTC.index == 0 ? tabBarHeight * 2 : tabBarHeight);
-            
+      var pinnedHeaderHeight =
+          //statusBar height
+          statusBarHeight +
+              //pinned SliverAppBar height in header
+              kToolbarHeight;
 
- return extended.NestedScrollView(
+ return NestedScrollView(
         pinnedHeaderSliverHeightBuilder: () {
           return pinnedHeaderHeight;
         },

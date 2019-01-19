@@ -1,3 +1,7 @@
+## [0.1.8]
+
+* update new ExtendedNestedScrollView readme
+
 ## [0.1.7]
 
 * add assert for keepOnlyOneInnerNestedScrollPositionActive
