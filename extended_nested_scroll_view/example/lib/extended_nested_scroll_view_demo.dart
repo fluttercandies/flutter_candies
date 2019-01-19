@@ -88,8 +88,8 @@ class _ExtendedNestedScrollViewDemoState
                 child: TabBarView(
                   controller: primaryTC,
                   children: <Widget>[
-                    SecondaryTabView("Tab0",secondaryTC, true),
-                    SecondaryTabView("Tab1",secondaryTC1, true),
+                    SecondaryTabView("Tab0",secondaryTC, false),
+                    SecondaryTabView("Tab1",secondaryTC1, false),
                     ListView.builder(
                       //store Page state
                       key: PageStorageKey("Tab2"),

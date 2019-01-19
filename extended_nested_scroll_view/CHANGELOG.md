@@ -1,6 +1,18 @@
+## [0.1.7]
+
+* add assert for keepOnlyOneInnerNestedScrollPositionActive
+    ///when ExtendedNestedScrollView body has [TabBarView]/[PageView] and children have
+    ///AutomaticKeepAliveClientMixin or PageStorageKey,
+    ///[_innerController.nestedPositions] will have more one,
+    ///when you scroll, it will scroll all of nestedPositions
+    ///set [keepOnlyOneInnerNestedScrollPositionActive] true to avoid it.
+    ///notice: only for Axis.horizontal [TabBarView]/[PageView] and
+    ///[scrollDirection] must be Axis.vertical.
+assert(!(widget.keepOnlyOneInnerNestedScrollPositionActive && widget.scrollDirection == Axis.horizontal));
+
 ## [0.1.6]
 
-* fix: Actived [_NestedScrollPosition] is not right for multiple
+* fix issue: Actived [_NestedScrollPosition] is not right for multiple
 
 ## [0.1.5]
 

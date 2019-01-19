@@ -202,7 +202,7 @@ class ExtendedNestedScrollView extends StatefulWidget {
   ///if your pinned header will not changed, use this instead  of  [pinnedHeaderSliverHeightBuilder]
   final double pinnedHeaderSliverHeight;
 
-  ///when ExtendedNestedScrollView body has [TabBarView]/[PageView] and its' children are
+  ///when ExtendedNestedScrollView body has [TabBarView]/[PageView] and children have
   ///AutomaticKeepAliveClientMixin or PageStorageKey,
   ///[_innerController.nestedPositions] will have more one,
   ///when you scroll, it will scroll all of nestedPositions
@@ -312,15 +312,15 @@ class _ExtendedNestedScrollViewState extends State<ExtendedNestedScrollView> {
 
   @override
   void initState() {
-    ///when ExtendedNestedScrollView body has tabBarView and its' childs are
+    ///when ExtendedNestedScrollView body has [TabBarView]/[PageView] and children have
     ///AutomaticKeepAliveClientMixin or PageStorageKey,
     ///[_innerController.nestedPositions] will have more one,
     ///when you scroll, it will scroll all of nestedPositions
     ///set [keepOnlyOneInnerNestedScrollPositionActive] true to avoid it.
-    ///notice: only for Axis.horizontal PageView/TabBarView and
+    ///notice: only for Axis.horizontal [TabBarView]/[PageView] and
     ///[scrollDirection] must be Axis.vertical.
     assert(!(widget.keepOnlyOneInnerNestedScrollPositionActive &&
-        widget.scrollDirection == Axis.vertical));
+        widget.scrollDirection == Axis.horizontal));
 
     super.initState();
     _coordinator = _NestedScrollCoordinator(
@@ -1010,7 +1010,6 @@ class _NestedScrollController extends ScrollController {
       /// because it maybe has more one tabbarview or pageview in NestedScrollView body
       final RenderBox pageChangedRenderBox =
           notification.context.findRenderObject();
-
       int activeCount = 0;
       nestedPositions.forEach((item) {
         item._computeActived(pageChangedRenderBox);
@@ -1097,6 +1096,15 @@ class _NestedScrollPosition extends ScrollPosition
       ///the nearest pageview/tabview
       final RenderBox parentRenderBox = _getParentPageViewRenderBox(context);
 
+//      RenderAbstractViewport viewport = RenderAbstractViewport.of(renderBox);
+//      RenderAbstractViewport viewport1 =
+//          RenderAbstractViewport.of(pageChangedRenderBox);
+//      RenderAbstractViewport viewport2 =
+//          RenderAbstractViewport.of(parentRenderBox);
+//
+//      var test = viewport.getOffsetToReveal(renderBox, 0.0,
+//          rect: viewport2.semanticBounds);
+
       /// just for test
 //      var key = context.ancestorWidgetOfExactType(
 //              typeOf<NestedScrollViewInnerScrollPositionKeyWidget>())
@@ -1105,7 +1113,7 @@ class _NestedScrollPosition extends ScrollPosition
       _isActived = _childIsActivedInViewport(renderBox, pageChangedRenderBox) &&
           _childIsActivedInViewport(renderBox, parentRenderBox);
 
-      ///print("${key?.scrollPositionKey} ${_isActived}");
+      //print("${key?.scrollPositionKey} ${_isActived} ${test}");
     } catch (e, stack) {
       print(e);
       _isActived = false;
