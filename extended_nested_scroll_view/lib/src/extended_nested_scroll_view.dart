@@ -181,7 +181,7 @@ class ExtendedNestedScrollView extends StatefulWidget {
     this.physics,
     this.pinnedHeaderSliverHeightBuilder,
     this.pinnedHeaderSliverHeight,
-    this.keepOnlyOneInnerNestedScrollPositionActive: true,
+    this.keepOnlyOneInnerNestedScrollPositionActive: false,
     @required this.headerSliverBuilder,
     @required this.body,
   })  : assert(scrollDirection != null),

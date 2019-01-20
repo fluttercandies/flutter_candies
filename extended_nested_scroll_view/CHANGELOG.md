@@ -1,3 +1,7 @@
+## [0.1.9]
+
+* set keepOnlyOneInnerNestedScrollPositionActive default value: false
+
 ## [0.1.8]
 
 * update new ExtendedNestedScrollView readme
