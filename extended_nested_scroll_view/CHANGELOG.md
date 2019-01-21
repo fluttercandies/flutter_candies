@@ -1,3 +1,7 @@
+## [0.2.0]
+
+* update new extended_nested_scroll_view demo
+
 ## [0.1.9]
 
 * set keepOnlyOneInnerNestedScrollPositionActive default value: false

@@ -88,23 +88,23 @@ class _ExtendedNestedScrollViewDemoState
                 child: TabBarView(
                   controller: primaryTC,
                   children: <Widget>[
-                    SecondaryTabView("Tab0", secondaryTC, true),
-                    SecondaryTabView("Tab1", secondaryTC1, true),
-                    NestedScrollViewInnerScrollPositionKeyWidget(
-                        Key("Tab2"),
-                        ListView.builder(
-                          //store Page state
-                          key: PageStorageKey("Tab2"),
-                          itemBuilder: (c, i) {
-                            return Container(
-                              alignment: Alignment.center,
-                              height: 60.0,
-                              child:
-                                  Text(Key("Tab2").toString() + ": ListView$i"),
-                            );
-                          },
-                          itemCount: 50,
-                        ))
+                    SecondaryTabView("Tab0", secondaryTC, false),
+                    SecondaryTabView("Tab1", secondaryTC1, false),
+//                    NestedScrollViewInnerScrollPositionKeyWidget(
+//                        Key("Tab2"),
+                    ListView.builder(
+                      //store Page state
+                      key: PageStorageKey("Tab2"),
+                      itemBuilder: (c, i) {
+                        return Container(
+                          alignment: Alignment.center,
+                          height: 60.0,
+                          child: Text(Key("Tab2").toString() + ": ListView$i"),
+                        );
+                      },
+                      itemCount: 50,
+                    )
+                    //)
                   ],
                 ),
               )
