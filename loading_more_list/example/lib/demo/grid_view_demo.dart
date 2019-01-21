@@ -35,18 +35,19 @@ class _GridViewDemoState extends State<GridViewDemo> {
           ),
           Expanded(
             child: LoadingMoreList(
-                ListConfig<TuChongItem>(ItemBuilder.itemBuilder, listSourceRepository,
-                    padding: EdgeInsets.all(0.0),
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 3.0,
-                      mainAxisSpacing: 3.0,
-                    )),),
+              ListConfig<TuChongItem>(
+                  itemBuilder: ItemBuilder.itemBuilder,
+                  sourceList: listSourceRepository,
+                  padding: EdgeInsets.all(0.0),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 3.0,
+                    mainAxisSpacing: 3.0,
+                  )),
+            ),
           )
         ],
       ),
     );
   }
-
-
 }

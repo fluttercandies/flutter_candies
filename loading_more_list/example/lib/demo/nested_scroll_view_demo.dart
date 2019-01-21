@@ -297,7 +297,8 @@ class _Tab2State extends State<Tab2> with AutomaticKeepAliveClientMixin {
             Expanded(
               child: LoadingMoreList(
                 ListConfig<TuChongItem>(
-                    ItemBuilder.itemBuilder, widget.listSourceRepository3,
+                    itemBuilder: ItemBuilder.itemBuilder,
+                    sourceList: widget.listSourceRepository3,
                     showGlowLeading: false,
 //                    showGlowTrailing: false,
                     padding: EdgeInsets.all(0.0)),

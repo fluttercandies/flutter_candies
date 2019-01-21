@@ -40,8 +40,8 @@ class _CustomIndicatorDemoState extends State<CustomIndicatorDemo> {
           Expanded(
             child: LoadingMoreList(
               ListConfig<TuChongItem>(
-                ItemBuilder.itemBuilder,
-                listSourceRepository,
+                itemBuilder: ItemBuilder.itemBuilder,
+                sourceList: listSourceRepository,
                 indicatorBuilder: _buildIndicator,
                 padding: EdgeInsets.all(0.0),
               ),

@@ -35,11 +35,13 @@ class _ListViewDemoState extends State<ListViewDemo> {
           ),
           Expanded(
             child: LoadingMoreList(
-                ListConfig<TuChongItem>(
-                    ItemBuilder.itemBuilder, listSourceRepository,
+              ListConfig<TuChongItem>(
+                  itemBuilder: ItemBuilder.itemBuilder,
+                  sourceList: listSourceRepository,
 //                    showGlowLeading: false,
 //                    showGlowTrailing: false,
-                    padding: EdgeInsets.all(0.0)),),
+                  padding: EdgeInsets.all(0.0)),
+            ),
           )
         ],
       ),

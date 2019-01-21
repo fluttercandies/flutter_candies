@@ -5,12 +5,23 @@ import 'package:flutter/material.dart';
 import 'package:loading_more_list/src/empty_widget.dart';
 
 class IndicatorWidget extends StatelessWidget {
-  IndicatorStatus status;
+  ///Status of indicator
+  final IndicatorStatus status;
+
+  ///call back of loading failed
   final Function tryAgain;
+
+  ///text to show
   final String text;
+
+  ///background color
   final Color backgroundColor;
+
+  ///whether it need sliver as container
   final bool isSliver;
-  Widget emptyWidget;
+
+  ///emppty widget
+  final Widget emptyWidget;
   IndicatorWidget(this.status,
       {this.tryAgain,
       this.text,
