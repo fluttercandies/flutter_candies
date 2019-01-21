@@ -204,7 +204,6 @@ class _ExtendedTabBarViewState extends State<ExtendedTabBarView> {
   }
 
   bool _handleGlowNotification(OverscrollIndicatorNotification notification) {
-    debugPrint("${notification.depth}++++ ${_ancestor != null}");
     if (notification.depth == 0 &&
         _canlinkeWithAncestorScroll(notification.leading)) {
       notification.disallowGlow();
