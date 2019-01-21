@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:http/http.dart';
 
 //Cancellation token to cancel future in dart
 class CancellationToken {
@@ -20,7 +19,7 @@ class CancellationToken {
   /// cancel operation
   void cancel([String msg]) {
     _cancelError = new OperationCanceledError(msg ?? "cancel this token");
-    if (!_completers.isEmpty) {
+    if (_completers.isNotEmpty) {
       _completers.forEach((e) => e.completeError(cancelError));
     }
   }

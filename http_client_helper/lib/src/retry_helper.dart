@@ -12,12 +12,12 @@ class RetryHelper {
     int attempts = 0;
     while (attempts <= retries) {
       attempts++;
-      print("try at ${attempts} times");
+      //print("try at ${attempts} times");
       try {
         return await asyncFunc();
       } on OperationCanceledError catch (error) {
         throw error;
-      } catch (error, stackTrace) {
+      } catch (error) {
         if (throwThenExpction != null && throwThenExpction()) {
           throw error;
         }
@@ -36,5 +36,6 @@ class RetryHelper {
       //throw error;
       //}
     }
+    return null;
   }
 }

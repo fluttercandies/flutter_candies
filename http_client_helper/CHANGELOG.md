@@ -1,3 +1,7 @@
+## [0.1.5]
+
+* format code
+
 ## [0.1.4]
 
 * remove map to string for post
