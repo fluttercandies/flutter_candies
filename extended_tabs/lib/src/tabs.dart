@@ -191,11 +191,9 @@ class _ExtendedTabBarViewState extends State<ExtendedTabBarView> {
       _controller.index = _pageController.page.round();
       _currentIndex = _controller.index;
     } else if (notification is OverscrollNotification && _ancestor != null) {
-      var overscrollNotification = notification as OverscrollNotification;
-      if (_canlinkeWithAncestorScroll(overscrollNotification.overscroll < 0)) {
-        _ancestor._pageController.position.moveTo(
-            _ancestor._pageController.offset +
-                overscrollNotification.overscroll);
+      if (_canlinkeWithAncestorScroll(notification.overscroll < 0)) {
+        _ancestor._pageController.position
+            .moveTo(_ancestor._pageController.offset + notification.overscroll);
       }
     }
     _warpUnderwayCount -= 1;
