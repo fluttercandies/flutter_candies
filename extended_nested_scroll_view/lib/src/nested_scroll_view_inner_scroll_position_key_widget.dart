@@ -54,9 +54,9 @@ class _NestedScrollViewInnerScrollPositionKeyWidgetState
 //    super.didUpdateWidget(oldWidget);
 //  }
 
-  void _afterLayout(Duration timeStamp) {
-    final RenderBox renderBox = this.context.findRenderObject();
-    final position = renderBox.localToGlobal(Offset.zero);
-    print("${widget.scrollPositionKey} POSITION : $position ");
-  }
+//  void _afterLayout(Duration timeStamp) {
+//    final RenderBox renderBox = this.context.findRenderObject();
+//    final position = renderBox.localToGlobal(Offset.zero);
+//    print("${widget.scrollPositionKey} POSITION : $position ");
+//  }
 }

@@ -30,7 +30,7 @@ const Duration _kIndicatorScaleDuration = Duration(milliseconds: 200);
 /// finished.
 ///
 /// Used by [NestedScrollViewRefreshIndicator.onRefresh].
-typedef RefreshCallback = Future<void> Function();
+typedef NestedScrollViewRefreshCallback = Future<void> Function();
 
 // The state machine moves through these modes only when the scrollable
 // identified by scrollableKey has been scrolled to its min or max limit.
@@ -112,7 +112,7 @@ class NestedScrollViewRefreshIndicator extends StatefulWidget {
   /// A function that's called when the user has dragged the refresh indicator
   /// far enough to demonstrate that they want the app to refresh. The returned
   /// [Future] must complete when the refresh operation is finished.
-  final RefreshCallback onRefresh;
+  final NestedScrollViewRefreshCallback onRefresh;
 
   /// The progress indicator's foreground color. The current theme's
   /// [ThemeData.accentColor] by default.
@@ -291,7 +291,6 @@ class NestedScrollViewRefreshIndicatorState
     _positionController.value = 0.0;
     return true;
   }
-
 
   void _checkDragOffset(double containerExtent) {
     assert(_mode == _RefreshIndicatorMode.drag ||
