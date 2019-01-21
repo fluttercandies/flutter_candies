@@ -1,3 +1,21 @@
+## [0.2.1]
+
+* fix issue that ut postion is not overscroll actually and it get minimal value
+  and will scroll inner positions
+  igore  minimal value here(value like following data)
+  ///  I/flutter (14963): 5.684341886080802e-14
+  /// I/flutter (14963): -5.684341886080802e-14
+  /// I/flutter (14963): -5.684341886080802e-14
+  /// I/flutter (14963): 5.684341886080802e-14
+  /// I/flutter (14963): -5.684341886080802e-14
+  /// I/flutter (14963): -5.684341886080802e-14
+  /// I/flutter (14963): -5.684341886080802e-14
+  if (innerDelta != 0.0 && innerDelta.abs() > 0.0001) {
+  for (_NestedScrollPosition position in _activedInnerPositions) {
+        position.applyFullDragUpdate(innerDelta);
+     }
+   }
+
 ## [0.2.0]
 
 * update new extended_nested_scroll_view demo

@@ -888,7 +888,18 @@ class _NestedScrollCoordinator
       // clear what this should do when you have multiple inner positions at
       // different levels of overscroll.
       final double innerDelta = _outerPosition.applyClampedDragUpdate(delta);
-      if (innerDelta != 0.0) {
+
+      ///this is a bug that the out postion is not overscroll actually and it get minimal value
+      ///do under code will scroll inner positions
+      ///so i igore  minimal value here(value like following data)
+      ///  I/flutter (14963): 5.684341886080802e-14
+      /// I/flutter (14963): -5.684341886080802e-14
+      /// I/flutter (14963): -5.684341886080802e-14
+      /// I/flutter (14963): 5.684341886080802e-14
+      /// I/flutter (14963): -5.684341886080802e-14
+      /// I/flutter (14963): -5.684341886080802e-14
+      /// I/flutter (14963): -5.684341886080802e-14
+      if (innerDelta != 0.0 && innerDelta.abs() > 0.0001) {
         for (_NestedScrollPosition position in _activedInnerPositions) {
           position.applyFullDragUpdate(innerDelta);
         }
