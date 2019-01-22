@@ -4,7 +4,7 @@ class RetryHelper {
   //try again，after millisecondsDelay time
   static Future<T> tryRun<T>(
     Future<T> Function() asyncFunc, {
-    int millisecondsDelay = 100,
+    Duration timeRetry = const Duration(milliseconds: 100),
     int retries = 3,
     CancellationToken cancelToken,
     bool Function() throwThenExpction,
@@ -26,9 +26,9 @@ class RetryHelper {
       }
       //delay to retry
       //try {
-      if (attempts < retries) {
-        var future = CancellationTokenSource.register(cancelToken,
-            Future.delayed(Duration(milliseconds: millisecondsDelay)));
+      if (attempts < retries && timeRetry != null) {
+        var future = CancellationTokenSource.register(
+            cancelToken, Future.delayed(timeRetry));
         await future;
       }
 

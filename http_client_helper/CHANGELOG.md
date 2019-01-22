@@ -1,3 +1,7 @@
+## [0.1.6]
+
+* add timeLimit for timeout
+
 ## [0.1.5]
 
 * format code

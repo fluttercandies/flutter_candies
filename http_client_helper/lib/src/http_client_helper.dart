@@ -12,16 +12,17 @@ class HttpClientHelper {
   static Future<Response> get(url,
       {Map<String, String> headers,
       CancellationToken cancelToken,
-      int millisecondsDelay = 100,
-      int retries = 3}) async {
+      int retries = 3,
+      Duration timeLimit,
+      Duration timeRetry = const Duration(milliseconds: 100)}) async {
     cancelToken?.throwIfCancellationRequested();
     return await RetryHelper.tryRun<Response>(() {
       return CancellationTokenSource.register(
-          cancelToken, _httpClient.get(url, headers: headers));
-    },
-        cancelToken: cancelToken,
-        millisecondsDelay: millisecondsDelay,
-        retries: retries);
+          cancelToken,
+          timeLimit == null
+              ? _httpClient.get(url, headers: headers)
+              : _httpClient.get(url, headers: headers).timeout(timeLimit));
+    }, cancelToken: cancelToken, timeRetry: timeRetry, retries: retries);
   }
 
   //http post with cancel, delay try again
@@ -30,8 +31,9 @@ class HttpClientHelper {
       body,
       Encoding encoding,
       CancellationToken cancelToken,
-      int millisecondsDelay = 100,
-      int retries = 3}) async {
+      int retries = 3,
+      Duration timeLimit,
+      Duration timeRetry = const Duration(milliseconds: 100)}) async {
     cancelToken?.throwIfCancellationRequested();
 //    if (body is Map) {
 //      body = utf8.encode(json.encode(body));
@@ -40,11 +42,12 @@ class HttpClientHelper {
     return await RetryHelper.tryRun<Response>(() {
       return CancellationTokenSource.register(
           cancelToken,
-          _httpClient.post(url,
-              headers: headers, body: body, encoding: encoding));
-    },
-        cancelToken: cancelToken,
-        millisecondsDelay: millisecondsDelay,
-        retries: retries);
+          timeLimit == null
+              ? _httpClient.post(url,
+                  headers: headers, body: body, encoding: encoding)
+              : _httpClient
+                  .post(url, headers: headers, body: body, encoding: encoding)
+                  .timeout(timeLimit));
+    }, cancelToken: cancelToken, timeRetry: timeRetry, retries: retries);
   }
 }

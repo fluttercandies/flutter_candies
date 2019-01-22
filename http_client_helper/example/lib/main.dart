@@ -62,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
     try {
       await HttpClientHelper.get(url,
               cancelToken: cancellationToken,
-              millisecondsDelay: 1000,
+              timeRetry: Duration(milliseconds: 1000),
               retries: 10)
           .then((response) {
         setState(() {
@@ -73,9 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
       setState(() {
         msg = "cancel";
       });
-    } catch (e) {
-
-    }
+    } catch (e) {}
   }
 
   void cancel() {
