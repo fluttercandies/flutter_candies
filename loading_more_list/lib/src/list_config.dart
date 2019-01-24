@@ -192,8 +192,8 @@ class ListConfig<T> extends LoadingMoreListConfig<T> {
   final bool addSemanticIndexes;
 
   ListConfig({
-    @required itemBuilder,
-    @required sourceList,
+    Widget Function(BuildContext context, T item, int index) itemBuilder,
+    LoadingMoreBase<T> sourceList,
     this.showGlowLeading: true,
     this.showGlowTrailing: true,
     LoadingMoreIndicatorBuilder indicatorBuilder,
@@ -278,9 +278,9 @@ class SliverListConfig<T> extends LoadingMoreListConfig<T> {
   final int semanticIndexOffset;
   final int childCount;
 
-  SliverListConfig(
-    @required itemBuilder,
-    @required sourceList, {
+  SliverListConfig({
+    Widget Function(BuildContext context, T item, int index) itemBuilder,
+    LoadingMoreBase<T> sourceList,
     LoadingMoreIndicatorBuilder indicatorBuilder,
     SliverGridDelegate gridDelegate,
     this.addAutomaticKeepAlives = true,
@@ -381,7 +381,7 @@ class LoadingMoreListConfig<T> {
     return this is SliverListConfig<T>;
   }
 
-  LoadingMoreListConfig(@required this.itemBuilder, @required this.sourceList,
+  LoadingMoreListConfig(this.itemBuilder, this.sourceList,
       {this.indicatorBuilder, this.gridDelegate})
       : assert(itemBuilder != null),
         assert(sourceList != null);

@@ -36,7 +36,8 @@ class _SliverListDemoState extends State<SliverListDemo> {
             title: Text("SliverListDemo"),
           ),
           LoadingMoreSliverList(SliverListConfig<TuChongItem>(
-            ItemBuilder.itemBuilder, listSourceRepository,
+            itemBuilder: ItemBuilder.itemBuilder,
+            sourceList: listSourceRepository,
             //isLastOne: false
           ))
         ],

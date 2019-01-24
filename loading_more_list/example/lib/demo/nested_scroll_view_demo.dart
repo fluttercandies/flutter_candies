@@ -200,7 +200,8 @@ class _Tab0State extends State<Tab0> with AutomaticKeepAliveClientMixin {
                     ),
                     50.0)),
             LoadingMoreSliverList(SliverListConfig<TuChongItem>(
-              ItemBuilder.itemBuilder, widget.listSourceRepository,
+              itemBuilder: ItemBuilder.itemBuilder,
+              sourceList: widget.listSourceRepository,
               //isLastOne: false
             ))
           ],
@@ -243,7 +244,8 @@ class _Tab1State extends State<Tab1> with AutomaticKeepAliveClientMixin {
                     ),
                     50.0)),
             LoadingMoreSliverList(SliverListConfig<TuChongItem>(
-              ItemBuilder.itemBuilder, widget.listSourceRepository1,
+              itemBuilder: ItemBuilder.itemBuilder,
+              sourceList: widget.listSourceRepository1,
               //isLastOne: false
             )),
             SliverToBoxAdapter(
@@ -255,8 +257,8 @@ class _Tab1State extends State<Tab1> with AutomaticKeepAliveClientMixin {
               ),
             ),
             LoadingMoreSliverList(SliverListConfig<TuChongItem>(
-              ItemBuilder.itemBuilder,
-              widget.listSourceRepository2,
+              itemBuilder: ItemBuilder.itemBuilder,
+              sourceList: widget.listSourceRepository2,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 crossAxisSpacing: 3.0,

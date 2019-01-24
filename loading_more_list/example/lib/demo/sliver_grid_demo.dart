@@ -36,7 +36,8 @@ class _SliverGridDemoState extends State<SliverGridDemo> {
             title: Text("SliverGridDemo"),
           ),
           LoadingMoreSliverList(SliverListConfig<TuChongItem>(
-            ItemBuilder.itemBuilder, listSourceRepository,
+            itemBuilder: ItemBuilder.itemBuilder,
+            sourceList: listSourceRepository,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               crossAxisSpacing: 3.0,

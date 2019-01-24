@@ -31,7 +31,6 @@ class _MultipleSliverDemoState extends State<MultipleSliverDemo> {
 
   @override
   Widget build(BuildContext context) {
-
     return Material(
       child: LoadingMoreCustomScrollView(
         slivers: <Widget>[
@@ -40,8 +39,8 @@ class _MultipleSliverDemoState extends State<MultipleSliverDemo> {
             title: Text("MultipleSliverDemo"),
           ),
           LoadingMoreSliverList(SliverListConfig<TuChongItem>(
-            ItemBuilder.itemBuilder,
-            listSourceRepository,
+            itemBuilder: ItemBuilder.itemBuilder,
+            sourceList: listSourceRepository,
           )),
           SliverToBoxAdapter(
             child: Container(
@@ -62,8 +61,8 @@ class _MultipleSliverDemoState extends State<MultipleSliverDemo> {
             pinned: true,
           ),
           LoadingMoreSliverList(SliverListConfig<TuChongItem>(
-            ItemBuilder.itemBuilder,
-            listSourceRepository1,
+            itemBuilder: ItemBuilder.itemBuilder,
+            sourceList: listSourceRepository1,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               crossAxisSpacing: 3.0,

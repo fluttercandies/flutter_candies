@@ -1,3 +1,7 @@
+## [0.2.2]
+
+* format code
+
 ## [0.2.1]
 
 * format code
