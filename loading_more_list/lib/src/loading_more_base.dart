@@ -27,7 +27,7 @@ abstract class LoadingMoreBase<T> extends ListBase<T>
   //do not change this in out side
   IndicatorStatus indicatorStatus = IndicatorStatus.FullScreenBusying;
 
-  @protected
+  //@protected
   @mustCallSuper
   Future<bool> loadMore() async {
     var preStatus = indicatorStatus;
@@ -59,11 +59,11 @@ abstract class LoadingMoreBase<T> extends ListBase<T>
     return isSuccess;
   }
 
-  @protected
+  //@protected
   Future<bool> loadData([bool isloadMoreAction = false]);
 
   @override
-  @protected
+  //@protected
   @mustCallSuper
   Future<bool> refresh([bool clearBeforeRequest = false]) async {
     // TODO: implement OnRefresh
@@ -77,7 +77,7 @@ abstract class LoadingMoreBase<T> extends ListBase<T>
   }
 
   @override
-  @protected
+  //@protected
   @mustCallSuper
   Future<bool> errorRefresh() async {
     // TODO: implement OnRefresh
@@ -90,7 +90,7 @@ abstract class LoadingMoreBase<T> extends ListBase<T>
   set length(int newLength) => _array.length = newLength;
 
   @override
-  @protected
+  //@protected
   @mustCallSuper
   void onStateChanged(LoadingMoreBase<T> source) {
     // TODO: implement notice

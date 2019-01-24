@@ -395,7 +395,7 @@ class LoadingMoreListConfig<T> {
         //first load
         sourceList.refresh();
       }
-      Widget widget = null;
+      Widget widget;
       if (indicatorBuilder != null)
         widget = indicatorBuilder(context, IndicatorStatus.FullScreenBusying);
       widget = widget ??
@@ -410,7 +410,7 @@ class LoadingMoreListConfig<T> {
     else if (source.length == 0 &&
             source.indicatorStatus == IndicatorStatus.Empty ||
         source.indicatorStatus == IndicatorStatus.FullScreenError) {
-      Widget widget1 = null;
+      Widget widget1;
       if (indicatorBuilder != null)
         widget1 = indicatorBuilder(context, sourceList.indicatorStatus);
       widget1 = widget1 ??
@@ -445,7 +445,7 @@ class LoadingMoreListConfig<T> {
         sourceList.loadMore();
       }
 
-      Widget widget1 = null;
+      Widget widget1;
       if (indicatorBuilder != null) widget1 = indicatorBuilder(context, status);
       widget1 = widget1 ??
           IndicatorWidget(
@@ -460,7 +460,7 @@ class LoadingMoreListConfig<T> {
   Widget buildErrorItem(BuildContext context) {
     var hasError = sourceList.indicatorStatus == IndicatorStatus.Error;
     if (hasError) {
-      Widget widget = null;
+      Widget widget;
       if (indicatorBuilder != null)
         widget = indicatorBuilder(context, IndicatorStatus.Error);
       widget = widget ??

@@ -1,12 +1,4 @@
-## [0.2.2]
-
-* format code
-
-## [0.2.1]
-
-* format code
-
-## [0.2.0]
+## [0.2.3]
 
 * fix LoadingMoreList not listen onScrollNotification
 * add onScrollNotification listen call back for LoadingMoreList and LoadingMoreCustomScrollView
