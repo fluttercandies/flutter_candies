@@ -1,3 +1,8 @@
+## [0.1.2]
+*   fix https://github.com/flutter/flutter/issues/24660
+        https://github.com/flutter/flutter/issues/27010
+     use pr code from https://github.com/flutter/flutter/pull/24821/files
+  
 ## [0.1.1]
 
 * format code
