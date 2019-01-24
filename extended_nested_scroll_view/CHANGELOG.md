@@ -1,3 +1,7 @@
+## [0.2.2]
+
+* format code
+
 ## [0.2.1]
 
 * fix issue that ut postion is not overscroll actually and it get minimal value

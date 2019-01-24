@@ -402,7 +402,7 @@ class _ExtendedNestedScrollViewState extends State<ExtendedNestedScrollView> {
               var page = _pageMetricsList[depth];
               //ComputeActivatedNestedPosition only when page changed
               if (page != currentPage) {
-                print("Page changed ${currentPage}");
+                //print("Page changed ${currentPage}");
                 _coordinator._innerController
                     ._computeActivatedNestedPosition(notification);
               }
@@ -1024,11 +1024,13 @@ class _NestedScrollController extends ScrollController {
       int activeCount = 0;
       nestedPositions.forEach((item) {
         item._computeActived(pageChangedRenderBox);
-        if (item._isActived) activeCount++;
+        if (item._isActived) {
+          activeCount++;
+        }
       });
 
       if (activeCount > 1) {
-        print(
+        debugPrint(
             "activeCount more than 1, please report to zmtzawqlp@live.com and show your case.");
       }
 
