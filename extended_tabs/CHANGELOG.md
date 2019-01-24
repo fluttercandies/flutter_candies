@@ -1,3 +1,7 @@
+## [0.1.3]
+
+*  add cacheExtent for extended page
+
 ## [0.1.2]
 *   fix https://github.com/flutter/flutter/issues/24660
         https://github.com/flutter/flutter/issues/27010

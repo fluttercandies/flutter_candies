@@ -281,6 +281,7 @@ class _ExtendedTabBarViewState extends State<ExtendedTabBarView> {
         onNotification: _handleGlowNotification,
         child: ExtendedPageView(
           controller: _pageController,
+          cacheExtent: widget.cacheExtent,
           physics: widget.physics == null
               ? _kTabBarViewPhysics
               : _kTabBarViewPhysics.applyTo(widget.physics),
