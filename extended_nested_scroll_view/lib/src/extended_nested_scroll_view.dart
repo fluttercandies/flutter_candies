@@ -1127,8 +1127,8 @@ class _NestedScrollPosition extends ScrollPosition
           _childIsActivedInViewport(renderBox, parentRenderBox);
 
       //print("${key?.scrollPositionKey} ${_isActived} ${test}");
-    } catch (e, stack) {
-      print(e);
+    } catch (e) {
+      debugPrint(e);
       _isActived = false;
     }
   }

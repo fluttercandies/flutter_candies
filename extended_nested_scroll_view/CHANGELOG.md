@@ -1,8 +1,4 @@
-## [0.2.2]
-
-* format code
-
-## [0.2.1]
+## [0.2.3]
 
 * fix issue that ut postion is not overscroll actually and it get minimal value
   and will scroll inner positions
