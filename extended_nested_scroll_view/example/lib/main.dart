@@ -1,9 +1,6 @@
-import 'package:example/common/common.dart';
 import 'package:example/extended_nested_scroll_view_demo.dart';
 import 'package:example/old_extened_nested_scroll_view_demo.dart';
 import 'package:flutter/material.dart' hide NestedScrollView;
-import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
-import 'package:extended_nested_scroll_view/src/nested_scroll_view_refresh_indicator.dart';
 
 void main() => runApp(MyApp());
 
@@ -54,7 +51,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     return ListView.builder(
       itemBuilder: (_, int index) {
         var page = pages[index];
-        var pageWidget = null;
+        var pageWidget;
         return Container(
           margin: EdgeInsets.all(20.0),
           child: GestureDetector(
