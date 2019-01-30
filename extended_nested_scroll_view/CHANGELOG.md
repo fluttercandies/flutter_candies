@@ -1,3 +1,8 @@
+## [0.2.6]
+
+* fix issue for quick change page
+* handle unavailable page change(no actived nested positions in it)
+
 ## [0.2.5]
 
 * fix issue that ut postion is not overscroll actually,it get minimal value

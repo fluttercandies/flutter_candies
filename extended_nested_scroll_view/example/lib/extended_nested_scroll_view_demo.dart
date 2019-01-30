@@ -83,6 +83,27 @@ class _ExtendedNestedScrollViewDemoState
           keepOnlyOneInnerNestedScrollPositionActive: true,
           body: Column(
             children: <Widget>[
+              //test special case
+              Container(
+                height: 100.0,
+                child: PageView(
+                  children: <Widget>[
+                    Container(
+                      height: 100.0,
+                      color: Colors.red,
+                    ),
+                    Container(
+                      height: 100.0,
+                      color: Colors.blue,
+                    ),
+                    Container(
+                      height: 100.0,
+                      color: Colors.red,
+                    ),
+                  ],
+                ),
+              ),
+
               primaryTabBar,
               Expanded(
                 child: TabBarView(

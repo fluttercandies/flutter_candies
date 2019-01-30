@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/lib/src/extended_nested_scroll_view.dart" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="dcd23243-d440-42da-b964-07b4810479f1" name="Default" comment="* fix issue that ut postion is not overscroll actually and it get minimal value&#10;  and will scroll inner positions&#10;  igore  minimal value here(value like following data)">
       <change beforePath="" afterPath="$PROJECT_DIR$/../http_client_helper/.idea/vcs.xml" />
@@ -12,15 +15,12 @@
       <change beforePath="$PROJECT_DIR$/../.idea/Flutter.iml" afterPath="$PROJECT_DIR$/../.idea/Flutter.iml" />
       <change beforePath="$PROJECT_DIR$/../.idea/libraries/Dart_Packages.xml" afterPath="$PROJECT_DIR$/../.idea/libraries/Dart_Packages.xml" />
       <change beforePath="$PROJECT_DIR$/../.idea/libraries/Dart_SDK.xml" afterPath="$PROJECT_DIR$/../.idea/libraries/Dart_SDK.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/CHANGELOG.md" afterPath="$PROJECT_DIR$/CHANGELOG.md" />
-      <change beforePath="$PROJECT_DIR$/example/lib/main.dart" afterPath="$PROJECT_DIR$/example/lib/main.dart" />
-      <change beforePath="$PROJECT_DIR$/example/test/widget_test.dart" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/example/lib/extended_nested_scroll_view_demo.dart" afterPath="$PROJECT_DIR$/example/lib/extended_nested_scroll_view_demo.dart" />
       <change beforePath="$PROJECT_DIR$/lib/src/extended_nested_scroll_view.dart" afterPath="$PROJECT_DIR$/lib/src/extended_nested_scroll_view.dart" />
+      <change beforePath="$PROJECT_DIR$/lib/src/nested_scroll_view_inner_scroll_position_key_widget.dart" afterPath="$PROJECT_DIR$/lib/src/nested_scroll_view_inner_scroll_position_key_widget.dart" />
       <change beforePath="$PROJECT_DIR$/pubspec.yaml" afterPath="$PROJECT_DIR$/pubspec.yaml" />
-      <change beforePath="$PROJECT_DIR$/test/extended_nested_scroll_view_test.dart" afterPath="" />
       <change beforePath="$PROJECT_DIR$/../extended_tabs/.idea/libraries/Dart_SDK.xml" afterPath="$PROJECT_DIR$/../extended_tabs/.idea/libraries/Dart_SDK.xml" />
       <change beforePath="$PROJECT_DIR$/../extended_tabs/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../extended_tabs/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/../extended_tabs/extended_tabs.iml" afterPath="$PROJECT_DIR$/../extended_tabs/extended_tabs.iml" />
@@ -46,8 +46,8 @@
       <file leaf-file-name="extended_nested_scroll_view.dart" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/src/extended_nested_scroll_view.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="269">
-              <caret line="1130" column="6" lean-forward="false" selection-start-line="1130" selection-start-column="6" selection-end-line="1130" selection-end-column="6" />
+            <state relative-caret-position="287">
+              <caret line="1195" column="19" lean-forward="true" selection-start-line="1195" selection-start-column="19" selection-end-line="1195" selection-end-column="19" />
               <folding>
                 <element signature="e#166#186#0" expanded="true" />
               </folding>
@@ -55,10 +55,30 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="old_extended_nested_scroll_view.dart" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/src/old_extended_nested_scroll_view.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-46">
+              <caret line="1018" column="51" lean-forward="false" selection-start-line="1018" selection-start-column="48" selection-end-line="1018" selection-end-column="51" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="notification_listener.dart" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../../flutter_source/1.1.5/packages/flutter/lib/src/widgets/notification_listener.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="405">
+              <caret line="48" column="4" lean-forward="false" selection-start-line="48" selection-start-column="4" selection-end-line="48" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="main.dart" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/example/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="134">
+            <state relative-caret-position="1431">
               <caret line="53" column="22" lean-forward="false" selection-start-line="53" selection-start-column="22" selection-end-line="53" selection-end-column="22" />
               <folding>
                 <element signature="e#0#63#0" expanded="true" />
@@ -70,8 +90,8 @@
       <file leaf-file-name="nested_scroll_view_inner_scroll_position_key_widget.dart" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/src/nested_scroll_view_inner_scroll_position_key_widget.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1539">
-              <caret line="59" column="35" lean-forward="false" selection-start-line="59" selection-start-column="35" selection-end-line="59" selection-end-column="35" />
+            <state relative-caret-position="259">
+              <caret line="36" column="11" lean-forward="false" selection-start-line="36" selection-start-column="11" selection-end-line="36" selection-end-column="11" />
               <folding />
             </state>
           </provider>
@@ -80,24 +100,14 @@
       <file leaf-file-name="extended_nested_scroll_view_demo.dart" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/example/lib/extended_nested_scroll_view_demo.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2511">
-              <caret line="95" column="40" lean-forward="false" selection-start-line="95" selection-start-column="40" selection-end-line="95" selection-end-column="40" />
+            <state relative-caret-position="301">
+              <caret line="95" column="29" lean-forward="false" selection-start-line="95" selection-start-column="29" selection-end-line="95" selection-end-column="29" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="common.dart" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/example/lib/common/common.dart">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4239">
-              <caret line="160" column="15" lean-forward="false" selection-start-line="160" selection-start-column="15" selection-end-line="160" selection-end-column="15" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pubspec.yaml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="pubspec.yaml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pubspec.yaml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="54">
@@ -107,12 +117,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CHANGELOG.md" pinned="false" current-in-tab="false">
+      <file leaf-file-name="CHANGELOG.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/CHANGELOG.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
               <first_editor relative-caret-position="0">
-                <caret line="0" column="9" lean-forward="false" selection-start-line="0" selection-start-column="9" selection-end-line="0" selection-end-column="9" />
+                <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="3" selection-end-column="67" />
                 <folding />
               </first_editor>
               <second_editor />
@@ -143,16 +153,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="old_extened_nested_scroll_view_demo.dart" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/example/lib/old_extened_nested_scroll_view_demo.dart">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2646">
-              <caret line="100" column="62" lean-forward="false" selection-start-line="100" selection-start-column="62" selection-end-line="100" selection-end-column="62" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -164,8 +164,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>_handleHasScrolledBodyChanged</find>
-      <find>updateShadow</find>
       <find>of(</find>
       <find>_scheduleUpdateShadow</find>
       <find>PostFrameCallback(</find>
@@ -189,11 +187,13 @@
       <find>_innerPo</find>
       <find>_NestedScrollPosition</find>
       <find>_computeActivatedNestedPosition</find>
-      <find>zmt</find>
       <find>applyUser</find>
       <find>catch</find>
       <find>debugPrint</find>
+      <find>500</find>
       <find>print</find>
+      <find>zmt</find>
+      <find>it's not available pageMetrics(no actived nested positions in it)</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -227,16 +227,16 @@
         <option value="$PROJECT_DIR$/example/lib/common.dart" />
         <option value="$PROJECT_DIR$/lib/src/nested_scroll_view.dart" />
         <option value="$PROJECT_DIR$/lib/extended_nested_scroll_view.dart" />
-        <option value="$PROJECT_DIR$/lib/src/nested_scroll_view_inner_scroll_position_key_widget.dart" />
         <option value="$PROJECT_DIR$/lib/src/old_extended_nested_scroll_view.dart" />
         <option value="$PROJECT_DIR$/example/lib/old_extened_nested_scroll_view_demo.dart" />
-        <option value="$PROJECT_DIR$/example/lib/extended_nested_scroll_view_demo.dart" />
         <option value="$PROJECT_DIR$/example/lib/common/common.dart" />
         <option value="$PROJECT_DIR$/lib/src/util.dart" />
-        <option value="$PROJECT_DIR$/lib/src/extended_nested_scroll_view.dart" />
         <option value="$PROJECT_DIR$/example/lib/main.dart" />
-        <option value="$PROJECT_DIR$/CHANGELOG.md" />
+        <option value="$PROJECT_DIR$/example/lib/extended_nested_scroll_view_demo.dart" />
+        <option value="$PROJECT_DIR$/lib/src/nested_scroll_view_inner_scroll_position_key_widget.dart" />
         <option value="$PROJECT_DIR$/pubspec.yaml" />
+        <option value="$PROJECT_DIR$/CHANGELOG.md" />
+        <option value="$PROJECT_DIR$/lib/src/extended_nested_scroll_view.dart" />
       </list>
     </option>
   </component>
@@ -277,9 +277,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="Scratches" />
-      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -292,11 +290,37 @@
               <item name="extended_nested_scroll_view" type="462c0819:PsiDirectoryNode" />
               <item name="example" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="extended_nested_scroll_view" type="b2602c69:ProjectViewProjectNode" />
+              <item name="extended_nested_scroll_view" type="462c0819:PsiDirectoryNode" />
+              <item name="example" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="extended_nested_scroll_view" type="b2602c69:ProjectViewProjectNode" />
+              <item name="extended_nested_scroll_view" type="462c0819:PsiDirectoryNode" />
+              <item name="example" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="extended_nested_scroll_view" type="b2602c69:ProjectViewProjectNode" />
+              <item name="extended_nested_scroll_view" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="extended_nested_scroll_view" type="b2602c69:ProjectViewProjectNode" />
+              <item name="extended_nested_scroll_view" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="PackagesPane" />
+      <pane id="AndroidView" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -512,7 +536,14 @@
       <option name="project" value="LOCAL" />
       <updated>1548731906875</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="format code">
+      <created>1548732477849</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1548732477849</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TodoView">
@@ -528,22 +559,22 @@
     <frame x="-11" y="-11" width="1942" height="1042" extended-state="6" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289941" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27455622" sideWeight="0.49568033" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.38816568" sideWeight="0.41738662" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Dart Analysis" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.38816568" sideWeight="0.5826134" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34319526" sideWeight="0.5426566" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Dart Analysis" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34319526" sideWeight="0.4573434" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289941" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3112426" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Flutter Outline" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.11447084" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31101513" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28239742" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2662722" sideWeight="0.49568033" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30177516" sideWeight="0.8212743" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37278107" sideWeight="0.80831534" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Flutter Inspector" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.799676" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -552,9 +583,9 @@
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289941" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27455622" sideWeight="0.49568033" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2662722" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -571,7 +602,8 @@
     <MESSAGE value="## [0.2.1]&#10;* fix issue that ut postion is not overscroll actually and it get minimal value&#10;  and will scroll inner positions&#10;  igore  minimal value here(value like following data)" />
     <MESSAGE value="## [0.2.2]&#10;* format code" />
     <MESSAGE value="fix print exception" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix print exception" />
+    <MESSAGE value="format code" />
+    <option name="LAST_COMMIT_MESSAGE" value="format code" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -597,12 +629,11 @@
           <properties />
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="164" />
+      <option name="time" value="178" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../../../flutter_source/1.1.5/packages/flutter/lib/src/material/tab_controller.dart" />
     <entry file="file://$PROJECT_DIR$/../../../flutter_source/1.1.5/packages/flutter/lib/src/foundation/change_notifier.dart" />
     <entry file="file://$PROJECT_DIR$/../../../flutter_source/1.1.5/packages/flutter/lib/src/rendering/viewport_offset.dart" />
     <entry file="file://$PROJECT_DIR$/../../../flutter_source/1.1.5/packages/flutter/lib/src/widgets/viewport.dart" />
@@ -623,7 +654,6 @@
     <entry file="file://$PROJECT_DIR$/../../../flutter_source/1.1.5/packages/flutter/lib/src/widgets/framework.dart" />
     <entry file="file://$PROJECT_DIR$/../../../flutter_source/1.1.5/packages/flutter/lib/src/foundation/diagnostics.dart" />
     <entry file="file://$PROJECT_DIR$/../../../flutter_source/1.1.5/packages/flutter/lib/src/widgets/sliver.dart" />
-    <entry file="file://$PROJECT_DIR$/../../../flutter_source/1.1.5/packages/flutter/lib/src/widgets/primary_scroll_controller.dart" />
     <entry file="file://$PROJECT_DIR$/../../../flutter_source/1.1.5/packages/flutter/lib/src/rendering/viewport.dart" />
     <entry file="file://$PROJECT_DIR$/../../../flutter_source/1.1.5/packages/flutter/lib/src/rendering/object.dart" />
     <entry file="file://$PROJECT_DIR$/../../../flutter_source/1.1.5/packages/flutter/lib/src/scheduler/binding.dart" />
@@ -638,27 +668,12 @@
     <entry file="file://$PROJECT_DIR$/../../../flutter_source/1.1.5/packages/flutter/lib/src/gestures/recognizer.dart" />
     <entry file="file://$PROJECT_DIR$/../../../flutter_source/1.1.5/packages/flutter/lib/src/gestures/monodrag.dart" />
     <entry file="file://$PROJECT_DIR$/../../../flutter_source/1.1.5/packages/flutter/lib/src/material/tabs.dart" />
-    <entry file="file://$PROJECT_DIR$/lib/src/old_extended_nested_scroll_view.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="549" column="43" lean-forward="false" selection-start-line="549" selection-start-column="43" selection-end-line="549" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../../flutter_source/1.1.5/packages/flutter/lib/src/widgets/scroll_position.dart" />
     <entry file="file://$USER_HOME$/flutter/packages/flutter/lib/src/rendering/object.dart" />
     <entry file="file://$USER_HOME$/flutter/packages/flutter/lib/src/rendering/box.dart" />
     <entry file="file://$USER_HOME$/flutter/bin/cache/pkg/sky_engine/lib/core/iterable.dart" />
     <entry file="file://$USER_HOME$/flutter/packages/flutter/lib/src/widgets/scroll_context.dart" />
     <entry file="file://$USER_HOME$/flutter/packages/flutter/lib/src/widgets/scroll_position.dart" />
-    <entry file="file://$PROJECT_DIR$/lib/src/nested_scroll_view_inner_scroll_position_key_widget.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1539">
-          <caret line="59" column="35" lean-forward="false" selection-start-line="59" selection-start-column="35" selection-end-line="59" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/extended_nested_scroll_view.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
@@ -671,14 +686,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2646">
           <caret line="100" column="62" lean-forward="false" selection-start-line="100" selection-start-column="62" selection-end-line="100" selection-end-column="62" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/lib/extended_nested_scroll_view_demo.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2511">
-          <caret line="95" column="40" lean-forward="false" selection-start-line="95" selection-start-column="40" selection-end-line="95" selection-end-column="40" />
           <folding />
         </state>
       </provider>
@@ -706,35 +713,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/src/extended_nested_scroll_view.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="269">
-          <caret line="1130" column="6" lean-forward="false" selection-start-line="1130" selection-start-column="6" selection-end-line="1130" selection-end-column="6" />
-          <folding>
-            <element signature="e#166#186#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/extended_nested_scroll_view_test.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="2" column="7" lean-forward="false" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/test/widget_test.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="7" column="7" lean-forward="false" selection-start-line="7" selection-start-column="7" selection-end-line="7" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/test/extended_nested_scroll_view_test.dart" />
+    <entry file="file://$PROJECT_DIR$/example/test/widget_test.dart" />
     <entry file="file://$PROJECT_DIR$/example/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="134">
+        <state relative-caret-position="1431">
           <caret line="53" column="22" lean-forward="false" selection-start-line="53" selection-start-column="22" selection-end-line="53" selection-end-column="22" />
           <folding>
             <element signature="e#0#63#0" expanded="true" />
@@ -742,14 +725,43 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CHANGELOG.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="0">
-            <caret line="0" column="9" lean-forward="false" selection-start-line="0" selection-start-column="9" selection-end-line="0" selection-end-column="9" />
-            <folding />
-          </first_editor>
-          <second_editor />
+    <entry file="file://$PROJECT_DIR$/../../../flutter_source/1.1.5/packages/flutter/lib/src/widgets/primary_scroll_controller.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-498">
+          <caret line="20" column="8" lean-forward="false" selection-start-line="20" selection-start-column="8" selection-end-line="20" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example/lib/extended_nested_scroll_view_demo.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="301">
+          <caret line="95" column="29" lean-forward="false" selection-start-line="95" selection-start-column="29" selection-end-line="95" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../flutter_source/1.1.5/packages/flutter/lib/src/widgets/notification_listener.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="48" column="4" lean-forward="false" selection-start-line="48" selection-start-column="4" selection-end-line="48" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/src/old_extended_nested_scroll_view.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-46">
+          <caret line="1018" column="51" lean-forward="false" selection-start-line="1018" selection-start-column="48" selection-end-line="1018" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/src/nested_scroll_view_inner_scroll_position_key_widget.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="259">
+          <caret line="36" column="11" lean-forward="false" selection-start-line="36" selection-start-column="11" selection-end-line="36" selection-end-column="11" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -769,6 +781,27 @@
         <state relative-caret-position="54">
           <caret line="2" column="14" lean-forward="false" selection-start-line="2" selection-start-column="14" selection-end-line="2" selection-end-column="14" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/src/extended_nested_scroll_view.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="287">
+          <caret line="1195" column="19" lean-forward="true" selection-start-line="1195" selection-start-column="19" selection-end-line="1195" selection-end-column="19" />
+          <folding>
+            <element signature="e#166#186#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CHANGELOG.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="0">
+            <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="3" selection-end-column="67" />
+            <folding />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>

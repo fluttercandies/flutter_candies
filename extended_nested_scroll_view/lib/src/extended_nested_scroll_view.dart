@@ -7,6 +7,8 @@ import 'dart:math' as math;
 
 //import 'package:extended_nested_scroll_view/src/nested_scroll_view_inner_scroll_position_key_widget.dart';
 //import 'package:extended_nested_scroll_view/src/util.dart';
+//import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart'
+//    as extend;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/physics.dart';
@@ -286,18 +288,19 @@ class ExtendedNestedScrollView extends StatefulWidget {
     return target.state._absorberHandle;
   }
 
-  List<Widget> _buildSlivers(BuildContext context,
-      ScrollController innerController, bool bodyIsScrolled) {
-    final List<Widget> slivers = <Widget>[];
-    slivers.addAll(headerSliverBuilder(context, bodyIsScrolled));
-    slivers.add(SliverFillRemaining(
-      child: PrimaryScrollController(
-        controller: innerController,
-        child: body,
-      ),
-    ));
-    return slivers;
-  }
+//  List<Widget> _buildSlivers(BuildContext context,
+//      ScrollController innerController, bool bodyIsScrolled) {
+//    final List<Widget> slivers = <Widget>[];
+//    slivers.addAll(headerSliverBuilder(context, bodyIsScrolled));
+//    slivers.add(
+//        SliverFillRemaining(
+//      child: PrimaryScrollController(
+//        controller: innerController,
+//        child: body,
+//      ),
+//    ));
+//    return slivers;
+//  }
 
   @override
   _ExtendedNestedScrollViewState createState() =>
@@ -363,7 +366,6 @@ class _ExtendedNestedScrollViewState extends State<ExtendedNestedScrollView> {
     }
   }
 
-  Map<int, int> _pageMetricsList = Map<int, int>();
   @override
   Widget build(BuildContext context) {
     var child = _InheritedNestedScrollView(
@@ -378,7 +380,7 @@ class _ExtendedNestedScrollViewState extends State<ExtendedNestedScrollView> {
                 ? widget.physics.applyTo(const ClampingScrollPhysics())
                 : const ClampingScrollPhysics(),
             controller: _coordinator._outerController,
-            slivers: widget._buildSlivers(
+            slivers: _buildSlivers(
               context,
               _coordinator._innerController,
               _lastHasScrolledBody,
@@ -388,32 +390,39 @@ class _ExtendedNestedScrollViewState extends State<ExtendedNestedScrollView> {
         },
       ),
     );
+    return child;
+  }
+
+  ///zmt
+  List<Widget> _buildSlivers(BuildContext context,
+      ScrollController innerController, bool bodyIsScrolled) {
+    final List<Widget> slivers = <Widget>[];
+    slivers.addAll(widget.headerSliverBuilder(context, bodyIsScrolled));
+
+    Widget body = widget.body;
 
     if (widget.keepOnlyOneInnerNestedScrollPositionActive) {
       ///get notifications and compute active one in _innerController.nestedPositions
-      return NotificationListener<ScrollNotification>(
+      body = NotificationListener<ScrollNotification>(
           onNotification: (ScrollNotification notification) {
             if (notification is ScrollEndNotification &&
                 notification.metrics is PageMetrics &&
                 notification.metrics.axis == Axis.horizontal) {
-              final PageMetrics metrics = notification.metrics;
-              var depth = notification.depth;
-              final int currentPage = metrics.page.round();
-              var page = _pageMetricsList[depth];
-              //ComputeActivatedNestedPosition only when page changed
-              if (page != currentPage) {
-                //print("Page changed ${currentPage}");
-                _coordinator._innerController
-                    ._computeActivatedNestedPosition(notification);
-              }
-              _pageMetricsList[depth] = currentPage;
+              _coordinator._innerController
+                  ._computeActivatedNestedPosition(notification);
             }
             return false;
           },
-          child: child);
-    } else {
-      return child;
+          child: body);
     }
+
+    slivers.add(SliverFillRemaining(
+      child: PrimaryScrollController(
+        controller: innerController,
+        child: body,
+      ),
+    ));
+    return slivers;
   }
 }
 
@@ -550,6 +559,15 @@ class _NestedScrollCoordinator
       var temp = list.where((item) {
         return item._isActived;
       });
+//
+//      if (temp.length == 0 &&
+//          _innerController.prePageChangedRenderBox != null) {
+//        _innerController._computeActivatedNestedPosition(null);
+//        temp = list.where((item) {
+//          return item._isActived;
+//        });
+//      }
+
       if (temp.length != 1) {
         return list;
       }
@@ -873,6 +891,8 @@ class _NestedScrollCoordinator
   }
 
   @override
+
+  ///zmt
   void applyUserOffset(double delta) {
     updateUserScrollDirection(
         delta > 0.0 ? ScrollDirection.forward : ScrollDirection.reverse);
@@ -1007,35 +1027,79 @@ class _NestedScrollController extends ScrollController {
     });
   }
 
+  ///previous prePageChangedRenderBox which find active scroll position
+  ///RenderBox prePageChangedRenderBox;
+
+  ///store page index
+  Map<Key, int> _pageMetricsList = Map<Key, int>();
+
   ///zmt
   ///compute activated one when page changed
-  void _computeActivatedNestedPosition(ScrollNotification notification,
-      {Duration delay: const Duration(milliseconds: 100)}) {
-    ///if layout is not completed, the data will has some gap.
-    ///need more accurate time to compute
-    ///delay it in case.
-    ///to do
-    Future.delayed(delay, () {
-      /// this is the page changed of PageView's renderBox,
-      /// it maybe not the renderBox of [nestedPositions]
-      /// because it maybe has more one tabbarview or pageview in NestedScrollView body
-      final RenderBox pageChangedRenderBox =
-          notification.context.findRenderObject();
-      int activeCount = 0;
-      nestedPositions.forEach((item) {
-        item._computeActived(pageChangedRenderBox);
-        if (item._isActived) {
-          activeCount++;
+  void _computeActivatedNestedPosition(ScrollNotification notification) {
+    final PageMetrics metrics = notification.metrics;
+    final int currentPage = metrics.page.round();
+    final key = notification.context.widget.key;
+    var page = _pageMetricsList[key];
+
+    ///it's not an available
+    if (page == -1) {
+//      print(
+//          "${this.runtimeType}: it's not available pageMetrics(no actived nested positions in it)");
+      return;
+    }
+
+    _pageMetricsList[key] = currentPage;
+
+    //ComputeActivatedNestedPosition only when page changed
+    if (page != currentPage) {
+      ///if layout is not completed, the data will has some gap.
+      ///need more accurate time to compute
+      ///delay it in case.
+      ///to do
+      Future.delayed(const Duration(milliseconds: 150), () {
+        /// this is the page changed of PageView's renderBox,
+        /// it maybe not the renderBox of [nestedPositions]
+        /// because it maybe has more one tabbarview or pageview in NestedScrollView body
+        final RenderBox pageChangedRenderBox =
+            notification.context.findRenderObject();
+
+        int activeCount = 0;
+        int exceptionCount = 0;
+        nestedPositions.forEach((item) {
+          if (item._computeActived(pageChangedRenderBox)) {
+            exceptionCount++;
+          }
+          if (item._isActived) {
+            activeCount++;
+          }
+        });
+
+        if (activeCount != 1) {
+          //use prePageChangedRenderBox try one more time.
+          //no actived nested positions in it, it will throw expection for all of nested positions
+          if (activeCount == 0 && exceptionCount == nestedPositions.length) {
+            ///it's not available pageMetrics(no actived nested positions in it)
+            _pageMetricsList[key] = -1;
+//          if (pageChangedRenderBox != null) {
+//            nestedPositions.forEach((item) {
+//              item._computeActived(prePageChangedRenderBox);
+//              if (item._isActived) {
+//                activeCount++;
+//              }
+//            });
+//          }
+          }
+          print(
+              "${this.runtimeType}: activeCount is $activeCount, please report to zmtzawqlp@live.com and show your case.");
         }
+//        else {
+//          _pageMetricsList[key] = currentPage;
+////        prePageChangedRenderBox = pageChangedRenderBox;
+//        }
+
+        coordinator.updateCanDrag();
       });
-
-      if (activeCount > 1) {
-        debugPrint(
-            "activeCount more than 1, please report to zmtzawqlp@live.com and show your case.");
-      }
-
-      coordinator.updateCanDrag();
-    });
+    }
   }
 
   Iterable<_NestedScrollPosition> get nestedPositions sync* {
@@ -1082,29 +1146,32 @@ class _NestedScrollPosition extends ScrollPosition
   }
 
   ///whether it is actived
-  bool _isActived = true;
+  bool _isActived = false;
   //RenderBox _renderBox;
 
   ///zmt
   ///whether it's actived in its' owner viewport
-  void _computeActived(RenderBox pageChangedRenderBox) {
+  bool _computeActived(RenderBox pageChangedRenderBox) {
+    var context = (this.context as ScrollableState)?.context;
     try {
-      var context = (this.context as ScrollableState)?.context;
+      /// just for test
+//      var key = context.ancestorWidgetOfExactType(extend
+//              .typeOf<extend.NestedScrollViewInnerScrollPositionKeyWidget>())
+//          as extend.NestedScrollViewInnerScrollPositionKeyWidget;
+//      scrollPositionKey = key?.scrollPositionKey;
+
       if (context == null) {
         _isActived = false;
-        return;
+        //print("$scrollPositionKey $_isActived");
+        return false;
       }
       final RenderBox renderBox = context.findRenderObject();
 
       if (renderBox == null) {
         _isActived = false;
-        return;
+        //print("$scrollPositionKey $_isActived");
+        return false;
       }
-
-//      if (!isInSameTree(renderBox, ancestor)) {
-//        _isActived = false;
-//        return;
-//      }
 
       ///the nearest pageview/tabview
       final RenderBox parentRenderBox = _getParentPageViewRenderBox(context);
@@ -1114,24 +1181,28 @@ class _NestedScrollPosition extends ScrollPosition
 //          RenderAbstractViewport.of(pageChangedRenderBox);
 //      RenderAbstractViewport viewport2 =
 //          RenderAbstractViewport.of(parentRenderBox);
+
+//      var test = viewport.getOffsetToReveal(renderBox, 0.0);
+//      var test1 = viewport1.getOffsetToReveal(pageChangedRenderBox, 0.0);
+//      var test2 = viewport2.getOffsetToReveal(parentRenderBox, 0.0);
+//      print("$test $test1 $test2");
 //
 //      var test = viewport.getOffsetToReveal(renderBox, 0.0,
 //          rect: viewport2.semanticBounds);
 
-      /// just for test
-//      var key = context.ancestorWidgetOfExactType(
-//              typeOf<NestedScrollViewInnerScrollPositionKeyWidget>())
-//          as NestedScrollViewInnerScrollPositionKeyWidget;
-
       _isActived = _childIsActivedInViewport(renderBox, pageChangedRenderBox) &&
           _childIsActivedInViewport(renderBox, parentRenderBox);
-
-      //print("${key?.scrollPositionKey} ${_isActived} ${test}");
+      //print("$scrollPositionKey $_isActived");
+      return false;
     } catch (e) {
-      //print(e);
+      //print("${this.runtimeType}: $e");
       _isActived = false;
+      //print("$scrollPositionKey $_isActived");
+      return true;
     }
   }
+
+  Key scrollPositionKey;
 
   ///whether child is zero to parent
   bool _childIsActivedInViewport(RenderBox child, RenderBox parent) {
