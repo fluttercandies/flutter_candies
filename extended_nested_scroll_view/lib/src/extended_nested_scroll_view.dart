@@ -1027,17 +1027,12 @@ class _NestedScrollController extends ScrollController {
     });
   }
 
-  ///previous prePageChangedRenderBox which find active scroll position
-  ///RenderBox prePageChangedRenderBox;
-
   ///store page index
   Map<Key, int> _pageMetricsList = Map<Key, int>();
 
   ///zmt
   ///compute activated one when page changed
   void _computeActivatedNestedPosition(ScrollNotification notification) {
-    final PageMetrics metrics = notification.metrics;
-    final int currentPage = metrics.page.round();
     final key = notification.context.widget.key;
     var page = _pageMetricsList[key];
 
@@ -1048,6 +1043,8 @@ class _NestedScrollController extends ScrollController {
       return;
     }
 
+    final PageMetrics metrics = notification.metrics;
+    final int currentPage = metrics.page.round();
     _pageMetricsList[key] = currentPage;
 
     //ComputeActivatedNestedPosition only when page changed
@@ -1057,47 +1054,49 @@ class _NestedScrollController extends ScrollController {
       ///delay it in case.
       ///to do
       Future.delayed(const Duration(milliseconds: 150), () {
-        /// this is the page changed of PageView's renderBox,
-        /// it maybe not the renderBox of [nestedPositions]
-        /// because it maybe has more one tabbarview or pageview in NestedScrollView body
-        final RenderBox pageChangedRenderBox =
-            notification.context.findRenderObject();
+        var list = nestedPositions.toList();
+        if (list.length > 1) {
+          int activeCount = 0;
+          int exceptionCount = 0;
 
-        int activeCount = 0;
-        int exceptionCount = 0;
-        nestedPositions.forEach((item) {
-          if (item._computeActived(pageChangedRenderBox)) {
-            exceptionCount++;
-          }
-          if (item._isActived) {
-            activeCount++;
-          }
-        });
+          /// this is the page changed of PageView's renderBox,
+          /// it maybe not the renderBox of [nestedPositions]
+          /// because it maybe has more one tabbarview or pageview in NestedScrollView body
+          final RenderBox pageChangedRenderBox =
+              notification.context.findRenderObject();
 
-        if (activeCount != 1) {
-          //use prePageChangedRenderBox try one more time.
-          //no actived nested positions in it, it will throw expection for all of nested positions
-          if (activeCount == 0 && exceptionCount == nestedPositions.length) {
-            ///it's not available pageMetrics(no actived nested positions in it)
-            _pageMetricsList[key] = -1;
-//          if (pageChangedRenderBox != null) {
-//            nestedPositions.forEach((item) {
-//              item._computeActived(prePageChangedRenderBox);
-//              if (item._isActived) {
-//                activeCount++;
-//              }
-//            });
-//          }
+          var activedItem = list.firstWhere((x) {
+            return x._isActived;
+          }, orElse: () => null);
+
+          list.forEach((item) {
+            if (item._computeActived(pageChangedRenderBox)) {
+              exceptionCount++;
+            }
+            if (item._isActived) {
+              activeCount++;
+            }
+          });
+
+          if (activeCount != 1) {
+            //use prePageChangedRenderBox try one more time.
+            //no actived nested positions in it, it will throw expection for all of nested positions
+            if (activeCount == 0 && exceptionCount == list.length) {
+              ///it's not available pageMetrics(no actived nested positions in it)
+              _pageMetricsList[key] = -1;
+
+              ///reset actived
+              if (activedItem != null) {
+                activedItem._isActived = true;
+              }
+            } else {
+              print(
+                  "${this.runtimeType}: activeCount is $activeCount, please report to zmtzawqlp@live.com and show your case.");
+            }
+          } else {
+            coordinator.updateCanDrag();
           }
-          print(
-              "${this.runtimeType}: activeCount is $activeCount, please report to zmtzawqlp@live.com and show your case.");
         }
-//        else {
-//          _pageMetricsList[key] = currentPage;
-////        prePageChangedRenderBox = pageChangedRenderBox;
-//        }
-
-        coordinator.updateCanDrag();
       });
     }
   }
