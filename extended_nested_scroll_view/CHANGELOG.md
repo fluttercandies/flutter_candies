@@ -1,3 +1,7 @@
+## [0.2.8]
+
+* fix issue [0.2.5] for old extended_nested_scroll_view
+
 ## [0.2.7]
 
 * fix issue for quick change page

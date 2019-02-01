@@ -529,7 +529,7 @@ class _NestedScrollCoordinator
   }
 
   bool get hasScrolledBody {
-    for (_NestedScrollPosition position in _innerPositions) {
+    for (_NestedScrollPosition position in _currentInnerPositions) {
       if (position.pixels > position.minScrollExtent) return true;
     }
     return false;
@@ -752,7 +752,7 @@ class _NestedScrollCoordinator
   void updateCanDrag() {
     if (!_outerPosition.haveDimensions) return;
     double maxInnerExtent = 0.0;
-    for (_NestedScrollPosition position in _innerPositions) {
+    for (_NestedScrollPosition position in _currentInnerPositions) {
       if (!position.haveDimensions) return;
       maxInnerExtent = math.max(
           maxInnerExtent, position.maxScrollExtent - position.minScrollExtent);
@@ -791,7 +791,7 @@ class _NestedScrollCoordinator
   void jumpTo(double to) {
     goIdle();
     _outerPosition.localJumpTo(nestOffset(to, _outerPosition));
-    for (_NestedScrollPosition position in _innerPositions)
+    for (_NestedScrollPosition position in _currentInnerPositions)
       position.localJumpTo(nestOffset(to, position));
     goBallistic(0.0);
   }
@@ -848,9 +848,21 @@ class _NestedScrollCoordinator
       // clear what this should do when you have multiple inner positions at
       // different levels of overscroll.
       final double innerDelta = _outerPosition.applyClampedDragUpdate(delta);
-      if (innerDelta != 0.0) {
-        for (_NestedScrollPosition position in _currentInnerPositions)
+
+      ///this is a bug that the out postion is not overscroll actually and it get minimal value
+      ///do under code will scroll inner positions
+      ///so i igore  minimal value here(value like following data)
+      ///  I/flutter (14963): 5.684341886080802e-14
+      /// I/flutter (14963): -5.684341886080802e-14
+      /// I/flutter (14963): -5.684341886080802e-14
+      /// I/flutter (14963): 5.684341886080802e-14
+      /// I/flutter (14963): -5.684341886080802e-14
+      /// I/flutter (14963): -5.684341886080802e-14
+      /// I/flutter (14963): -5.684341886080802e-14
+      if (innerDelta != 0.0 && innerDelta.abs() > 0.0001) {
+        for (_NestedScrollPosition position in _currentInnerPositions) {
           position.applyFullDragUpdate(innerDelta);
+        }
       }
     } else {
       // dragging "down" - delta is positive
