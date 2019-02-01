@@ -56,7 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return ListView.builder(
       itemBuilder: (_, int index) {
         var page = pages[index];
-        var pageWidget = null;
+        var pageWidget;
         return Container(
           margin: EdgeInsets.all(20.0),
           child: GestureDetector(

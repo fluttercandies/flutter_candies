@@ -12,10 +12,10 @@ class _PullToRefreshHeaderState extends State<PullToRefreshHeader> {
   int listlength = 50;
   @override
   Widget build(BuildContext context) {
-   return PullToRefreshNotification(
+    return PullToRefreshNotification(
       color: Colors.blue,
       onRefresh: onRefresh,
-      maxDragOffset: 80.0,
+      maxDragOffset: 200.0,
       child: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
@@ -60,7 +60,7 @@ class _PullToRefreshHeaderState extends State<PullToRefreshHeader> {
       refreshWiget = info.refreshWiget;
     }
 
-    Widget child = null;
+    Widget child;
     if (mode == RefreshIndicatorMode.error) {
       child = GestureDetector(
           onTap: () {
@@ -77,7 +77,7 @@ class _PullToRefreshHeaderState extends State<PullToRefreshHeader> {
               padding: EdgeInsets.only(left: 5.0),
               alignment: Alignment.center,
               child: Text(
-                mode?.toString() + "  click to retry" ?? "",
+                mode?.toString()??"" + "  click to retry" ?? "",
                 style: TextStyle(fontSize: 12.0, inherit: false),
               ),
             ),

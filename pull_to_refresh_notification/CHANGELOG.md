@@ -1,3 +1,10 @@
+## [0.1.6]
+
+* add armedDragUpCancel property.
+  //Dragged far enough that an up event will run the onRefresh callback.
+  //when use drag up,whether should cancel refresh
+  final bool armedDragUpCancel;
+
 ## [0.1.5]
 
 * Format code.

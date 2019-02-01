@@ -57,10 +57,15 @@ class PullToRefreshNotification extends StatefulWidget {
     this.pullBackOnRefresh: false,
     this.maxDragOffset,
     this.notificationPredicate = defaultNotificationPredicate,
+    this.armedDragUpCancel = true,
   })  : assert(child != null),
         assert(onRefresh != null),
         assert(notificationPredicate != null),
         super(key: key);
+
+  //Dragged far enough that an up event will run the onRefresh callback.
+  //when use drag up,whether should cancel refresh
+  final bool armedDragUpCancel;
 
   /// The widget below this widget in the tree.
   ///
@@ -211,6 +216,7 @@ class PullToRefreshNotificationState extends State<PullToRefreshNotification>
         indicatorAtTopNow = null;
         break;
     }
+    print(notification.runtimeType);
     if (indicatorAtTopNow != _isIndicatorAtTop) {
       if (_refreshIndicatorMode == RefreshIndicatorMode.drag ||
           _refreshIndicatorMode == RefreshIndicatorMode.armed)
@@ -219,7 +225,12 @@ class PullToRefreshNotificationState extends State<PullToRefreshNotification>
       if (_refreshIndicatorMode == RefreshIndicatorMode.drag ||
           _refreshIndicatorMode == RefreshIndicatorMode.armed) {
         if (notification.metrics.extentBefore > 0.0) {
-          _dismiss(RefreshIndicatorMode.canceled);
+          if (_refreshIndicatorMode == RefreshIndicatorMode.armed &&
+              !widget.armedDragUpCancel) {
+            _show();
+          } else {
+            _dismiss(RefreshIndicatorMode.canceled);
+          }
         } else {
           _notificationDragOffset -= notification.scrollDelta;
           _checkDragOffset(maxContainerExtent);
