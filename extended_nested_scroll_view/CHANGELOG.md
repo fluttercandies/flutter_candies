@@ -1,4 +1,4 @@
-## [0.2.8]
+## [0.2.9]
 
 * fix issue [0.2.5] for old extended_nested_scroll_view
 

@@ -405,7 +405,9 @@ class _ExtendedNestedScrollViewState extends State<ExtendedNestedScrollView> {
       ///get notifications and compute active one in _innerController.nestedPositions
       body = NotificationListener<ScrollNotification>(
           onNotification: (ScrollNotification notification) {
-            if (notification is ScrollEndNotification &&
+            if (((notification is ScrollEndNotification) ||
+                    (notification is UserScrollNotification &&
+                        notification.direction == ScrollDirection.idle)) &&
                 notification.metrics is PageMetrics &&
                 notification.metrics.axis == Axis.horizontal) {
               _coordinator._innerController
@@ -1153,12 +1155,6 @@ class _NestedScrollPosition extends ScrollPosition
   bool _computeActived(RenderBox pageChangedRenderBox) {
     var context = (this.context as ScrollableState)?.context;
     try {
-      /// just for test
-//      var key = context.ancestorWidgetOfExactType(extend
-//              .typeOf<extend.NestedScrollViewInnerScrollPositionKeyWidget>())
-//          as extend.NestedScrollViewInnerScrollPositionKeyWidget;
-//      scrollPositionKey = key?.scrollPositionKey;
-
       if (context == null) {
         _isActived = false;
         //print("$scrollPositionKey $_isActived");
@@ -1191,7 +1187,14 @@ class _NestedScrollPosition extends ScrollPosition
 
       _isActived = _childIsActivedInViewport(renderBox, pageChangedRenderBox) &&
           _childIsActivedInViewport(renderBox, parentRenderBox);
-      //print("$scrollPositionKey $_isActived");
+
+//      // just for test
+//      var key = context.ancestorWidgetOfExactType(extend
+//              .typeOf<extend.NestedScrollViewInnerScrollPositionKeyWidget>())
+//          as extend.NestedScrollViewInnerScrollPositionKeyWidget;
+//      scrollPositionKey = key?.scrollPositionKey;
+//
+//      print("$scrollPositionKey $_isActived");
       return false;
     } catch (e) {
       //print("${this.runtimeType}: $e");
@@ -1201,7 +1204,7 @@ class _NestedScrollPosition extends ScrollPosition
     }
   }
 
-  Key scrollPositionKey;
+  //Key scrollPositionKey;
 
   ///whether child is zero to parent
   bool _childIsActivedInViewport(RenderBox child, RenderBox parent) {
