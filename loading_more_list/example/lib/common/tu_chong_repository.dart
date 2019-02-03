@@ -1,4 +1,4 @@
-import 'package:example/common/http_factory.dart';
+import 'package:http_client_helper/http_client_helper.dart';
 import 'package:loading_more_list/loading_more_list.dart';
 import 'package:example/common/tu_chong_source.dart';
 import 'dart:async';
@@ -42,7 +42,7 @@ class TuChongRepository extends LoadingMoreBase<TuChongItem> {
       //to show loading more clearly, in your app,remove this
       await Future.delayed(Duration(milliseconds: 500, seconds: 1));
 
-      var result = await HttpFactory.getInstance().getHttpClient().get(url);
+      var result = await HttpClientHelper.get(url);
 
       var source = TuChongSource.fromJson(json.decode(result.body));
       if (pageindex == 1) {
