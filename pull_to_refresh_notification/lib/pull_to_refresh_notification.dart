@@ -216,7 +216,6 @@ class PullToRefreshNotificationState extends State<PullToRefreshNotification>
         indicatorAtTopNow = null;
         break;
     }
-    print(notification.runtimeType);
     if (indicatorAtTopNow != _isIndicatorAtTop) {
       if (_refreshIndicatorMode == RefreshIndicatorMode.drag ||
           _refreshIndicatorMode == RefreshIndicatorMode.armed)
