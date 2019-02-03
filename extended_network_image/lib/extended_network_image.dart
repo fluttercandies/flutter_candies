@@ -1,3 +1,6 @@
 library extended_network_image;
 
-export 'package:extended_network_image/extended_network_image.dart';
+export 'src/extended_network_image.dart';
+export 'src/extended_network_image_load_state_widget.dart';
+export 'src/extended_network_image_provider.dart';
+export 'src/extended_network_image_utils.dart';

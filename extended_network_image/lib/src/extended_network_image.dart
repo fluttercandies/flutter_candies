@@ -1,5 +1,7 @@
 import 'package:extended_network_image/src/extended_network_image_provider.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter/semantics.dart';
 
 class ExtendedNetworkImage extends StatefulWidget {
   ExtendedNetworkImage({
@@ -18,7 +20,8 @@ class ExtendedNetworkImage extends StatefulWidget {
     this.matchTextDirection = false,
     this.gaplessPlayback = false,
     this.filterQuality = FilterQuality.low,
-  }) : super(key: key);
+  })  : assert(image != null),
+        super(key: key);
 
   ExtendedNetworkImage.build(
     String url, {
@@ -37,7 +40,7 @@ class ExtendedNetworkImage extends StatefulWidget {
     this.gaplessPlayback = false,
     this.filterQuality = FilterQuality.low,
     Map<String, String> headers,
-    bool cache,
+    bool cache: true,
     double scale = 1.0,
   })  : image = ExtendedNetworkImageProvider(url,
             scale: scale, headers: headers, cache: cache),
@@ -174,16 +177,120 @@ class ExtendedNetworkImage extends StatefulWidget {
 
 class _ExtendedNetworkImageState extends State<ExtendedNetworkImage> {
   LoadState _loadState;
+  ImageStream _imageStream;
+  ImageInfo _imageInfo;
+  bool _isListeningToStream = false;
+  bool _invertColors;
+
   @override
-  void initState() {
-    _loadState = LoadState.loading;
-    // TODO: implement initState
-    super.initState();
+  void didChangeDependencies() {
+    _invertColors = MediaQuery.of(context, nullOk: true)?.invertColors ??
+        SemanticsBinding.instance.accessibilityFeatures.invertColors;
+    _resolveImage();
+
+    if (TickerMode.of(context))
+      _listenToStream();
+    else
+      _stopListeningToStream();
+
+    super.didChangeDependencies();
+  }
+
+  @override
+  void didUpdateWidget(ExtendedNetworkImage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.image != oldWidget.image) _resolveImage();
+  }
+
+  @override
+  void reassemble() {
+    _resolveImage(); // in case the image cache was flushed
+    super.reassemble();
+  }
+
+  void _resolveImage() {
+    final ImageStream newStream = widget.image.resolve(
+        createLocalImageConfiguration(context,
+            size: widget.width != null && widget.height != null
+                ? Size(widget.width, widget.height)
+                : null));
+    assert(newStream != null);
+    _updateSourceStream(newStream);
+  }
+
+  void _handleImageChanged(ImageInfo imageInfo, bool synchronousCall) {
+    setState(() {
+      _imageInfo = imageInfo;
+    });
+  }
+
+  // Update _imageStream to newStream, and moves the stream listener
+  // registration from the old stream to the new stream (if a listener was
+  // registered).
+  void _updateSourceStream(ImageStream newStream) {
+    if (_imageStream?.key == newStream?.key) return;
+
+    if (_isListeningToStream) _imageStream.removeListener(_handleImageChanged);
+
+    if (!widget.gaplessPlayback)
+      setState(() {
+        _imageInfo = null;
+      });
+
+    _imageStream = newStream;
+    if (_isListeningToStream) _imageStream.addListener(_handleImageChanged);
+  }
+
+  void _listenToStream() {
+    if (_isListeningToStream) return;
+    _imageStream.addListener(_handleImageChanged);
+    _isListeningToStream = true;
+  }
+
+  void _stopListeningToStream() {
+    if (!_isListeningToStream) return;
+    _imageStream.removeListener(_handleImageChanged);
+    _isListeningToStream = false;
+  }
+
+  @override
+  void dispose() {
+    assert(_imageStream != null);
+    _stopListeningToStream();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    final RawImage image = RawImage(
+      image: _imageInfo?.image,
+      width: widget.width,
+      height: widget.height,
+      scale: _imageInfo?.scale ?? 1.0,
+      color: widget.color,
+      colorBlendMode: widget.colorBlendMode,
+      fit: widget.fit,
+      alignment: widget.alignment,
+      repeat: widget.repeat,
+      centerSlice: widget.centerSlice,
+      matchTextDirection: widget.matchTextDirection,
+      invertColors: _invertColors,
+      filterQuality: widget.filterQuality,
+    );
+    if (widget.excludeFromSemantics) return image;
+    return Semantics(
+      container: widget.semanticLabel != null,
+      image: true,
+      label: widget.semanticLabel == null ? '' : widget.semanticLabel,
+      child: image,
+    );
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder description) {
+    super.debugFillProperties(description);
+    description.add(DiagnosticsProperty<ImageStream>('stream', _imageStream));
+    description.add(DiagnosticsProperty<ImageInfo>('pixels', _imageInfo));
   }
 }
 

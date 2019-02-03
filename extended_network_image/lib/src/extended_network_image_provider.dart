@@ -10,6 +10,7 @@ import 'package:http/http.dart';
 import 'package:http_client_helper/http_client_helper.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:image_picker_saver/image_picker_saver.dart';
 
 class ExtendedNetworkImageProvider
     extends ImageProvider<ExtendedNetworkImageProvider> {
@@ -123,4 +124,29 @@ class ExtendedNetworkImageProvider
 
   @override
   String toString() => '$runtimeType("$url", scale: $scale)';
+}
+
+Future<bool> saveNetworkImageToPhoto(String url, {bool useCache: true}) async {
+  ExtendedNetworkImageProvider imageProvider =
+      new ExtendedNetworkImageProvider(url);
+  String uId = toMd5(url);
+
+  bool done = false;
+  if (useCache) {
+    try {
+      var result = await imageProvider._loadCache(imageProvider, uId);
+      var filePath = await ImagePickerSaver.saveFile(fileData: result);
+      done = filePath != null && filePath != "";
+    } catch (e) {
+      //debugPrint(e.toString());
+    }
+  }
+
+  if (!done) {
+    var result = await imageProvider._loadNetwork(imageProvider);
+    var filePath = await ImagePickerSaver.saveFile(fileData: result);
+    done = filePath != null && filePath != "";
+  }
+
+  return done;
 }
