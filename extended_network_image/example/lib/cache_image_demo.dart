@@ -76,7 +76,7 @@ class _CacheImageDemoState extends State<CacheImageDemo> {
             child: index == 0
                 ? Container()
                 : ExtendedNetworkImage.build(
-                    url,
+                    url + "3131",
                     width: 200.0,
                     height: 200.0,
                     cache: true,

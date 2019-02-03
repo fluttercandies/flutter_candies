@@ -14,6 +14,7 @@ dependencies:
   http_client_helper: ^0.1.5
   crypto: ^2.0.6
   image_picker_saver: ^0.1.0
+  transparent_image: ^0.1.0
 
 dev_dependencies:
   flutter_test:

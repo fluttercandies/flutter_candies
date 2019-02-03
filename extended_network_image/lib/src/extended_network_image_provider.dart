@@ -11,6 +11,7 @@ import 'package:http_client_helper/http_client_helper.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:image_picker_saver/image_picker_saver.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class ExtendedNetworkImageProvider
     extends ImageProvider<ExtendedNetworkImageProvider> {
@@ -62,7 +63,7 @@ class ExtendedNetworkImageProvider
         var data = await _loadCache(key, md5Key);
         if (data != null) return await ui.instantiateImageCodec(data);
       } catch (e) {
-        debugPrint(e);
+        print(e);
       }
     }
 
@@ -71,8 +72,10 @@ class ExtendedNetworkImageProvider
       var data = await _loadNetwork(key);
       if (data != null) return await ui.instantiateImageCodec(data);
     } catch (e) {
-      debugPrint(e);
+      print(e);
     }
+    //failed
+    return await ui.instantiateImageCodec(kTransparentImage);
   }
 
   ///get the image from cache folder.

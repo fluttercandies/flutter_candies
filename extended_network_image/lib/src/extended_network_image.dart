@@ -1,7 +1,9 @@
+import 'package:collection/collection.dart';
 import 'package:extended_network_image/src/extended_network_image_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/semantics.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class ExtendedNetworkImage extends StatefulWidget {
   ExtendedNetworkImage({
@@ -220,6 +222,16 @@ class _ExtendedNetworkImageState extends State<ExtendedNetworkImage> {
 
   void _handleImageChanged(ImageInfo imageInfo, bool synchronousCall) {
     setState(() {
+      if (imageInfo != null) {
+        imageInfo.image.toByteData().then((data) {
+          if (ListEquality()
+              .equals(data.buffer.asUint8List(), kTransparentImage)) {
+            _loadState = LoadState.failed;
+          } else {
+            _loadState = LoadState.completed;
+          }
+        });
+      }
       _imageInfo = imageInfo;
     });
   }
