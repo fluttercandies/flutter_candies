@@ -5,7 +5,7 @@ custom flutter candies(widgets) for you to easily build flutter app, enjoy it
 
 [![pub package](https://img.shields.io/pub/v/extended_nested_scroll_view.svg)](https://pub.dartlang.org/packages/extended_nested_scroll_view)
 
-[extended_nested_scroll_view](https://github.com/zmtzawqlp/Flutter/tree/master/extended_nested_scroll_view) to fix following issues.
+[extended_nested_scroll_view](https://github.com/fluttercandies/extended_nested_scroll_view) to fix following issues.
 
 1.[pinned sliver header issue](https://github.com/flutter/flutter/issues/22393)
 
@@ -20,7 +20,7 @@ custom flutter candies(widgets) for you to easily build flutter app, enjoy it
 
 [![pub package](https://img.shields.io/pub/v/pull_to_refresh_notification.svg)](https://pub.dartlang.org/packages/pull_to_refresh_notification)
 
-[pull_to_refresh_notification](https://github.com/zmtzawqlp/Flutter/tree/master/pull_to_refresh_notification) widget to build  pull to refresh effects.
+[pull_to_refresh_notification](https://github.com/fluttercandies/pull_to_refresh_notification) widget to build  pull to refresh effects.
 
 [Chinese bolg](https://juejin.im/post/5bebcc44f265da61682aedb8)
 
@@ -32,7 +32,7 @@ custom flutter candies(widgets) for you to easily build flutter app, enjoy it
 
 [![pub package](https://img.shields.io/pub/v/loading_more_list.svg)](https://pub.dartlang.org/packages/loading_more_list)
 
-[loading_more_list](https://github.com/zmtzawqlp/Flutter/tree/master/loading_more_list) easily build loading more list.
+[loading_more_list](https://github.com/fluttercandies/loading_more_list) easily build loading more list.
 
 [Chinese bolg](https://juejin.im/post/5bfb9cb7e51d45592b766769)
 
@@ -45,7 +45,7 @@ custom flutter candies(widgets) for you to easily build flutter app, enjoy it
 # extended_tabs
 [![pub package](https://img.shields.io/pub/v/extended_tabs.svg)](https://pub.dartlang.org/packages/extended_tabs)
 
-[extended_tabs](https://github.com/zmtzawqlp/Flutter/tree/master/extended_tabs) extended tab bar view include color tabIndicator,linkWithAncestor(scroll ancestor tabbarView when current is over scroll),page cache extent
+[extended_tabs](https://github.com/fluttercandies/extended_tabs) extended tab bar view include color tabIndicator,linkWithAncestor(scroll ancestor tabbarView when current is over scroll),page cache extent
 
 [Chinese bolg](https://juejin.im/post/5c34b87ef265da61553b01a8)
 
