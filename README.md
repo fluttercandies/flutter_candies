@@ -15,6 +15,10 @@ custom flutter candies(widgets) for you to easily build flutter app, enjoy it
 
 [Chinese bolg](https://juejin.im/post/5bea43ade51d45544844010a)
 
+# extended_image
+
+[![pub package](https://img.shields.io/pub/v/extended_image.svg)](https://pub.dartlang.org/packages/extended_image)
+
 
 # pull_to_refresh_notification
 
@@ -24,9 +28,9 @@ custom flutter candies(widgets) for you to easily build flutter app, enjoy it
 
 [Chinese bolg](https://juejin.im/post/5bebcc44f265da61682aedb8)
 
-![](https://github.com/zmtzawqlp/Flutter/blob/master/gif/PullToRefreshAppbar.gif)
-![](https://github.com/zmtzawqlp/Flutter/blob/master/gif/PullToRefreshHeader.gif)
-![](https://github.com/zmtzawqlp/Flutter/blob/master/gif/PullToRefreshImage.gif)
+![](https://github.com/fluttercandies/Flutter_Candies/tree/master/gif/pull_to_refresh/appbar.gif)
+![](https://github.com/fluttercandies/Flutter_Candies/tree/master/gif/pull_to_refresh/header.gif)
+![](https://github.com/fluttercandies/Flutter_Candies/tree/master/gif/pull_to_refresh/image.gif)
 
 # loading_more_list
 
@@ -36,11 +40,11 @@ custom flutter candies(widgets) for you to easily build flutter app, enjoy it
 
 [Chinese bolg](https://juejin.im/post/5bfb9cb7e51d45592b766769)
 
-![](https://github.com/zmtzawqlp/Flutter/blob/master/gif/LoadingMoreListView.gif)
-![](https://github.com/zmtzawqlp/Flutter/blob/master/gif/LoadingMoreError.gif)
-![](https://github.com/zmtzawqlp/Flutter/blob/master/gif/LoadingMoreMultipleSliver.gif)
-![](https://github.com/zmtzawqlp/Flutter/blob/master/gif/LoadingMoreCustomIndicator.gif)
-![](https://github.com/zmtzawqlp/Flutter/blob/master/gif/LoadingMoreNestedScrollView.gif)
+![](https://github.com/fluttercandies/Flutter_Candies/tree/master/gif/loading_moe_list/listview.gif)
+![](https://github.com/fluttercandies/Flutter_Candies/tree/master/gif/loading_moe_list/error.gif)
+![](https://github.com/fluttercandies/Flutter_Candies/tree/master/gif/loading_moe_list/multiple_sliver.gif)
+![](https://github.com/fluttercandies/Flutter_Candies/tree/master/gif/loading_moe_list/custom_indicator.gif)
+![](https://github.com/fluttercandies/Flutter_Candies/tree/master/gif/loading_moe_list/nested_scrollView.gif)
 
 # extended_tabs
 [![pub package](https://img.shields.io/pub/v/extended_tabs.svg)](https://pub.dartlang.org/packages/extended_tabs)
@@ -49,7 +53,7 @@ custom flutter candies(widgets) for you to easily build flutter app, enjoy it
 
 [Chinese bolg](https://juejin.im/post/5c34b87ef265da61553b01a8)
 
-![](https://github.com/zmtzawqlp/Flutter_Candies/blob/master/gif/ExtendedTabs.gif)
+![](https://github.com/fluttercandies/Flutter_Candies/tree/master/gif/extended_tab/extended_tab.gif)
 
 # widgets sample
 
