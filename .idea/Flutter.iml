@@ -37,13 +37,11 @@
       <excludeFolder url="file://$MODULE_DIR$/pull_to_refresh_notification/build" />
       <excludeFolder url="file://$MODULE_DIR$/pull_to_refresh_notification/example/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/pull_to_refresh_notification/example/build" />
-      <excludeFolder url="file://$MODULE_DIR$/widgets_sample/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/widgets_sample/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/widgets_sample/build" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Dart SDK" level="project" />
-    <orderEntry type="library" name="Dart Packages" level="project" />
   </component>
 </module>
