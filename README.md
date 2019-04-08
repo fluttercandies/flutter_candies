@@ -1,33 +1,19 @@
 # Flutter 
 custom flutter candies(widgets) for you to easily build flutter app, enjoy it  
 
-# extended_nested_scroll_view
+[extended_nested_scroll_view ![pub package](https://img.shields.io/pub/v/extended_nested_scroll_view.svg)](https://pub.dartlang.org/packages/extended_nested_scroll_view)
 
-[![pub package](https://img.shields.io/pub/v/extended_nested_scroll_view.svg)](https://pub.dartlang.org/packages/extended_nested_scroll_view)
+[extended_image ![pub package](https://img.shields.io/pub/v/extended_image.svg)](https://pub.dartlang.org/packages/extended_image)
 
-# extended_image
+[extended_text ![pub package](https://img.shields.io/pub/v/extended_text.svg)](https://pub.dartlang.org/packages/extended_text)
 
-[![pub package](https://img.shields.io/pub/v/extended_image.svg)](https://pub.dartlang.org/packages/extended_image)
+[pull_to_refresh_notification ![pub package](https://img.shields.io/pub/v/pull_to_refresh_notification.svg)](https://pub.dartlang.org/packages/pull_to_refresh_notification)
 
-# extended_text
+[loading_more_list ![pub package](https://img.shields.io/pub/v/loading_more_list.svg)](https://pub.dartlang.org/packages/loading_more_list)
 
-[![pub package](https://img.shields.io/pub/v/extended_text.svg)](https://pub.dartlang.org/packages/extended_text)
-
-# pull_to_refresh_notification
-
-[![pub package](https://img.shields.io/pub/v/pull_to_refresh_notification.svg)](https://pub.dartlang.org/packages/pull_to_refresh_notification)
-
-# loading_more_list
-
-[![pub package](https://img.shields.io/pub/v/loading_more_list.svg)](https://pub.dartlang.org/packages/loading_more_list)
-
-# extended_tabs
-
-[![pub package](https://img.shields.io/pub/v/extended_tabs.svg)](https://pub.dartlang.org/packages/extended_tabs)
-
-# http_client_helper
-
-[![pub package](https://img.shields.io/pub/v/http_client_helper.svg)](https://pub.dartlang.org/packages/http_client_helper)
+[extended_tabs ![pub package](https://img.shields.io/pub/v/extended_tabs.svg)](https://pub.dartlang.org/packages/extended_tabs)
+ 
+[http_client_helper ![pub package](https://img.shields.io/pub/v/http_client_helper.svg)](https://pub.dartlang.org/packages/http_client_helper)
 
 # widgets sample
 
