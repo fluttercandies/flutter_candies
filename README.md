@@ -30,9 +30,9 @@ it include following widgets:
   Icon,
   Button,
 
-[Chinese bolg   Container,RowColumn,Image](https://juejin.im/post/5bdfd278e51d45783a42bd3c)
+[Container,RowColumn,Image](https://juejin.im/post/5bdfd278e51d45783a42bd3c)
 
-[Chinese bolg   Text,Icon,Button](https://juejin.im/post/5bdfd9ee518825170b10151b)
+[Text,Icon,Button](https://juejin.im/post/5bdfd9ee518825170b10151b)
 
 
 
