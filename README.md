@@ -7,6 +7,8 @@ custom flutter candies(widgets) for you to easily build flutter app, enjoy it
 
 [extended_text ![pub package](https://img.shields.io/pub/v/extended_text.svg)](https://pub.dartlang.org/packages/extended_text)
 
+[extended_text_field ![pub package](https://img.shields.io/pub/v/extended_text_field.svg)](https://pub.dartlang.org/packages/extended_text_field)
+
 [pull_to_refresh_notification ![pub package](https://img.shields.io/pub/v/pull_to_refresh_notification.svg)](https://pub.dartlang.org/packages/pull_to_refresh_notification)
 
 [loading_more_list ![pub package](https://img.shields.io/pub/v/loading_more_list.svg)](https://pub.dartlang.org/packages/loading_more_list)
