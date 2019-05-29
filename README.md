@@ -1,5 +1,5 @@
 # Flutter 
-custom flutter candies(widgets) for you to easily build flutter app, enjoy it  
+Custom flutter candies(widgets) for you to easily build flutter app, enjoy it  
 
 [like_button ![pub package](https://img.shields.io/pub/v/like_button.svg)](https://pub.dartlang.org/packages/like_button)
 
@@ -9,19 +9,19 @@ Like Button is a flutter library that allows you to create a button with animati
 
 [extended_image ![pub package](https://img.shields.io/pub/v/extended_image.svg)](https://pub.dartlang.org/packages/extended_image)
 
-extended official image to support placeholder(loading)/ failed state, cache network,zoom/pan,photo view,crop,save,clip,paint custom etc.
+Extended official image to support placeholder(loading)/ failed state, cache network,zoom/pan,photo view,crop,save,clip,paint custom etc.
 
 ![](https://github.com/fluttercandies/Flutter_Candies/blob/master/gif/extended_image/zoom.gif)
 
 [extended_text ![pub package](https://img.shields.io/pub/v/extended_text.svg)](https://pub.dartlang.org/packages/extended_text)
 
-extended official text to quickly build special text like inline image or @somebody, also provide custom background,custom over flow.
+Extended official text to quickly build special text like inline image or @somebody, also provide custom background,custom over flow.
 
 ![](https://github.com/fluttercandies/Flutter_Candies/blob/master/gif/extended_text/special_text.jpg)
 
 [extended_text_field ![pub package](https://img.shields.io/pub/v/extended_text_field.svg)](https://pub.dartlang.org/packages/extended_text_field)
 
-extended official text field to quickly build special text like inline image, @somebody, custom background etc.
+Extended official text field to quickly build special text like inline image, @somebody, custom background etc.
 
 ![](https://github.com/fluttercandies/Flutter_Candies/blob/master/gif/extended_text_field/extended_text_field.gif)
 
@@ -39,11 +39,11 @@ Flutter plugin for building a loading more list with loadingMoreList and loading
 
 [extended_nested_scroll_view ![pub package](https://img.shields.io/pub/v/extended_nested_scroll_view.svg)](https://pub.dartlang.org/packages/extended_nested_scroll_view)
 
-extended nested scroll view to fix following issues. 1.pinned sliver header issue 2.inner scrollables in tabview sync issue 3.pull to refresh is not work.
+Extended nested scroll view to fix following issues. 1.pinned sliver header issue 2.inner scrollables in tabview sync issue 3.pull to refresh is not work.
 
 [extended_tabs ![pub package](https://img.shields.io/pub/v/extended_tabs.svg)](https://pub.dartlang.org/packages/extended_tabs)
  
-extended tab bar view include color tabIndicator,linkWithAncestor(scroll ancestor tabbarView when current is over scroll),page cache extent
+Extended tab bar view include color tabIndicator,linkWithAncestor(scroll ancestor tabbarView when current is over scroll),page cache extent
  
  ![](https://github.com/fluttercandies/Flutter_Candies/tree/master/gif/extended_tab/extended_tab.gif)
  
