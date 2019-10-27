@@ -9,7 +9,7 @@ Like Button is a flutter library that allows you to create a button with animati
 
 [extended_image ![pub package](https://img.shields.io/pub/v/extended_image.svg)](https://pub.dartlang.org/packages/extended_image)
 
-Extended official image to support placeholder(loading)/ failed state, cache network,zoom/pan,photo view,crop,save,clip,paint custom etc.
+A powerful official extension library of image, which support placeholder(loading)/ failed state, cache network, zoom pan image, photo view, slide out page, editor(crop,rotate,flip), paint custom etc.
 
 ![](https://github.com/fluttercandies/Flutter_Candies/blob/master/gif/extended_image/zoom.gif)
 
