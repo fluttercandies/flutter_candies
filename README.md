@@ -1,6 +1,12 @@
 # Flutter 
 Custom flutter candies(widgets) for you to easily build flutter app, enjoy it  
 
+[waterfall_flow ![pub package](https://img.shields.io/pub/v/waterfall_flow.svg)](https://pub.dartlang.org/packages/waterfall_flow)
+
+A Flutter grid view easy to build waterfall flow layout quickly.
+
+![](https://github.com/fluttercandies/Flutter_Candies/blob/master/gif/waterfall_flow/known_sized.gif)
+
 [like_button ![pub package](https://img.shields.io/pub/v/like_button.svg)](https://pub.dartlang.org/packages/like_button)
 
 Like Button is a flutter library that allows you to create a button with animation effects similar to Twitter's heart when you like something.
