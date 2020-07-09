@@ -1,5 +1,5 @@
-# Flutter 
-Custom flutter candies(widgets) for you to easily build flutter app, enjoy it  
+# Flutter
+Custom flutter candies(widgets) for you to easily build flutter app, enjoy it
 
 [waterfall_flow ![pub package](https://img.shields.io/pub/v/waterfall_flow.svg)](https://pub.dartlang.org/packages/waterfall_flow)
 
@@ -60,13 +60,13 @@ Extended nested scroll view to fix following issues. 1.pinned sliver header issu
 [Web demo for ExtendedNestedScrollView](https://fluttercandies.github.io/extended_nested_scroll_view/)
 
 [extended_tabs ![pub package](https://img.shields.io/pub/v/extended_tabs.svg)](https://pub.dartlang.org/packages/extended_tabs)
- 
+
 Extended tab bar view include color tabIndicator,linkWithAncestor(scroll ancestor tabbarView when current is over scroll),page cache extent
 
 [Web demo for ExtendedTabs](https://fluttercandies.github.io/extended_tabs/)
- 
+
  ![](https://github.com/fluttercandies/Flutter_Candies/tree/master/gif/extended_tab/extended_tab.gif)
- 
+
 [http_client_helper ![pub package](https://img.shields.io/pub/v/http_client_helper.svg)](https://pub.dartlang.org/packages/http_client_helper)
 
 A Flutter plugin for http request with cancel and retry fuctions.
@@ -91,6 +91,8 @@ it include following widgets:
 [Text,Icon,Button](https://juejin.im/post/5bdfd9ee518825170b10151b)
 
 
+# ☕️Buy me a coffee
 
+![img](logo/qrcode.png)
 
 
