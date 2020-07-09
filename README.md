@@ -93,6 +93,6 @@ it include following widgets:
 
 # ☕️Buy me a coffee
 
-![img](logo/qrcode.png)
+![img](https://gitee.com/zmtzawqlp/my_qrcode/raw/2046f6ffaa0d9184cdd185261b5f2426846ff3cd/qrcode.png)
 
 
