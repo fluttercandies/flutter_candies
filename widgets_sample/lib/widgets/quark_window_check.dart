@@ -7,9 +7,10 @@ class QuarkWindowCheck extends StatefulWidget {
   const QuarkWindowCheck({
     Key key,
     @required this.children,
+    this.page,
   }) : super(key: key);
   final List<Widget> children;
-
+  final int page;
   @override
   _QuarkWindowCheckState createState() => _QuarkWindowCheckState();
 }
@@ -17,7 +18,7 @@ class QuarkWindowCheck extends StatefulWidget {
 class _QuarkWindowCheckState extends State<QuarkWindowCheck>
     with TickerProviderStateMixin {
   AnimationController animationController;
-  // 一个缓存的 offset
+  // 一个换粗你的 offset
   double tempOffset = 0.0;
   // 窗口的其起始位置
   int _position = 0;
@@ -26,49 +27,42 @@ class _QuarkWindowCheckState extends State<QuarkWindowCheck>
 
   List<Widget> _children;
 
-  Map<int, double> offsetMap = {
-    0: 160, //
-    1: 360, // 160+200
-    2: 600, //360+240
-    3: 880, //600+280
-    4: 1200, //880+320
-  };
+  List<double> offsetList = [
+    160, //
+    360, // 160+200
+    600, //360+240
+    880, //600+280
+    1200, //880+320
+  ];
   void scroll(double dy) {
     // Log.d(dy);
-    if (offsetMap[1] > 160) {
-      offsetMap[0] += dy * 160 / 160;
-      offsetMap[0] = max(offsetMap[0], 0);
-      if (offsetMap[0] > 160) {
-        offsetMap[0] = 160;
+    if (offsetList[1] > 160) {
+      offsetList[0] += dy * 160 / 160;
+      offsetList[0] = max(offsetList[0], 0);
+      if (offsetList[0] > 160) {
+        offsetList[0] = 160;
         return;
       }
     }
-    offsetMap[1] += dy * 200 / 160;
-    offsetMap[1] = max(offsetMap[1], 0);
-    offsetMap[2] += dy * 240 / 160;
-    offsetMap[2] = max(offsetMap[2], 0);
-    offsetMap[3] += dy * 280 / 160;
-    offsetMap[3] = max(offsetMap[3], 0);
-    offsetMap[4] += dy * 320 / 160;
-    offsetMap[4] = max(offsetMap[4], 0);
-    if (offsetMap[1] == 0) {
+    offsetList[1] += dy * 200 / 160;
+    offsetList[1] = max(offsetList[1], 0);
+    offsetList[2] += dy * 240 / 160;
+    offsetList[2] = max(offsetList[2], 0);
+    offsetList[3] += dy * 280 / 160;
+    offsetList[3] = max(offsetList[3], 0);
+    offsetList[4] += dy * 320 / 160;
+    offsetList[4] = max(offsetList[4], 0);
+    if (offsetList[1] == 0) {
       if (_position + 1 >= _children.length) {
         return;
       }
       _position += 1;
-      offsetMap[0] = offsetMap[1];
-      offsetMap[1] = offsetMap[2];
-      offsetMap[2] = offsetMap[3];
-      offsetMap[3] = offsetMap[4];
-      offsetMap[4] = offsetMap[4] + 280;
+      offsetList.removeAt(0);
+      offsetList.add(offsetList.last + 280);
     }
-    if (offsetMap[0] != 0 && _position != 0) {
+    if (offsetList[0] != 0 && _position != 0) {
       _position -= 1;
-      offsetMap[4] = offsetMap[3];
-      offsetMap[3] = offsetMap[2];
-      offsetMap[2] = offsetMap[1];
-      offsetMap[1] = offsetMap[0];
-      offsetMap[0] = 0;
+      offsetList.insert(0, 0);
     }
   }
 
@@ -76,7 +70,7 @@ class _QuarkWindowCheckState extends State<QuarkWindowCheck>
     final List<Widget> tmp = <Widget>[];
     final int start = _position;
     for (int i = start; i < min(_children.length, _position + _capacity); i++) {
-      final double offset = offsetMap[i - _position];
+      final double offset = offsetList[i - _position];
       tmp.add(
         Padding(
           padding: EdgeInsets.only(top: offset),
@@ -109,13 +103,12 @@ class _QuarkWindowCheckState extends State<QuarkWindowCheck>
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text('页面[$i]'),
+                                Text('终端[$i]'),
                                 SizedBox(
                                   width: 30,
                                   height: 30,
                                   child: InkWell(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(15)),
+                                    borderRadius: BorderRadius.circular(16),
                                     child: const Icon(Icons.clear),
                                     onTap: () {},
                                   ),
@@ -127,10 +120,7 @@ class _QuarkWindowCheckState extends State<QuarkWindowCheck>
                         Expanded(
                           child: AbsorbPointer(
                             absorbing: true,
-                            child: Hero(
-                              tag: 'Hero[$i]',
-                              child: _children[i],
-                            ),
+                            child: _children[i],
                           ),
                         ),
                       ],
@@ -150,6 +140,10 @@ class _QuarkWindowCheckState extends State<QuarkWindowCheck>
   void initState() {
     super.initState();
     _children = widget.children;
+    if (widget.page != null) {
+      _position = (max(widget.page - 1, 0)) ?? 0;
+      offsetList.insert(0, 0);
+    }
   }
 
   @override
@@ -173,6 +167,8 @@ class _QuarkWindowCheckState extends State<QuarkWindowCheck>
           },
           onVerticalDragUpdate: (DragUpdateDetails details) {
             scroll(details.delta.dy);
+
+            // Log.d('curOffset====>$curOffset');
             setState(() {});
           },
           onVerticalDragEnd: (DragEndDetails details) {
@@ -213,7 +209,7 @@ class _QuarkWindowCheckState extends State<QuarkWindowCheck>
               ...generateWidget(),
               // SafeArea(
               //   child: Text(
-              //     '${offsetMap} offset${curOffset} _position->$_position',
+              //     '${offsetList} offset${curOffset} _position->$_position',
               //   ),
               // ),
             ],
