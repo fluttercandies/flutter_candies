@@ -62,6 +62,7 @@ class _QuarkWindowCheckState extends State<QuarkWindowCheck>
     }
     if (offsetList[0] != 0 && _position != 0) {
       _position -= 1;
+      offsetList.removeLast();
       offsetList.insert(0, 0);
     }
   }
@@ -142,6 +143,7 @@ class _QuarkWindowCheckState extends State<QuarkWindowCheck>
     _children = widget.children;
     if (widget.page != null) {
       _position = (max(widget.page - 1, 0)) ?? 0;
+      offsetList.removeLast();
       offsetList.insert(0, 0);
     }
   }
