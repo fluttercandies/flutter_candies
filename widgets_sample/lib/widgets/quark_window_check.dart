@@ -1,73 +1,7 @@
-import 'package:flutter/material.dart';
 import 'dart:math';
 
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int index = 0;
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              '点击浮动按钮 index:$index',
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          index = await Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (_) {
-                return QuarkWindowCheck(children: [
-                  for (int i in List.generate(100, (index) => index))
-                    Text('页面$i'),
-                ]);
-              },
-            ),
-          );
-          setState(() {});
-        },
-        tooltip: '',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
-  }
-}
 
 class QuarkWindowCheck extends StatefulWidget {
   const QuarkWindowCheck({
@@ -83,7 +17,7 @@ class QuarkWindowCheck extends StatefulWidget {
 class _QuarkWindowCheckState extends State<QuarkWindowCheck>
     with TickerProviderStateMixin {
   AnimationController animationController;
-  // 一个换粗你的 offset
+  // 一个缓存的 offset
   double tempOffset = 0.0;
   // 窗口的其起始位置
   int _position = 0;
@@ -173,8 +107,9 @@ class _QuarkWindowCheckState extends State<QuarkWindowCheck>
                               horizontal: 12,
                             ),
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
+                                Text('页面[$i]'),
                                 SizedBox(
                                   width: 30,
                                   height: 30,
@@ -238,8 +173,6 @@ class _QuarkWindowCheckState extends State<QuarkWindowCheck>
           },
           onVerticalDragUpdate: (DragUpdateDetails details) {
             scroll(details.delta.dy);
-
-            // Log.d('curOffset====>$curOffset');
             setState(() {});
           },
           onVerticalDragEnd: (DragEndDetails details) {
