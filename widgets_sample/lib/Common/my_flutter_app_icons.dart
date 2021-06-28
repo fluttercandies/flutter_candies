@@ -11,7 +11,7 @@
 ///      fonts:
 ///       - asset: fonts/MyFlutterApp.ttf
 ///
-/// 
+///
 /// * Fontelico, Copyright (C) 2012 by Fontello project
 ///         Author:    Crowdsourced, for Fontello project
 ///         License:   SIL (http://scripts.sil.org/OFL)
@@ -22,7 +22,7 @@ import 'package:flutter/widgets.dart';
 class MyFlutterApp {
   MyFlutterApp._();
 
-  static const _kFontFam = 'MyFlutterApp';
+  static const String _kFontFam = 'MyFlutterApp';
 
-  static const IconData spin3 = const IconData(0xe832, fontFamily: _kFontFam);
+  static const IconData spin3 = IconData(0xe832, fontFamily: _kFontFam);
 }

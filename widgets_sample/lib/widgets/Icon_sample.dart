@@ -5,11 +5,11 @@ import 'package:widgets_sample/widgets/base_sample.dart';
 class IconSampleBody extends SampleBody {
   @override
   Widget getBody(BuildContext context) {
-    return new Column(
+    return Column(
       children: <Widget>[
-        Icon(Icons.add),
-        Icon(MyFlutterApp.spin3),
-        IconButton(icon: Icon(Icons.list), onPressed: () => {})
+        const Icon(Icons.add),
+        const Icon(MyFlutterApp.spin3),
+        IconButton(icon: const Icon(Icons.list), onPressed: () {})
       ],
     );
   }

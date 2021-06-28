@@ -1,21 +1,19 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 class CustomSliverAppBar extends StatefulWidget {
-  final Color backgroundColor;
-  final double expandedHeight;
-  final Widget action;
-  final Widget leading;
-  final Widget title;
-  final Widget background;
-  CustomSliverAppBar(
+  const CustomSliverAppBar(
       {this.backgroundColor,
       this.expandedHeight,
       this.action,
       this.leading,
       this.title,
       this.background});
+  final Color backgroundColor;
+  final double expandedHeight;
+  final Widget action;
+  final Widget leading;
+  final Widget title;
+  final Widget background;
   @override
   _EmSliverAppBarState createState() => _EmSliverAppBarState();
 }
@@ -23,7 +21,7 @@ class CustomSliverAppBar extends StatefulWidget {
 class _EmSliverAppBarState extends State<CustomSliverAppBar> {
   @override
   Widget build(BuildContext context) {
-    var topPadding = MediaQuery.of(context).padding.top;
+    final double topPadding = MediaQuery.of(context).padding.top;
     return SliverPersistentHeader(
       pinned: true,
       delegate: EmSliverPersistentHeaderDelegate(
@@ -37,22 +35,9 @@ class _EmSliverAppBarState extends State<CustomSliverAppBar> {
       ),
     );
   }
-
-  @override
-  void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
-    super.didChangeDependencies();
-  }
 }
 
 class EmSliverPersistentHeaderDelegate extends SliverPersistentHeaderDelegate {
-  final Color backgroundColor;
-  final double expandedHeight;
-  final Widget action;
-  final Widget leading;
-  final Widget title;
-  final Widget background;
-  final double topPadding;
   EmSliverPersistentHeaderDelegate(
       {this.backgroundColor,
       this.expandedHeight,
@@ -61,22 +46,29 @@ class EmSliverPersistentHeaderDelegate extends SliverPersistentHeaderDelegate {
       this.title,
       this.background,
       this.topPadding});
+
+  final Color backgroundColor;
+  final double expandedHeight;
+  final Widget action;
+  final Widget leading;
+  final Widget title;
+  final Widget background;
+  final double topPadding;
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     final ThemeData themeData = Theme.of(context);
-    var offset = -shrinkOffset;
-    // TODO: implement build
-    List<Widget> rowChild = new List<Widget>();
+    final double offset = -shrinkOffset;
+    final List<Widget> rowChild = <Widget>[];
     rowChild.add(leading ?? Container());
     rowChild.add(action ?? Container());
 
-    var color = backgroundColor ?? themeData.primaryColor;
+    final Color color = backgroundColor ?? themeData.primaryColor;
     //color = color.withOpacity(shrinkOffset / expandedHeight);
 //    print((shrinkOffset + kToolbarHeight + topPadding));
 //    print(shrinkOffset);
     //SliverAppBar(flexibleSpace: FlexibleSpaceBar(),)
-    var child = Container(
+    final Container child = Container(
       //height: expandedHeight,
       child: Stack(
         //fit: StackFit.expand,
@@ -93,7 +85,8 @@ class EmSliverPersistentHeaderDelegate extends SliverPersistentHeaderDelegate {
             left: 0.0,
             right: 0.0,
             child: Opacity(
-              opacity: (shrinkOffset / (maxExtent - minExtent)).clamp(0.0, 1.0),
+              opacity: (shrinkOffset / (maxExtent - minExtent)).clamp(0.0, 1.0)
+                  as double,
               child: Container(
                 padding: EdgeInsets.only(top: topPadding),
                 alignment: Alignment.center,
@@ -126,16 +119,13 @@ class EmSliverPersistentHeaderDelegate extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  // TODO: implement maxExtent
   double get maxExtent => expandedHeight;
 
   @override
-  // TODO: implement minExtent
   double get minExtent => kToolbarHeight + topPadding;
 
   @override
   bool shouldRebuild(EmSliverPersistentHeaderDelegate oldDelegate) {
-    // TODO: implement shouldRebuild
     return expandedHeight != oldDelegate.expandedHeight ||
         action != oldDelegate.action ||
         leading != oldDelegate.leading ||

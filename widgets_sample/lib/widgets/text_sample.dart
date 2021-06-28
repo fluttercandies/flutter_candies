@@ -1,36 +1,37 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:widgets_sample/widgets/base_sample.dart';
 
 class TextSampleBody extends SampleBody {
   @override
   Widget getBody(BuildContext context) {
     return DefaultTextStyle(
-      style: TextStyle(color: Colors.red),
-      child: new Column(
+      style: const TextStyle(color: Colors.red),
+      child: Column(
         children: <Widget>[
-          new Text(
+          const Text(
             'Hello, How are you?Hello, How are you?Hello, How are you?Hello, How are you?Hello, How are you?Hello, How are you?',
             textAlign: TextAlign.center,
             overflow: TextOverflow.ellipsis,
-            style: new TextStyle(fontWeight: FontWeight.bold),
+            style: TextStyle(fontWeight: FontWeight.bold),
           ),
-          Text.rich(
-            const TextSpan(
-
+          const Text.rich(
+            TextSpan(
               text: 'Hello', // default text style
-              children: const <TextSpan>[
-                const TextSpan(
+              children: <TextSpan>[
+                TextSpan(
                     text: ' beautiful ',
-                    style: const TextStyle(fontStyle: FontStyle.italic)),
-                const TextSpan(
+                    style: TextStyle(fontStyle: FontStyle.italic)),
+                TextSpan(
                     text: 'world',
-                    style: const TextStyle(fontWeight: FontWeight.bold)),
+                    style: TextStyle(fontWeight: FontWeight.bold)),
               ],
             ),
-          )
-          ,
-          Text("hello flutter text",style: Theme.of(context).textTheme.title,),
+          ),
+          Text(
+            'hello flutter text',
+            // ignore: deprecated_member_use
+            style: Theme.of(context).textTheme.title,
+          ),
         ],
       ),
     );

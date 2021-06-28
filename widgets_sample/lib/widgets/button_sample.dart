@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:widgets_sample/widgets/base_sample.dart';
 
 class ButtonSampleBody extends SampleBody {
@@ -12,64 +11,64 @@ class ButtonSampleBody extends SampleBody {
         textTheme: ButtonTextTheme.normal,
         minWidth: 88.0,
         height: 36.0,
-        child: new Column(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             RaisedButton(
-              child: Text("RaisedButton"),
-              onPressed: () => {},
+              child: const Text('RaisedButton'),
+              onPressed: () {},
             ),
-            RaisedButton(
-              child: Text("DisabledRaisedButton"),
+            const RaisedButton(
+              child: Text('DisabledRaisedButton'),
               onPressed: null,
             ),
             OutlineButton(
-              child: Text("OutlineButton"),
-              onPressed: () => {},
+              child: const Text('OutlineButton'),
+              onPressed: () {},
             ),
             FlatButton(
-              child: Text("FlatButton"),
-              onPressed: () => {},
+              child: const Text('FlatButton'),
+              onPressed: () {},
             ),
-            DropdownButton(
+            DropdownButton<String>(
               value: dropdownValue,
               items: <String>['One', 'Two', 'Free', 'Four'].map((String value) {
-                return new DropdownMenuItem<String>(
+                return DropdownMenuItem<String>(
                   value: value,
-                  child: new Text(value),
+                  child: Text(value),
                 );
               }).toList(),
-              onChanged: (String newValue) {
+              onChanged: (String value) {
                 setState(() {
-                  dropdownValue = newValue;
+                  dropdownValue = value;
                 });
               },
             ),
             IconButton(
-              icon: Icon(Icons.add),
+              icon: const Icon(Icons.add),
               onPressed: () {},
             ),
             InkWell(
-              child: Text("InkWell"),
+              child: const Text('InkWell'),
               onTap: () {},
             ),
             RawMaterialButton(
-              child: Text("RawMaterialButton"),
+              child: const Text('RawMaterialButton'),
               onPressed: () {},
             ),
             ButtonBar(
               children: <Widget>[
-                Text("ButtonBar"),
+                const Text('ButtonBar'),
                 IconButton(
-                  icon: Icon(Icons.add),
+                  icon: const Icon(Icons.add),
                   onPressed: () {},
                 ),
                 IconButton(
-                  icon: Icon(Icons.add),
+                  icon: const Icon(Icons.add),
                   onPressed: () {},
                 ),
                 IconButton(
-                  icon: Icon(Icons.add),
+                  icon: const Icon(Icons.add),
                   onPressed: () {},
                 ),
               ],
@@ -79,11 +78,11 @@ class ButtonSampleBody extends SampleBody {
                 onPressed: () {
                   // Perform some action
                 }),
-            PopupMenuButton(itemBuilder: (BuildContext context) {
+            PopupMenuButton<String>(itemBuilder: (BuildContext context) {
               return <String>['One', 'Two', 'Free', 'Four'].map((String item) {
-                return new PopupMenuItem<String>(
+                return PopupMenuItem<String>(
                   value: item,
-                  child: new Text(item),
+                  child: Text(item),
                 );
               }).toList();
             })

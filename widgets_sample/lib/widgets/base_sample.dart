@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:widgets_sample/WidgetNames.dart';
-import 'package:widgets_sample/main.dart';
 import 'package:widgets_sample/widgets/Icon_sample.dart';
 import 'package:widgets_sample/widgets/Image_sample.dart';
 import 'package:widgets_sample/widgets/button_sample.dart';
@@ -9,66 +8,68 @@ import 'package:widgets_sample/widgets/row_column_sample.dart';
 import 'package:widgets_sample/widgets/text_sample.dart';
 
 class BaseSample extends StatefulWidget {
-  WidgetNames widgetName;
-  BaseSample(WidgetNames widgetName) {
-    this.widgetName = widgetName;
-  }
+  const BaseSample(this.widgetName);
+  final WidgetNames widgetName;
   @override
-  State<StatefulWidget> createState() => new BaseSampleState(widgetName);
+  State<StatefulWidget> createState() => BaseSampleState();
 }
 
 class BaseSampleState extends State<BaseSample> {
-  WidgetNames widgetName;
   String title;
-  BaseSampleState(WidgetNames widgetName) {
-    this.widgetName = widgetName;
-    title = widgetName.toString().replaceAll("WidgetNames.", "");
+
+  @override
+  void initState() {
+    super.initState();
+    title = widget.widgetName.toString().replaceAll('WidgetNames.', '');
   }
+
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return new Scaffold(
+    return Scaffold(
       appBar: AppBar(title: Text('$title sample')),
       body: getBody(context),
     );
   }
 
-  SampleBody sb = null;
+  SampleBody sb;
   Widget getBody(BuildContext context) {
     if (sb == null) {
-      switch (widgetName) {
+      switch (widget.widgetName) {
         case WidgetNames.Container:
-          sb = new ContainerSampleBody();
+          sb = ContainerSampleBody();
           break;
         case WidgetNames.RowColumn:
-          sb = new RowColumnSampleBody();
+          sb = RowColumnSampleBody();
           break;
         case WidgetNames.Image:
-          sb = new ImageSampleBody();
+          sb = ImageSampleBody();
           break;
         case WidgetNames.Text:
-          sb = new TextSampleBody();
+          sb = TextSampleBody();
           break;
         case WidgetNames.Icon:
-          sb = new IconSampleBody();
+          sb = IconSampleBody();
           break;
         case WidgetNames.Button:
-          sb = new ButtonSampleBody();
+          sb = ButtonSampleBody();
           break;
       }
     }
 
-    sb.State = this;
+    sb.state = this;
     return sb.getBody(context);
   }
 }
 
 abstract class SampleBody {
-  BaseSampleState State;
+  BaseSampleState state;
   @protected
   Widget getBody(BuildContext context);
 
   void setState(Function f) {
-    State.setState(f);
+    // ignore: invalid_use_of_protected_member
+    state.setState(() {
+      f?.call();
+    });
   }
 }

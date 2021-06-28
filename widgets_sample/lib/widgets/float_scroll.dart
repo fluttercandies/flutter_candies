@@ -20,13 +20,13 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  const MyHomePage({Key key, this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -49,17 +49,14 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    primaryTC = new TabController(length: 2, vsync: this);
-    primaryTC.addListener(tabControlerListener);
-
-    // TODO: implement initState
     super.initState();
+    primaryTC = TabController(length: 2, vsync: this);
+    primaryTC.addListener(tabControlerListener);
   }
 
   @override
   void dispose() {
     primaryTC.removeListener(tabControlerListener);
-    // TODO: implement dispose
     super.dispose();
   }
 
@@ -85,7 +82,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   Widget _buildScaffoldBody() {
     //final double statusBarHeight = MediaQuery.of(context).padding.top;
-    var primaryTabBar = new TabBar(
+    final TabBar primaryTabBar = TabBar(
       controller: primaryTC,
       labelColor: Colors.blue,
       indicatorColor: Colors.blue,
@@ -93,9 +90,9 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       indicatorWeight: 2.0,
       isScrollable: false,
       unselectedLabelColor: Colors.grey,
-      tabs: [
-        Tab(text: "Tab0"),
-        Tab(text: "Tab1"),
+      tabs: const <Widget>[
+        Tab(text: 'Tab0'),
+        Tab(text: 'Tab1'),
       ],
     );
     return NotificationListener<ScrollNotification>(
@@ -120,19 +117,19 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                           Container(
                             height: 60.0,
                             color: Colors.red,
-                            child: Text("我是固定的广告"),
+                            child: const Text('我是固定的广告'),
                           ),
                           Expanded(
                             child: ListView.builder(
                               //store Page state
-                              key: PageStorageKey("Tab1"),
-                              physics: ClampingScrollPhysics(),
-                              itemBuilder: (c, i) {
+                              key: const PageStorageKey<String>('Tab1'),
+                              physics: const ClampingScrollPhysics(),
+                              itemBuilder: (BuildContext c, int i) {
                                 return Container(
                                   alignment: Alignment.center,
                                   height: 60.0,
-                                  child: Text(
-                                      Key("Tab1").toString() + ": ListView$i"),
+                                  child: Text(const Key('Tab1').toString() +
+                                      ': ListView$i'),
                                 );
                               },
                               itemCount: 50,
@@ -142,14 +139,14 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                       ),
                       ListView.builder(
                         //store Page state
-                        key: PageStorageKey("Tab2"),
-                        physics: ClampingScrollPhysics(),
-                        itemBuilder: (c, i) {
+                        key: const PageStorageKey<String>('Tab2'),
+                        physics: const ClampingScrollPhysics(),
+                        itemBuilder: (BuildContext c, int i) {
                           return Container(
                             alignment: Alignment.center,
                             height: 60.0,
-                            child:
-                                Text(Key("Tab1").toString() + ": ListView$i"),
+                            child: Text(
+                                const Key('Tab1').toString() + ': ListView$i'),
                           );
                         },
                         itemCount: 50,
@@ -169,7 +166,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   bool onNotification(ScrollNotification notification) {
     if (notification.depth == 1) {
       if (notification is ScrollUpdateNotification) {
-        var temp = (top - notification.scrollDelta).clamp(-50.0, 0.0);
+        final double temp =
+            (top - notification.scrollDelta).clamp(-50.0, 0.0) as double;
         if (temp != top) {
           setState(() {
             top = temp;
@@ -177,7 +175,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         }
       } else if (notification is OverscrollNotification) {
         print(notification.overscroll);
-        var temp = (top - notification.overscroll).clamp(-50.0, 0.0);
+        final double temp =
+            (top - notification.overscroll).clamp(-50.0, 0.0) as double;
         if (temp != top) {
           setState(() {
             top = temp;
@@ -185,13 +184,14 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         }
       }
     }
+    return false;
   }
 }
 
 Widget getTextField({Color color}) {
   return Container(
     alignment: Alignment.center,
-    child: Text("我是输入框"),
+    child: const Text('我是输入框'),
     height: 50.0,
     color: color ?? Colors.yellow,
   );
