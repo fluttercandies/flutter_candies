@@ -73,79 +73,82 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'IosPhotoAlbum',
+    return SafeArea(
+      bottom: true,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text(
+            'IosPhotoAlbum',
+          ),
         ),
-      ),
-      body: PullToRefreshNotification(
-        onRefresh: onRefresh,
-        maxDragOffset: 48,
-        armedDragUpCancel: false,
-        child: LayoutBuilder(
-          builder: (BuildContext c, BoxConstraints d) {
-            final double windowWidth = d.maxWidth;
-            final double windowHeight = d.maxHeight;
-            final double girdWidth = windowWidth / 3;
-            // setting center initial
-            final double anchor = min(
-                ((totalCount + placeholderCount) ~/ crossAxisCount) *
-                    girdWidth /
-                    windowHeight,
-                (windowHeight - textHeight) / windowHeight);
+        body: PullToRefreshNotification(
+          onRefresh: onRefresh,
+          maxDragOffset: 48,
+          armedDragUpCancel: false,
+          child: LayoutBuilder(
+            builder: (BuildContext c, BoxConstraints d) {
+              final double windowWidth = d.maxWidth;
+              final double windowHeight = d.maxHeight;
+              final double girdWidth = windowWidth / 3;
+              // setting center initial
+              final double anchor = min(
+                  ((totalCount + placeholderCount) ~/ crossAxisCount) *
+                      girdWidth /
+                      windowHeight,
+                  (windowHeight - textHeight) / windowHeight);
 
-            return Directionality(
-              textDirection: TextDirection.rtl,
-              child: CustomScrollView(
-                /// in case list is not full screen and remove ios Bouncing
-                physics: const AlwaysScrollableClampingScrollPhysics(),
-                anchor: anchor,
-                center: key,
-                slivers: <Widget>[
-                  PullToRefreshContainer(
-                    (PullToRefreshScrollNotificationInfo info) {
-                      final double offset = info?.dragOffset ?? 0.0;
-                      return SliverToBoxAdapter(
-                        child: Container(
-                          height: offset,
-                          alignment: Alignment.center,
-                          child: const CupertinoActivityIndicator(
-                              activeColor: Colors.blue),
-                        ),
-                      );
-                    },
-                  ),
-                  SliverGrid(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: crossAxisCount),
-                    delegate: SliverChildBuilderDelegate(
-                      (BuildContext context, int index) {
-                        if (index < placeholderCount) {
-                          return Container();
-                        }
-                        index -= placeholderCount;
-                        return buildItem(index);
+              return Directionality(
+                textDirection: TextDirection.rtl,
+                child: CustomScrollView(
+                  /// in case list is not full screen and remove ios Bouncing
+                  physics: const AlwaysScrollableClampingScrollPhysics(),
+                  anchor: anchor,
+                  center: key,
+                  slivers: <Widget>[
+                    PullToRefreshContainer(
+                      (PullToRefreshScrollNotificationInfo info) {
+                        final double offset = info?.dragOffset ?? 0.0;
+                        return SliverToBoxAdapter(
+                          child: Container(
+                            height: offset,
+                            alignment: Alignment.center,
+                            child: const CupertinoActivityIndicator(
+                                activeColor: Colors.blue),
+                          ),
+                        );
                       },
-                      childCount: count + placeholderCount,
                     ),
-                  ),
-                  SliverToBoxAdapter(
-                    key: key,
-                    child: Container(
-                      height: textHeight,
-                      color: Colors.blue,
-                      alignment: Alignment.center,
-                      child: Text(
-                        'total: $totalCount picture.',
-                        textAlign: TextAlign.center,
+                    SliverGrid(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: crossAxisCount),
+                      delegate: SliverChildBuilderDelegate(
+                        (BuildContext context, int index) {
+                          if (index < placeholderCount) {
+                            return Container();
+                          }
+                          index -= placeholderCount;
+                          return buildItem(index);
+                        },
+                        childCount: count + placeholderCount,
                       ),
                     ),
-                  ),
-                ],
-              ),
-            );
-          },
+                    SliverToBoxAdapter(
+                      key: key,
+                      child: Container(
+                        height: textHeight,
+                        color: Colors.blue,
+                        alignment: Alignment.center,
+                        child: Text(
+                          'total: $totalCount picture.',
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
         ),
       ),
     );

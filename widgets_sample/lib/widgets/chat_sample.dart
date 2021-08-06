@@ -88,148 +88,155 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'ChatListSample',
-        ),
-        actions: <Widget>[
-          FlatButton(
-            child: const Icon(
-              Icons.add,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              setState(() {
-                // insert new data
-                final bool reachBottom =
-                    _scrollController.position.extentAfter == 0 &&
-                        _scrollController.position.maxScrollExtent != 0;
+    return SafeArea(
+      bottom: true,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text(
+            'ChatListSample',
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: const Icon(
+                Icons.add,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                setState(() {
+                  // insert new data
+                  final bool reachBottom =
+                      _scrollController.position.extentAfter == 0 &&
+                          _scrollController.position.maxScrollExtent != 0;
 
-                chats.add(ChatItem('new'));
-                currentMsg = chats.last.value;
-                //if reach bottom, scroll to bottom.
-                if (reachBottom) {
-                  isJumping = true;
-                  Future<void>.delayed(
-                    const Duration(milliseconds: 500),
-                    () {
-                      _scrollController
-                          .jumpTo(_scrollController.position.maxScrollExtent);
-                      isJumping = false;
-                    },
-                  );
-                } else {
-                  if (_scrollController.position.maxScrollExtent != 0) {
-                    streamController.sink.add(++newMeassageCount);
-                  }
-                }
-              });
-            },
-          )
-        ],
-      ),
-      body: Stack(
-        children: <Widget>[
-          PullToRefreshNotification(
-            onRefresh: onRefresh,
-            maxDragOffset: 48,
-            armedDragUpCancel: false,
-            child: Column(
-              children: <Widget>[
-                Expanded(
-                    child: CustomScrollView(
-                  /// in case list is not full screen and remove ios Bouncing
-                  physics: const AlwaysScrollableClampingScrollPhysics(),
-                  controller: _scrollController,
-                  center: key,
-                  slivers: <Widget>[
-                    PullToRefreshContainer(
-                      (PullToRefreshScrollNotificationInfo info) {
-                        final double offset = info?.dragOffset ?? 0.0;
-                        //loading history data
-                        return SliverToBoxAdapter(
-                          child: Container(
-                            height: offset,
-                            alignment: Alignment.center,
-                            child: const CupertinoActivityIndicator(
-                                activeColor: Colors.blue),
-                          ),
-                        );
+                  chats.add(ChatItem('new'));
+                  currentMsg = chats.last.value;
+                  //if reach bottom, scroll to bottom.
+                  if (reachBottom) {
+                    isJumping = true;
+                    Future<void>.delayed(
+                      const Duration(milliseconds: 500),
+                      () {
+                        _scrollController
+                            .jumpTo(_scrollController.position.maxScrollExtent);
+                        isJumping = false;
                       },
-                    ),
-                    ExtendedSliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (BuildContext context, int index) {
-                          final ChatItem item = newChats[index];
-                          return buildItem(item);
+                    );
+                  } else {
+                    if (_scrollController.position.maxScrollExtent != 0) {
+                      streamController.sink.add(++newMeassageCount);
+                    }
+                    Future<void>.delayed(const Duration(seconds: 2), () {
+                      currentMsg = null;
+                      streamController.sink.add(newMeassageCount);
+                    });
+                  }
+                });
+              },
+            )
+          ],
+        ),
+        body: Stack(
+          children: <Widget>[
+            PullToRefreshNotification(
+              onRefresh: onRefresh,
+              maxDragOffset: 48,
+              armedDragUpCancel: false,
+              child: Column(
+                children: <Widget>[
+                  Expanded(
+                      child: CustomScrollView(
+                    /// in case list is not full screen and remove ios Bouncing
+                    physics: const AlwaysScrollableClampingScrollPhysics(),
+                    controller: _scrollController,
+                    center: key,
+                    slivers: <Widget>[
+                      PullToRefreshContainer(
+                        (PullToRefreshScrollNotificationInfo info) {
+                          final double offset = info?.dragOffset ?? 0.0;
+                          //loading history data
+                          return SliverToBoxAdapter(
+                            child: Container(
+                              height: offset,
+                              alignment: Alignment.center,
+                              child: const CupertinoActivityIndicator(
+                                  activeColor: Colors.blue),
+                            ),
+                          );
                         },
-                        childCount: newChats.length,
                       ),
-                      extendedListDelegate: const ExtendedListDelegate(
-                        closeToTrailing: false,
+                      ExtendedSliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          (BuildContext context, int index) {
+                            final ChatItem item = newChats[index];
+                            return buildItem(item);
+                          },
+                          childCount: newChats.length,
+                        ),
+                        extendedListDelegate: const ExtendedListDelegate(
+                          closeToTrailing: false,
+                        ),
                       ),
-                    ),
-                    ExtendedSliverList(
-                      key: key,
-                      delegate: SliverChildBuilderDelegate(
-                        (BuildContext context, int index) {
-                          final ChatItem item = chats[index];
-                          return buildItem(item);
-                        },
-                        childCount: chats.length,
+                      ExtendedSliverList(
+                        key: key,
+                        delegate: SliverChildBuilderDelegate(
+                          (BuildContext context, int index) {
+                            final ChatItem item = chats[index];
+                            return buildItem(item);
+                          },
+                          childCount: chats.length,
+                        ),
+                        extendedListDelegate: ExtendedListDelegate(
+                            //closeToTrailing: true,
+                            viewportBuilder: (int firstIndex, int lastIndex) {
+                          maxLastIndex = max(maxLastIndex, lastIndex);
+                          if (!isJumping &&
+                              newMeassageCount !=
+                                  chats.length - 1 - maxLastIndex) {
+                            newMeassageCount = chats.length - 1 - maxLastIndex;
+                            streamController.sink.add(newMeassageCount);
+                          }
+                        }),
                       ),
-                      extendedListDelegate: ExtendedListDelegate(
-                          //closeToTrailing: true,
-                          viewportBuilder: (int firstIndex, int lastIndex) {
-                        maxLastIndex = max(maxLastIndex, lastIndex);
-                        if (!isJumping &&
-                            newMeassageCount !=
-                                chats.length - 1 - maxLastIndex) {
-                          newMeassageCount = chats.length - 1 - maxLastIndex;
-                          streamController.sink.add(newMeassageCount);
-                        }
-                      }),
-                    ),
-                  ],
-                ))
-              ],
+                    ],
+                  ))
+                ],
+              ),
             ),
-          ),
-          StreamBuilder<int>(
-            builder: (BuildContext context, AsyncSnapshot<int> data) {
-              if (data.data == null || data.data <= 0 || currentMsg == null) {
-                return Container();
-              }
-              return Positioned(
-                child: Container(
-                  height: 50,
-                  color: Colors.grey.withOpacity(0.4),
-                  alignment: Alignment.center,
-                  child: Text(currentMsg),
-                ),
-                top: 0,
-                left: 0,
-                right: 0,
-              );
-            },
-            initialData: newMeassageCount,
-            stream: streamController.stream,
-          ),
-        ],
-      ),
-      floatingActionButton: StreamBuilder<int>(
-        builder: (BuildContext context, AsyncSnapshot<int> data) {
-          if (data.data == null || data.data <= 0) {
-            return Container();
-          }
-          return FloatingActionButton(
-            onPressed: null,
-            child: Text('${data.data}'),
-          );
-        },
-        initialData: newMeassageCount,
-        stream: streamController.stream,
+            StreamBuilder<int>(
+              builder: (BuildContext context, AsyncSnapshot<int> data) {
+                if (data.data == null || data.data <= 0 || currentMsg == null) {
+                  return Container();
+                }
+                return Positioned(
+                  child: Container(
+                    height: 50,
+                    color: Colors.grey.withOpacity(0.4),
+                    alignment: Alignment.center,
+                    child: Text(currentMsg),
+                  ),
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                );
+              },
+              initialData: newMeassageCount,
+              stream: streamController.stream,
+            ),
+          ],
+        ),
+        floatingActionButton: StreamBuilder<int>(
+          builder: (BuildContext context, AsyncSnapshot<int> data) {
+            if (data.data == null || data.data <= 0) {
+              return Container();
+            }
+            return FloatingActionButton(
+              onPressed: null,
+              child: Text('${data.data}'),
+            );
+          },
+          initialData: newMeassageCount,
+          stream: streamController.stream,
+        ),
       ),
     );
   }
@@ -256,7 +263,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<bool> onRefresh() {
     return Future<bool>.delayed(const Duration(seconds: 1), () {
       setState(() {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 20; i++) {
           newChats.add(ChatItem('history'));
         }
       });
